@@ -43,8 +43,8 @@ WORKDIR $BENTO_PATH
 
 # Block SETUP_BENTO_COMPONENTS
 
-RUN pip3 install torch==2.1.2 ; exit 0
-RUN pip3 install vllm==0.4.0.post1 ; exit 0
+RUN pip3 install torch==2.3.0 ; exit 0
+RUN pip3 install vllm==0.4.2 ; exit 0
 COPY --chown=bentoml:bentoml ./env/python ./env/python/
 # install python packages with install.sh
 RUN bash -euxo pipefail /home/bentoml/bento/env/python/install.sh
