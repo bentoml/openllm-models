@@ -28,7 +28,7 @@ service_config:
   name: llama2
   resources:
     gpu: 1
-    gpu_type: nvidia-tesla-t4
+    gpu_type: nvidia-rtx-3060
   traffic:
     timeout: 300
 

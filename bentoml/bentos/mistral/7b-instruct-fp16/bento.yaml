@@ -1,0 +1,79 @@
+service: service:VLLM
+name: mistral
+version: 7b-instruct-fp16
+bentoml_version: 1.2.15.post13+gd7412f19
+creation_time: '2024-05-20T16:08:14.661507+00:00'
+labels:
+  owner: bentoml-team
+  stage: demo
+models: []
+runners: []
+entry_service: mistral
+services:
+- name: mistral
+  service: ''
+  models: []
+  dependencies: []
+  config:
+    name: mistral
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-l4
+    traffic:
+      timeout: 300
+envs:
+- name: HF_TOKEN
+schema:
+  name: mistral
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Explain superconductors like I'm five years old
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 1024
+          maximum: 1024
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      title: strIODescriptor
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+apis: []
+docker:
+  distro: debian
+  python_version: '3.11'
+  cuda_version: null
+  env:
+    HF_TOKEN: ''
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: false
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null
