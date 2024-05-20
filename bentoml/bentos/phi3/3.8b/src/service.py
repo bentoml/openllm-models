@@ -119,6 +119,8 @@ class VLLM:
         prompt = gen_config["template"].render(
             messages=messages,
             add_generation_prompt=True,
+            bos_token="<s>",
+            eos_token="</s>",
         )
 
         stream = await self.engine.add_request(uuid.uuid4().hex, prompt, SAMPLING_PARAM)
