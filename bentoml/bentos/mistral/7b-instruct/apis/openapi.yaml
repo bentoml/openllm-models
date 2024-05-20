@@ -42,8 +42,52 @@ components:
       - type
       title: NotFound
       type: object
+    chat__Input:
+      properties:
+        max_tokens:
+          default: 1024
+          maximum: 1024
+          minimum: 128
+          title: Max Tokens
+          type: integer
+        messages:
+          default:
+          - content: What is the meaning of life?
+            role: user
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          title: Messages
+          type: array
+        model:
+          default: ''
+          title: Model
+          type: string
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: string
+          - type: 'null'
+          default: null
+          title: Stop
+        stop_token_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          default: null
+          title: Stop Token Ids
+      title: chat__Input
+      type: object
     generate__Input:
       properties:
+        kwargs:
+          title: Kwargs
+          type: object
         max_tokens:
           default: 1024
           maximum: 1024
@@ -54,6 +98,14 @@ components:
           default: Explain superconductors like I'm five years old
           title: Prompt
           type: string
+        stop:
+          default: []
+          items:
+            type: string
+          title: Stop
+          type: array
+      required:
+      - kwargs
       title: generate__Input
       type: object
 info:
@@ -74,10 +126,11 @@ info:
   version: None
 openapi: 3.0.2
 paths:
-  /generate:
+  /chat:
     post:
-      description: ''
-      operationId: mistral__generate
+      description: "\n        light-weight chat API that takes in a list of messages\
+        \ and returns a response\n        "
+      operationId: mistral__chat
       requestBody:
         content:
           application/json:
@@ -89,10 +142,93 @@ paths:
                   minimum: 128
                   title: Max Tokens
                   type: integer
+                messages:
+                  default:
+                  - content: What is the meaning of life?
+                    role: user
+                  items:
+                    additionalProperties:
+                      type: string
+                    type: object
+                  title: Messages
+                  type: array
+                model:
+                  default: ''
+                  title: Model
+                  type: string
+                stop:
+                  default: null
+                  items:
+                    type: string
+                  title: Stop
+                  type: array
+                stop_token_ids:
+                  default: null
+                  items:
+                    type: integer
+                  title: Stop Token Ids
+                  type: array
+              title: Input
+              type: object
+      responses:
+        200:
+          content:
+            text/event-stream:
+              schema:
+                title: strIODescriptor
+                type: string
+          description: Successful Response
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgument'
+          description: Bad Request
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+          description: Internal Server Error
+      tags:
+      - Service APIs
+      x-bentoml-name: chat
+  /generate:
+    post:
+      description: ''
+      operationId: mistral__generate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                kwargs:
+                  title: Kwargs
+                  type: object
+                max_tokens:
+                  default: 1024
+                  maximum: 1024
+                  minimum: 128
+                  title: Max Tokens
+                  type: integer
                 prompt:
                   default: Explain superconductors like I'm five years old
                   title: Prompt
                   type: string
+                stop:
+                  default: []
+                  items:
+                    type: string
+                  title: Stop
+                  type: array
+              required:
+              - kwargs
               title: Input
               type: object
       responses:

@@ -2,7 +2,7 @@ service: service:VLLM
 name: phi3
 version: 3.8b-mini-instruct-4k-fp16
 bentoml_version: 1.2.15.post13+gd7412f19
-creation_time: '2024-05-20T16:08:03.121432+00:00'
+creation_time: '2024-05-20T19:18:28.546463+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -27,6 +27,50 @@ schema:
   name: phi3
   type: service
   routes:
+  - name: chat
+    route: /chat
+    batchable: false
+    input:
+      properties:
+        messages:
+          default:
+          - role: user
+            content: What is the meaning of life?
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          title: Messages
+          type: array
+        model:
+          default: ''
+          title: Model
+          type: string
+        max_tokens:
+          default: 4096
+          maximum: 4096
+          minimum: 128
+          title: Max Tokens
+          type: integer
+        stop:
+          default: null
+          title: Stop
+          items:
+            type: string
+          type: array
+        stop_token_ids:
+          default: null
+          title: Stop Token Ids
+          items:
+            type: integer
+          type: array
+      title: Input
+      type: object
+    output:
+      title: strIODescriptor
+      type: string
+      is_stream: true
+      media_type: text/event-stream
   - name: generate
     route: /generate
     batchable: false
@@ -42,6 +86,17 @@ schema:
           minimum: 128
           title: Max Tokens
           type: integer
+        stop:
+          default: []
+          items:
+            type: string
+          title: Stop
+          type: array
+        kwargs:
+          title: Kwargs
+          type: object
+      required:
+      - kwargs
       title: Input
       type: object
     output:

@@ -5,18 +5,12 @@ alias:
 - 3.8b
 - instruct
 - mini
+chat_template: phi-3
 engine_config:
   dtype: half
   max_model_len: 4096
   model: microsoft/Phi-3-mini-4k-instruct
 project: vllm-chat
-prompt:
-  body: '<|user|>
-
-    {user_prompt}<|end|>
-
-    <|assistant|>'
-  head: null
 service_config:
   name: phi3
   resources:
