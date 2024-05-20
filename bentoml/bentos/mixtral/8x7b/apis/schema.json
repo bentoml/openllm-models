@@ -1,0 +1,35 @@
+{
+  "name": "mixtral",
+  "type": "service",
+  "routes": [
+    {
+      "name": "generate",
+      "route": "/generate",
+      "batchable": false,
+      "input": {
+        "properties": {
+          "prompt": {
+            "default": "Explain superconductors like I'm five years old",
+            "title": "Prompt",
+            "type": "string"
+          },
+          "max_tokens": {
+            "default": 8192,
+            "maximum": 8192,
+            "minimum": 128,
+            "title": "Max Tokens",
+            "type": "integer"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "output": {
+        "title": "strIODescriptor",
+        "type": "string",
+        "is_stream": true,
+        "media_type": "text/event-stream"
+      }
+    }
+  ]
+}
