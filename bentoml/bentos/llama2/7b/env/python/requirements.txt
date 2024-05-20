@@ -1,2 +1,5 @@
-./wheels/bentoml-1.2.15.post6+g2e080386.tar.gz
-git+https://github.com/bentoml/simple_di.git@master
+./wheels/bentoml-1.2.15.post13+gd7412f19.tar.gz
+torch==2.1.2
+vllm==0.4.0.post1
+transformers==4.39.3
+pyyaml

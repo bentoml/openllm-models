@@ -1,2 +1,0 @@
-./wheels/bentoml-1.2.15.post6+g2e080386.tar.gz
-git+https://github.com/bentoml/simple_di.git@master

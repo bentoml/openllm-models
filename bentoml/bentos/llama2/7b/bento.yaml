@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama2
-version: 7b
-bentoml_version: 1.2.15.post6+g2e080386
-creation_time: '2024-05-20T05:53:21.222112+00:00'
+version: 7b-chat-fp16
+bentoml_version: 1.2.15.post13+gd7412f19
+creation_time: '2024-05-20T13:27:09.790900+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -16,15 +16,13 @@ services:
   dependencies: []
   config:
     name: llama2
-    traffic:
-      timeout: 300
     resources:
       gpu: 1
       gpu_type: nvidia-tesla-t4
+    traffic:
+      timeout: 300
 envs:
 - name: HF_TOKEN
-- name: CLLAMA_MODEL
-  value: llama2
 schema:
   name: llama2
   type: service
@@ -58,16 +56,14 @@ docker:
   cuda_version: null
   env:
     HF_TOKEN: ''
-    CLLAMA_MODEL: llama2
   system_packages: null
   setup_script: null
   base_image: null
   dockerfile_template: null
 python:
-  requirements_txt: null
-  packages:
-  - git+https://github.com/bentoml/simple_di.git@master
-  lock_packages: true
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: false
   pack_git_packages: true
   index_url: null
   no_index: null
