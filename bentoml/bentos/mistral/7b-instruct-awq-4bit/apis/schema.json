@@ -88,15 +88,8 @@
             },
             "title": "Stop",
             "type": "array"
-          },
-          "kwargs": {
-            "title": "Kwargs",
-            "type": "object"
           }
         },
-        "required": [
-          "kwargs"
-        ],
         "title": "Input",
         "type": "object"
       },

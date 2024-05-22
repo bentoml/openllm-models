@@ -85,9 +85,6 @@ components:
       type: object
     generate__Input:
       properties:
-        kwargs:
-          title: Kwargs
-          type: object
         max_tokens:
           default: 4096
           maximum: 4096
@@ -104,8 +101,6 @@ components:
             type: string
           title: Stop
           type: array
-      required:
-      - kwargs
       title: generate__Input
       type: object
 info:
@@ -208,9 +203,6 @@ paths:
           application/json:
             schema:
               properties:
-                kwargs:
-                  title: Kwargs
-                  type: object
                 max_tokens:
                   default: 4096
                   maximum: 4096
@@ -227,8 +219,6 @@ paths:
                     type: string
                   title: Stop
                   type: array
-              required:
-              - kwargs
               title: Input
               type: object
       responses:
