@@ -1,6 +1,7 @@
 
 CONSTANT_YAML = '''
 alias:
+- 7b-4bit
 - 7b-chat-4bit
 chat_template: llama-2-chat
 engine_config:

@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama2
 version: 7b-chat-fp16
 bentoml_version: 1.2.16
-creation_time: '2024-05-27T07:53:01.456295+00:00'
+creation_time: '2024-05-27T08:40:55.251899+00:00'
 labels:
   owner: bentoml-team
   stage: demo

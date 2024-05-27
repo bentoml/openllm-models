@@ -2,7 +2,7 @@ service: service:VLLM
 name: phi3
 version: 3.8b-mini-instruct-4k-fp16
 bentoml_version: 1.2.16
-creation_time: '2024-05-27T07:52:59.344324+00:00'
+creation_time: '2024-05-27T08:40:52.962657+00:00'
 labels:
   owner: bentoml-team
   stage: demo
