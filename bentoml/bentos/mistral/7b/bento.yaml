@@ -1,8 +1,8 @@
 service: service:VLLM
 name: mistral
 version: 7b-instruct-fp16
-bentoml_version: 1.2.15.post13+gd7412f19
-creation_time: '2024-05-22T18:01:05.241869+00:00'
+bentoml_version: 1.2.16
+creation_time: '2024-05-27T07:53:07.201472+00:00'
 labels:
   owner: bentoml-team
   stage: demo
