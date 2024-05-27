@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3
 version: 70b-instruct-fp16
 bentoml_version: 1.2.16
-creation_time: '2024-05-27T08:41:10.060527+00:00'
+creation_time: '2024-05-27T08:52:55.193910+00:00'
 labels:
   owner: bentoml-team
   stage: demo
