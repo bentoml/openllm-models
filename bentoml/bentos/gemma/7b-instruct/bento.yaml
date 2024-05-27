@@ -2,7 +2,7 @@ service: service:VLLM
 name: gemma
 version: 7b-instruct-fp16
 bentoml_version: 1.2.16
-creation_time: '2024-05-27T08:52:58.858286+00:00'
+creation_time: '2024-05-27T09:00:09.755802+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -18,7 +18,7 @@ services:
     name: gemma
     resources:
       gpu: 1
-      gpu_type: nvidia-rtx-3060
+      gpu_type: nvidia-tesla-l4
     traffic:
       timeout: 300
 envs:
