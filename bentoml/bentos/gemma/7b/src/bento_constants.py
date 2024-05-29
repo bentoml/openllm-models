@@ -3,7 +3,6 @@ CONSTANT_YAML = '''
 alias:
 - latest
 - 7b
-- 7b-instruct
 engine_config:
   max_model_len: 2048
   model: google/gemma-7b-it

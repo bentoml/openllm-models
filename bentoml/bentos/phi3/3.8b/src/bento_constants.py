@@ -3,7 +3,6 @@ CONSTANT_YAML = '''
 alias:
 - latest
 - 3.8b
-- instruct
 - mini
 chat_template: phi-3
 engine_config:
@@ -15,7 +14,7 @@ service_config:
   name: phi3
   resources:
     gpu: 1
-    gpu_type: nvidia-tesla-t4
+    gpu_type: nvidia-rtx-3060
   traffic:
     timeout: 300
 

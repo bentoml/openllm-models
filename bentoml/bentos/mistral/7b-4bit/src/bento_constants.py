@@ -2,7 +2,6 @@
 CONSTANT_YAML = '''
 alias:
 - 7b-4bit
-- 7b-instruct-4bit
 chat_template: mistral-instruct
 engine_config:
   dtype: half

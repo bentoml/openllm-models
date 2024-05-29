@@ -3,7 +3,6 @@ CONSTANT_YAML = '''
 alias:
 - 7b
 - 7b-instruct
-- 7b-instruct-v0.1
 chat_template: mistral-instruct
 engine_config:
   dtype: half

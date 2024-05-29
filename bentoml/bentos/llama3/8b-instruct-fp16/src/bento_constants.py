@@ -3,7 +3,6 @@ CONSTANT_YAML = '''
 alias:
 - latest
 - 8b
-- 8b-instruct
 engine_config:
   max_model_len: 2048
   model: meta-llama/Meta-Llama-3-8B-Instruct

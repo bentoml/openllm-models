@@ -2,7 +2,7 @@ service: service:VLLM
 name: gemma
 version: 7b-instruct-awq-4bit
 bentoml_version: 1.2.16
-creation_time: '2024-05-27T09:00:11.813461+00:00'
+creation_time: '2024-05-29T01:53:56.843092+00:00'
 labels:
   owner: bentoml-team
   stage: demo

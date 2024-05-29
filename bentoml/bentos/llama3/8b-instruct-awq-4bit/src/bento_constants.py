@@ -2,7 +2,6 @@
 CONSTANT_YAML = '''
 alias:
 - 8b-4bit
-- 8b-instruct-4bit
 engine_config:
   max_model_len: 2048
   model: casperhansen/llama-3-8b-instruct-awq
