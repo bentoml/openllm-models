@@ -2,7 +2,7 @@ service: service:VLLM
 name: gemma
 version: 7b-instruct-fp16
 bentoml_version: 1.2.16
-creation_time: '2024-05-29T01:53:54.518618+00:00'
+creation_time: '2024-05-29T05:08:55.910658+00:00'
 labels:
   owner: bentoml-team
   stage: demo

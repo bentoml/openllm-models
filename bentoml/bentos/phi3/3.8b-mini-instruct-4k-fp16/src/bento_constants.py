@@ -1,7 +1,6 @@
 
 CONSTANT_YAML = '''
 alias:
-- latest
 - 3.8b
 - mini
 chat_template: phi-3

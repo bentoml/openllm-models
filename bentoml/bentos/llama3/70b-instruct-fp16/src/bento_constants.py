@@ -1,7 +1,6 @@
 
 CONSTANT_YAML = '''
 alias:
-- latest
 - 70b
 engine_config:
   max_model_len: 2048
