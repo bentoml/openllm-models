@@ -4,7 +4,7 @@ alias:
 - 70b-4bit
 engine_config:
   max_model_len: 2048
-  model: meta-llama/Meta-Llama-3-8B
+  model: casperhansen/llama-3-70b-instruct-awq
   quantization: awq
 project: vllm-chat
 service_config:

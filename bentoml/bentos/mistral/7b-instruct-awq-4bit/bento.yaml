@@ -1,8 +1,8 @@
 service: service:VLLM
 name: mistral
 version: 7b-instruct-awq-4bit
-bentoml_version: 1.2.16
-creation_time: '2024-05-29T05:08:42.417876+00:00'
+bentoml_version: 1.2.17
+creation_time: '2024-06-04T11:58:47.757793+00:00'
 labels:
   owner: bentoml-team
   stage: demo

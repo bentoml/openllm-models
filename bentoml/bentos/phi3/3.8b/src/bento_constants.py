@@ -2,7 +2,6 @@
 CONSTANT_YAML = '''
 alias:
 - 3.8b
-- mini
 chat_template: phi-3
 engine_config:
   dtype: half
