@@ -2,10 +2,12 @@ service: service:VLLM
 name: mistral
 version: 7b-instruct-awq-4bit
 bentoml_version: 1.2.17
-creation_time: '2024-06-04T14:47:55.428964+00:00'
+creation_time: '2024-06-07T01:25:30.223515+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
+  source_repo: https://github.com/bentoml/openllm-repo-recipe.git
+  source_directory: vllm-chat
 models: []
 runners: []
 entry_service: mistral

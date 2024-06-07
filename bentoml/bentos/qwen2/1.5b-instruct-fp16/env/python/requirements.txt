@@ -1,0 +1,5 @@
+bentoml==1.2.17
+torch==2.3.0
+vllm==0.4.2
+transformers==4.41.0
+pyyaml

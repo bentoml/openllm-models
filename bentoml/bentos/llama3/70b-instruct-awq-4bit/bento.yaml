@@ -2,10 +2,12 @@ service: service:VLLM
 name: llama3
 version: 70b-instruct-awq-4bit
 bentoml_version: 1.2.17
-creation_time: '2024-06-04T14:49:54.793123+00:00'
+creation_time: '2024-06-07T01:25:42.660634+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
+  source_repo: https://github.com/bentoml/openllm-repo-recipe.git
+  source_directory: vllm-chat
 models: []
 runners: []
 entry_service: llama3
