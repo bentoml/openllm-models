@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3
 version: 8b-instruct-awq-4bit
 bentoml_version: 1.2.17
-creation_time: '2024-06-07T01:25:38.763596+00:00'
+creation_time: '2024-06-07T05:57:07.190443+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
