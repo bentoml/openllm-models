@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2
 version: 0.5b-instruct-fp16
 bentoml_version: 1.2.17
-creation_time: '2024-06-07T05:57:30.128118+00:00'
+creation_time: '2024-06-10T16:51:51.217804+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
