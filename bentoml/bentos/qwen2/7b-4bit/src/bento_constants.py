@@ -2,7 +2,6 @@
 CONSTANT_YAML = '''
 alias:
 - 7b-4bit
-chat_template: gemma-it
 engine_config:
   max_model_len: 2048
   model: Qwen/Qwen2-7B-Instruct-AWQ
