@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2
 version: 57b-a14b-instruct-fp16
 bentoml_version: 1.2.17
-creation_time: '2024-06-10T17:13:24.864480+00:00'
+creation_time: '2024-06-11T13:15:26.284642+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
@@ -30,7 +30,7 @@ schema:
   type: service
   routes:
   - name: chat
-    route: /chat
+    route: /api/chat
     batchable: false
     input:
       properties:
@@ -74,7 +74,7 @@ schema:
       is_stream: true
       media_type: text/event-stream
   - name: generate
-    route: /generate
+    route: /api/generate
     batchable: false
     input:
       properties:
