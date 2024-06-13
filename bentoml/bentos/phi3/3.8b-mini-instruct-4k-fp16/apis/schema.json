@@ -25,7 +25,7 @@
             "type": "array"
           },
           "model": {
-            "default": "",
+            "default": "microsoft/Phi-3-mini-4k-instruct",
             "title": "Model",
             "type": "string"
           },
@@ -74,6 +74,11 @@
             "title": "Prompt",
             "type": "string"
           },
+          "model": {
+            "default": "microsoft/Phi-3-mini-4k-instruct",
+            "title": "Model",
+            "type": "string"
+          },
           "max_tokens": {
             "default": 4096,
             "maximum": 4096,
@@ -82,11 +87,11 @@
             "type": "integer"
           },
           "stop": {
-            "default": [],
+            "default": null,
+            "title": "Stop",
             "items": {
               "type": "string"
             },
-            "title": "Stop",
             "type": "array"
           }
         },

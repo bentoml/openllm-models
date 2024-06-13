@@ -25,7 +25,7 @@
             "type": "array"
           },
           "model": {
-            "default": "",
+            "default": "Qwen/Qwen2-72B-Instruct",
             "title": "Model",
             "type": "string"
           },
@@ -74,6 +74,11 @@
             "title": "Prompt",
             "type": "string"
           },
+          "model": {
+            "default": "Qwen/Qwen2-72B-Instruct",
+            "title": "Model",
+            "type": "string"
+          },
           "max_tokens": {
             "default": 2048,
             "maximum": 2048,
@@ -82,11 +87,11 @@
             "type": "integer"
           },
           "stop": {
-            "default": [],
+            "default": null,
+            "title": "Stop",
             "items": {
               "type": "string"
             },
-            "title": "Stop",
             "type": "array"
           }
         },

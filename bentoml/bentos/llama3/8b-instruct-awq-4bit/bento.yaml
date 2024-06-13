@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3
 version: 8b-instruct-awq-4bit
 bentoml_version: 1.2.17
-creation_time: '2024-06-11T13:14:26.667280+00:00'
+creation_time: '2024-06-13T09:12:26.520603+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
@@ -45,7 +45,7 @@ schema:
           title: Messages
           type: array
         model:
-          default: ''
+          default: casperhansen/llama-3-8b-instruct-awq
           title: Model
           type: string
         max_tokens:
@@ -82,6 +82,10 @@ schema:
           default: Explain superconductors like I'm five years old
           title: Prompt
           type: string
+        model:
+          default: casperhansen/llama-3-8b-instruct-awq
+          title: Model
+          type: string
         max_tokens:
           default: 2048
           maximum: 2048
@@ -89,10 +93,10 @@ schema:
           title: Max Tokens
           type: integer
         stop:
-          default: []
+          default: null
+          title: Stop
           items:
             type: string
-          title: Stop
           type: array
       title: Input
       type: object

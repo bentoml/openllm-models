@@ -803,7 +803,7 @@ components:
           title: Messages
           type: array
         model:
-          default: ''
+          default: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
           title: Model
           type: string
         stop:
@@ -811,7 +811,6 @@ components:
           - items:
               type: string
             type: array
-          - type: string
           - type: 'null'
           default: null
           title: Stop
@@ -833,16 +832,22 @@ components:
           minimum: 128
           title: Max Tokens
           type: integer
+        model:
+          default: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
+          title: Model
+          type: string
         prompt:
           default: Explain superconductors like I'm five years old
           title: Prompt
           type: string
         stop:
-          default: []
-          items:
-            type: string
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          default: null
           title: Stop
-          type: array
       title: generate__Input
       type: object
 info:
@@ -900,7 +905,7 @@ paths:
                   title: Messages
                   type: array
                 model:
-                  default: ''
+                  default: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
                   title: Model
                   type: string
                 stop:
@@ -961,12 +966,16 @@ paths:
                   minimum: 128
                   title: Max Tokens
                   type: integer
+                model:
+                  default: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
+                  title: Model
+                  type: string
                 prompt:
                   default: Explain superconductors like I'm five years old
                   title: Prompt
                   type: string
                 stop:
-                  default: []
+                  default: null
                   items:
                     type: string
                   title: Stop

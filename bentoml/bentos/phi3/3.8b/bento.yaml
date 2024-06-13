@@ -2,7 +2,7 @@ service: service:VLLM
 name: phi3
 version: 3.8b-mini-instruct-4k-fp16
 bentoml_version: 1.2.17
-creation_time: '2024-06-11T13:13:53.350303+00:00'
+creation_time: '2024-06-13T09:11:56.395738+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
@@ -45,7 +45,7 @@ schema:
           title: Messages
           type: array
         model:
-          default: ''
+          default: microsoft/Phi-3-mini-4k-instruct
           title: Model
           type: string
         max_tokens:
@@ -82,6 +82,10 @@ schema:
           default: Explain superconductors like I'm five years old
           title: Prompt
           type: string
+        model:
+          default: microsoft/Phi-3-mini-4k-instruct
+          title: Model
+          type: string
         max_tokens:
           default: 4096
           maximum: 4096
@@ -89,10 +93,10 @@ schema:
           title: Max Tokens
           type: integer
         stop:
-          default: []
+          default: null
+          title: Stop
           items:
             type: string
-          title: Stop
           type: array
       title: Input
       type: object
