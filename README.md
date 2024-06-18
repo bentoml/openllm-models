@@ -26,10 +26,10 @@
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| llama3 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-70b-instruct-awq) |
-| llama3 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
 | llama3 | 8b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-8b-instruct-awq) |
 | llama3 | 8b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) |
+| llama3 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-70b-instruct-awq) |
+| llama3 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
 
 ---
 
@@ -61,9 +61,9 @@
 | qwen2 | 1.5b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
 | qwen2 | 0.5b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-0.5B-Instruct) |
 | qwen2 | 72b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
+| qwen2 | 7b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
 | qwen2 | 72b-instruct-awq-4bit | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct-AWQ) |
 | qwen2 | 57b-a14b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-57B-A14B-Instruct) |
-| qwen2 | 7b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
 
 ---
 
@@ -83,10 +83,10 @@
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| llama2 | 13b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) |
-| llama2 | 7b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
-| llama2 | 70b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
 | llama2 | 7b-chat-awq-4bit | [HF Link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-AWQ) |
+| llama2 | 7b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
+| llama2 | 13b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) |
+| llama2 | 70b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
 
 ---
 
