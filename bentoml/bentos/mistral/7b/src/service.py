@@ -13,6 +13,7 @@ import vllm.entrypoints.openai.api_server as vllm_api_server
 import yaml
 from annotated_types import Ge, Le
 from bento_constants import CONSTANT_YAML
+from fastapi.responses import FileResponse
 from typing_extensions import Annotated
 
 CONSTANTS = yaml.safe_load(CONSTANT_YAML)
@@ -26,12 +27,14 @@ logger.setLevel(logging.INFO)
 
 
 openai_api_app = fastapi.FastAPI()
+static_app = fastapi.FastAPI()
+ui_app = fastapi.FastAPI()
 
 
 OPENAI_ENDPOINTS = [
-    ["/v1/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
-    ["/v1/completions", vllm_api_server.create_completion, ["POST"]],
-    ["/v1/models", vllm_api_server.show_available_models, ["GET"]],
+    ["/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
+    ["/completions", vllm_api_server.create_completion, ["POST"]],
+    ["/models", vllm_api_server.show_available_models, ["GET"]],
 ]
 
 
@@ -45,16 +48,23 @@ for route, endpoint, methods in OPENAI_ENDPOINTS:
 
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "ui")
-INDEX_HTML = os.path.join(os.path.dirname(__file__), "ui", "index.html")
+
+ui_app.mount(
+    "/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static"
+)
 
 
-openai_api_app.mount("/_next", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR))
+@ui_app.get("/")
+async def serve_chat_html():
+    return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
 
 
-@openai_api_app.get("/")
-async def index():
-    with open(INDEX_HTML) as f:
-        return fastapi.responses.HTMLResponse(content=f.read())
+@ui_app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    file_path = os.path.join(STATIC_DIR, full_path)
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
 
 
 # special handling for prometheus_client of bentoml
@@ -62,14 +72,16 @@ if "prometheus_client" in sys.modules:
     sys.modules.pop("prometheus_client")
 
 
-@bentoml.mount_asgi_app(openai_api_app)
+@bentoml.mount_asgi_app(openai_api_app, path="/v1")
+@bentoml.mount_asgi_app(ui_app, path="/chat")
 @bentoml.service(**SERVICE_CONFIG)
 class VLLM:
     def __init__(self) -> None:
         from transformers import AutoTokenizer
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
-        from vllm.entrypoints.openai.serving_completion import OpenAIServingCompletion
+        from vllm.entrypoints.openai.serving_completion import \
+            OpenAIServingCompletion
 
         ENGINE_ARGS = AsyncEngineArgs(**ENGINE_CONFIG)
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
@@ -82,18 +94,21 @@ class VLLM:
         else:
             chat_template = None
 
+        model_config = self.engine.engine.get_model_config()
+
         # inject the engine into the openai serving chat and completion
         vllm_api_server.openai_serving_chat = OpenAIServingChat(
             engine=self.engine,
             served_model_names=[ENGINE_CONFIG["model"]],
             response_role="assistant",
             chat_template=chat_template,
-            # args.lora_modules,
+            model_config=model_config,
         )
         vllm_api_server.openai_serving_completion = OpenAIServingCompletion(
             engine=self.engine,
             served_model_names=[ENGINE_CONFIG["model"]],
-            # args.lora_modules,
+            model_config=model_config,
+            lora_modules=None,
         )
 
     @bentoml.api(route="/api/generate")

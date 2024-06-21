@@ -2,12 +2,13 @@ service: service:VLLM
 name: llama2
 version: 13b-chat-fp16
 bentoml_version: 1.2.17
-creation_time: '2024-06-13T09:12:05.343057+00:00'
+creation_time: '2024-06-21T07:56:32.592293+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
   source_repo: https://github.com/bentoml/openllm-repo-recipe.git
   source_directory: vllm-chat
+  service_home: /chat
 models: []
 runners: []
 entry_service: llama2

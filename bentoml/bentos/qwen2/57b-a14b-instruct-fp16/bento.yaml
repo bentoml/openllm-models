@@ -2,12 +2,13 @@ service: service:VLLM
 name: qwen2
 version: 57b-a14b-instruct-fp16
 bentoml_version: 1.2.17
-creation_time: '2024-06-13T09:13:19.554432+00:00'
+creation_time: '2024-06-21T07:57:59.242460+00:00'
 labels:
   owner: bentoml-team
   platforms: linux
   source_repo: https://github.com/bentoml/openllm-repo-recipe.git
   source_directory: vllm-chat
+  service_home: /chat
 models: []
 runners: []
 entry_service: qwen2

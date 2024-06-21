@@ -12,9 +12,7 @@ components:
           - type: 'null'
           title: Content
         function_call:
-          anyOf:
-          - $ref: '#/components/schemas/FunctionCall'
-          - type: 'null'
+          $ref: '#/components/schemas/FunctionCall'
         name:
           title: Name
           type: string
@@ -230,6 +228,7 @@ components:
             - $ref: '#/components/schemas/ChatCompletionAssistantMessageParam'
             - $ref: '#/components/schemas/ChatCompletionToolMessageParam'
             - $ref: '#/components/schemas/ChatCompletionFunctionMessageParam'
+            - $ref: '#/components/schemas/CustomChatCompletionMessageParam'
           title: Messages
           type: array
         min_p:
@@ -325,6 +324,7 @@ components:
           anyOf:
           - type: integer
           - type: 'null'
+          default: 0
           title: Top Logprobs
         top_p:
           anyOf:
@@ -396,6 +396,7 @@ components:
               anyOf:
               - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
               - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
+              - $ref: '#/components/schemas/CustomChatCompletionContentPartParam'
             type: array
           title: Content
         name:
@@ -657,6 +658,39 @@ components:
       - prompt
       title: CompletionRequest
       type: object
+    CustomChatCompletionContentPartParam:
+      additionalProperties: true
+      properties:
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      title: CustomChatCompletionContentPartParam
+      type: object
+    CustomChatCompletionMessageParam:
+      description: Enables custom roles in the Chat Completion API.
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
+              - $ref: '#/components/schemas/CustomChatCompletionContentPartParam'
+            type: array
+          title: Content
+        name:
+          title: Name
+          type: string
+        role:
+          title: Role
+          type: string
+      required:
+      - role
+      title: CustomChatCompletionMessageParam
+      type: object
     Function:
       properties:
         arguments:
@@ -868,16 +902,6 @@ info:
   version: None
 openapi: 3.0.2
 paths:
-  /:
-    get:
-      operationId: index__get
-      responses:
-        '200':
-          content:
-            application/json:
-              schema: {}
-          description: Successful Response
-      summary: Index
   /api/chat:
     post:
       description: "\n        light-weight chat API that takes in a list of messages\
@@ -1011,6 +1035,39 @@ paths:
       tags:
       - Service APIs
       x-bentoml-name: generate
+  /chat/:
+    get:
+      operationId: serve_chat_html__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Serve Chat Html
+  /chat/{full_path}:
+    get:
+      operationId: catch_all__full_path__get
+      parameters:
+      - in: path
+        name: full_path
+        required: true
+        schema:
+          title: Full Path
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Catch All
   /healthz:
     get:
       description: Health check endpoint. Expecting an empty response with status
@@ -1053,7 +1110,7 @@ paths:
       - Infrastructure
   /v1/chat/completions:
     post:
-      operationId: create_chat_completion_v1_chat_completions_post
+      operationId: create_chat_completion_chat_completions_post
       requestBody:
         content:
           application/json:
@@ -1075,7 +1132,7 @@ paths:
       summary: Create Chat Completion
   /v1/completions:
     post:
-      operationId: create_completion_v1_completions_post
+      operationId: create_completion_completions_post
       requestBody:
         content:
           application/json:
@@ -1097,7 +1154,7 @@ paths:
       summary: Create Completion
   /v1/models:
     get:
-      operationId: show_available_models_v1_models_get
+      operationId: show_available_models_models_get
       responses:
         '200':
           content:
