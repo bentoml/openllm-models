@@ -7,7 +7,7 @@
 ### Table of Contents
 {% for name, items in grouped_data %}
 - [{{ model_display_names[name] }}](#{{ name | lower | replace(" ", "-") }})
-{% endfor %}
+{%- endfor %}
 
 ---
 

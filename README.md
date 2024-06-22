@@ -7,17 +7,11 @@
 ### Table of Contents
 
 - [Llama-3](#llama3)
-
 - [Phi-3](#phi3)
-
 - [Mistral](#mistral)
-
 - [Qwen-2](#qwen2)
-
 - [Gemma](#gemma)
-
 - [Llama-2](#llama2)
-
 
 ---
 
