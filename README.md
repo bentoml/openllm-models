@@ -1,1 +1,1 @@
-Makefile for [openllm-repo](https://github.com/bojiang/openllm-repo)
+Deprecated: Has been merged to openllm official repo
