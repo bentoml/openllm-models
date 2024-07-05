@@ -85,7 +85,7 @@ if "prometheus_client" in sys.modules:
 
 
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
-@bentoml.mount_asgi_app(ui_app, path="/chat")
+@bentoml.mount_asgi_app(ui_app, path="/ui")
 @bentoml.service(**SERVICE_CONFIG)
 class VLLM:
     def __init__(self) -> None:

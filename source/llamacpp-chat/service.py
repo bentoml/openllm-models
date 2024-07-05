@@ -72,10 +72,10 @@ if "prometheus_client" in sys.modules:
     sys.modules.pop("prometheus_client")
 
 
-@bentoml.mount_asgi_app(ui_app, path="/chat")
+@bentoml.mount_asgi_app(ui_app, path="/ui")
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.service(**SERVICE_CONFIG)
-class Phi3:
+class LlamaCppChat:
     
     def __init__(self) -> None:
         self.llm = Llama.from_pretrained(
@@ -84,37 +84,6 @@ class Phi3:
             verbose=False,
         )
 
-    @bentoml.api(route="/api/chat")
-    async def chat(
-        self,
-        messages: list[Message] = [
-            {"role": "user", "content": "What is the meaning of life?"}
-        ],
-        model: str = ENGINE_CONFIG["model"],
-        max_tokens: Annotated[
-            int,
-            Ge(128),
-            Le(ENGINE_CONFIG["max_model_len"]),
-        ] = ENGINE_CONFIG["max_model_len"],
-        stop: Optional[list[str]] = None,
-        stop_token_ids: Optional[list[int]] = None,
-    ) -> AsyncGenerator[str, None]:
-        """
-        light-weight chat API that takes in a list of messages and returns a response
-        """
-        response = self.llm.create_chat_completion(
-            messages=messages,
-            max_tokens=max_tokens,
-            stream=True,
-            stop=stop,
-        )
-
-        for chunk in response:
-            try:
-                yield chunk["choices"][0]["delta"]["content"]
-            except KeyError:
-                yield ""
-    
     @bentoml.api(route="/v1/chat/completions")
     async def chat_completions(
         self,
@@ -161,15 +130,3 @@ class Phi3:
         except Exception as e:
             yield SSE(data=str(e)).marshal()
             yield SSE(data="[DONE]").marshal()
-    
-if __name__ == "__main__":
-    phi3 = Phi3()
-    response = phi3.llm.create_chat_completion(
-            messages = [
-                {"role": "system", "content": SYS_PROMPT},
-                {"role": "user", "content": "Explain superconductors like I'm five years old"}
-            ],
-            max_tokens=256,
-            #stream=True,
-        )
-    print(response)

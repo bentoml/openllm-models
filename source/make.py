@@ -74,7 +74,7 @@ if __name__ == "__main__":
             model_version = f"{model_version}-{directory_hash[:4]}"
 
             subprocess.run(
-                ["bentoml", "build", str(tempdir), "--version", model_version],
+                [sys.executable, "-m", "bentoml", "build", str(tempdir), "--version", model_version],
                 check=True,
                 cwd=tempdir,
                 env=os.environ,
