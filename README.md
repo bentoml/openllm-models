@@ -83,4 +83,3 @@
 | llama2 | 7b-chat-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
 
 ---
-
