@@ -1,8 +1,8 @@
 service: "service:Main"
 labels:
   owner: bentoml-team
-  stage: demo
   platforms: linux, macos
+  source: https://github.com/bentoml/openllm-models-feed/tree/main/source/llamacpp-chat
 include:
 - "*.py"
 - "ui/build/*"
