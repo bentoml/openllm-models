@@ -72,7 +72,7 @@ if "prometheus_client" in sys.modules:
     sys.modules.pop("prometheus_client")
 
 
-@bentoml.mount_asgi_app(ui_app, path="/ui")
+@bentoml.mount_asgi_app(ui_app, path="/chat")
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.service(**SERVICE_CONFIG)
 class LlamaCppChat:
