@@ -12,7 +12,7 @@
 - [Qwen-2](#qwen2)
 - [Gemma](#gemma)
 - [Llama-2](#llama2)
-- [](#mixtral)
+- [Mixtral](#mixtral)
 
 ---
 
@@ -87,7 +87,7 @@
 ---
 
 
-###  <a id="mixtral"></a>
+### Mixtral <a id="mixtral"></a>
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
