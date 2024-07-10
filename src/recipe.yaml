@@ -121,6 +121,24 @@
   extra_labels:
     openllm_alias: 7b,7b-instruct
     model_name: mistralai/Mistral-7B-Instruct-v0.1
+"capybarahermes-2_5:7b-fp16":
+  project: vllm-chat
+  service_config:
+    name: capybarahermes2_5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-l4
+  engine_config:
+    model: argilla/CapybaraHermes-2.5-Mistral-7B
+    max_model_len: 1024
+    enforce_eager: true
+    dtype: half
+  chat_template: mistral-instruct
+  extra_labels:
+    openllm_alias: 7b
+    model_name: argilla/CapybaraHermes-2.5-Mistral-7B
 "llama3:8b-instruct-awq-4bit":
   project: vllm-chat
   service_config:
