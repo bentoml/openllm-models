@@ -9,7 +9,7 @@ import fastapi
 import fastapi.staticfiles
 import os
 from fastapi.responses import FileResponse
-from typing_extensions import Annotated, Literal
+from typing_extensions import Literal
 import sys
 import pydantic
 from bentoml.io import SSE
@@ -76,7 +76,7 @@ if "prometheus_client" in sys.modules:
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.service(**SERVICE_CONFIG)
 class LlamaCppChat:
-    
+
     def __init__(self) -> None:
         self.llm = Llama.from_pretrained(
             repo_id=ENGINE_CONFIG["model"],
@@ -97,7 +97,7 @@ class LlamaCppChat:
             Le(ENGINE_CONFIG["max_model_len"]),
         ] = ENGINE_CONFIG["max_model_len"],
         stop: Optional[list[str]] = None,
-        stream: Optional[bool] = False,
+        stream: Optional[bool] = True,
         temperature: Optional[float] = 0,
         top_p: Optional[float] = 1.0,
         frequency_penalty: Optional[float] = 0.0,
@@ -107,6 +107,7 @@ class LlamaCppChat:
         """
         try:
             response = self.llm.create_chat_completion(
+                model=model,
                 messages=messages,
                 max_tokens=max_tokens,
                 stream=stream,
@@ -125,7 +126,7 @@ class LlamaCppChat:
                 except Exception as e:
                     print(e)
                     yield SSE(data=str(e)).marshal()
-            
+
             yield SSE(data="[DONE]").marshal()
         except Exception as e:
             yield SSE(data=str(e)).marshal()
