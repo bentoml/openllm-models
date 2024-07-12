@@ -1,8 +1,7 @@
 service: "service:VLLM"
 labels:
-  owner: bentoml-team
-  platforms: linux
   source: https://github.com/bentoml/openllm-models-feed/tree/main/source/vllm-chat
+  platforms: linux
 include:
 - "*.py"
 - "ui/*"

@@ -1,5 +1,5 @@
 <div align="center">
-    <h1 align="center">The default Bento model library of <a href="https://github.com/bentoml/openllm-next">openllm-next</a></h1>
+    <h1 align="center">The default model repository of <a href="https://github.com/bentoml/openllm">openllm</a></h1>
 </div>
 
 ## Supported Models

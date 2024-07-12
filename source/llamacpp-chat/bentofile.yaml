@@ -1,8 +1,7 @@
 service: "service:LlamaCppChat"
 labels:
-  owner: bentoml-team
-  platforms: macos
   source: https://github.com/bentoml/openllm-models-feed/tree/main/source/llamacpp-chat
+  platforms: macos
 include:
 - "*.py"
 - "ui/*"
