@@ -2,6 +2,14 @@
     <h1 align="center">The default model repository of <a href="https://github.com/bentoml/openllm">openllm</a></h1>
 </div>
 
+This repo (on `main` branch) is already included by openllm by default.
+
+If you want more up-to-date untested models, please add our nightly branch.
+
+```bash
+openllm repo add nightly https://github.com/bentoml/openllm@nightly
+```
+
 ## Supported Models
 
 ### Table of Contents
