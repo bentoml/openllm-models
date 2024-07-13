@@ -1,8 +1,8 @@
 service: service:VLLM
 name: qwen2
 version: 72b-instruct-awq-4bit-15fd
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:49:55.548892+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:20:40.710492+00:00'
 labels:
   model_name: Qwen/Qwen2-72B-Instruct-AWQ
   openllm_alias: 72b-4bit,72b-instruct-4bit

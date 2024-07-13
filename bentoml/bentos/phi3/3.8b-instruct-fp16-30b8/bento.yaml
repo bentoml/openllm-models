@@ -1,8 +1,8 @@
 service: service:VLLM
 name: phi3
 version: 3.8b-instruct-fp16-30b8
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:28:39.030528+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T13:59:26.214697+00:00'
 labels:
   model_name: microsoft/Phi-3-mini-4k-instruct
   openllm_alias: 3.8b,3.8b-mini,3.8b-mini-instruct-4k-fp16

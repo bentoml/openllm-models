@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3
 version: 70b-instruct-awq-4bit-e968
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:37:06.457762+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:07:52.152986+00:00'
 labels:
   model_name: casperhansen/llama-3-70b-instruct-awq
   openllm_alias: 70b-4bit,70b-instruct-4bit

@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3
 version: 8b-instruct-awq-4bit-f9de
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:36:07.192628+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:06:39.648390+00:00'
 labels:
   model_name: casperhansen/llama-3-8b-instruct-awq
   openllm_alias: 8b-4bit,8b-instruct-4bit

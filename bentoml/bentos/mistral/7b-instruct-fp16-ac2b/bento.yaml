@@ -1,8 +1,8 @@
 service: service:VLLM
 name: mistral
 version: 7b-instruct-fp16-ac2b
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:34:54.036739+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:05:40.807532+00:00'
 labels:
   model_name: mistralai/Mistral-7B-Instruct-v0.1
   openllm_alias: 7b,7b-instruct

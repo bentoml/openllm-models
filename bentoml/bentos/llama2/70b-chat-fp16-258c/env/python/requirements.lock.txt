@@ -6,7 +6,7 @@ appdirs==1.4.4
 asgiref==3.8.1
 async-timeout==4.0.3
 attrs==23.2.0
-bentoml==1.2.19
+bentoml==1.2.20
 build==1.2.1
 cattrs==23.1.2
 certifi==2024.7.4

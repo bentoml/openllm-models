@@ -1,8 +1,8 @@
 service: service:VLLM
 name: gemma
 version: 2b-instruct-fp16-0856
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:40:09.050778+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:10:53.324956+00:00'
 labels:
   model_name: google/gemma-2b-it
   openllm_alias: 2b,2b-instruct

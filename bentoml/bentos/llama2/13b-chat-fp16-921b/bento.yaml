@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama2
 version: 13b-chat-fp16-921b
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:30:51.101256+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:01:36.753116+00:00'
 labels:
   model_name: meta-llama/Llama-2-13b-chat-hf
   openllm_alias: 13b,13b-chat

@@ -897,7 +897,7 @@ info:
   contact:
     email: contact@bentoml.com
     name: BentoML Team
-  description: "# qwen2:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.2.19-informational)](https://pypi.org/project/BentoML)\n\
+  description: "# qwen2:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.2.20-informational)](https://pypi.org/project/BentoML)\n\
     [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)\n\
     [![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)\n\
     [![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)\n\

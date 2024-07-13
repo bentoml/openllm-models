@@ -1,8 +1,8 @@
 service: service:VLLM
 name: qwen2
 version: 0.5b-instruct-fp16-fcc6
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:45:29.217202+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:16:26.873508+00:00'
 labels:
   model_name: Qwen/Qwen2-0.5B-Instruct
   openllm_alias: 0.5b,0.5b-instruct

@@ -1,8 +1,8 @@
 service: service:VLLM
 name: mixtral
 version: 8x7b-instruct-v0.1-awq-4bit-2953
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:44:29.497980+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:15:14.901695+00:00'
 labels:
   model_name: casperhansen/mixtral-instruct-awq
   openllm_alias: 8x7b-4bit

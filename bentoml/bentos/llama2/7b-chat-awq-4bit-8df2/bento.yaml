@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama2
 version: 7b-chat-awq-4bit-8df2
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:32:54.939874+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:03:39.334653+00:00'
 labels:
   model_name: TheBloke/Llama-2-7B-Chat-AWQ
   openllm_alias: 7b-4bit,7b-chat-4bit

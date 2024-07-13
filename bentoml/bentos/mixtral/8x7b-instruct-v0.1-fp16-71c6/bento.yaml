@@ -1,8 +1,8 @@
 service: service:VLLM
 name: mixtral
 version: 8x7b-instruct-v0.1-fp16-71c6
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:43:22.893115+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:14:14.673672+00:00'
 labels:
   model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
   openllm_alias: 8x7b,8x7b-instruct

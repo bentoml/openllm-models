@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3
 version: 70b-instruct-fp16-6aed
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:39:08.321781+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:09:53.035949+00:00'
 labels:
   model_name: meta-llama/Meta-Llama-3-70B-Instruct
   openllm_alias: 70b,70b-instruct

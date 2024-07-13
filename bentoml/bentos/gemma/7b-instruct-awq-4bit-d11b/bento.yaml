@@ -1,8 +1,8 @@
 service: service:VLLM
 name: gemma
 version: 7b-instruct-awq-4bit-d11b
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:42:23.707025+00:00'
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:13:04.789027+00:00'
 labels:
   model_name: casperhansen/gemma-7b-it-awq
   openllm_alias: 7b-4bit,7b-instruct-4bit

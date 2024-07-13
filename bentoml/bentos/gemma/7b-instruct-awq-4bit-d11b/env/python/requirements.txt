@@ -1,4 +1,4 @@
-bentoml==1.2.19
+bentoml==1.2.20
 torch==2.3.0
 vllm==0.4.3
 numpy==1.26.0

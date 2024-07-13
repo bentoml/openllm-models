@@ -1,11 +1,11 @@
 service: service:LlamaCppChat
 name: phi3
-version: 3.8b-instruct-ggml-q4-e31e
-bentoml_version: 1.2.19
-creation_time: '2024-07-12T13:52:53.455637+00:00'
+version: 3.8b-instruct-ggml-q4-1078
+bentoml_version: 1.2.20
+creation_time: '2024-07-12T14:23:32.460022+00:00'
 labels:
   model_name: microsoft/Phi-3-mini-4k-instruct-gguf
-  openllm_alias: 3.8b-q4,3.8b-mini-q4,3.8b-mini-instruct-4k-ggml-q4
+  openllm_alias: 3.8b-ggml-q4,3.8b-mini-instruct-4k-ggml-q4
   platforms: macos
   source: https://github.com/bentoml/openllm-models-feed/tree/main/source/llamacpp-chat
 models: []
