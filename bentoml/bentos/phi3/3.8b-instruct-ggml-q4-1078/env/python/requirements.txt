@@ -1,4 +1,0 @@
-bentoml==1.2.20
-huggingface-hub
-llama_cpp_python==0.2.79
-fastapi
