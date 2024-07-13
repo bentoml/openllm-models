@@ -50,11 +50,15 @@ if __name__ == "__main__":
     else:
         specified_model = None
 
+    built_bentos = set()
+
     for model_name, config in RECIPE.items():
         if specified_model and model_name != specified_model:
             continue
+
         project = config["project"]
         model_repo, model_version = model_name.split(":")
+
         with tempfile.TemporaryDirectory() as tempdir:
             tempdir = pathlib.Path(tempdir)
             shutil.copytree(project, tempdir, dirs_exist_ok=True)
@@ -73,8 +77,25 @@ if __name__ == "__main__":
             directory_hash = hash_directory(tempdir)
             model_version = f"{model_version}-{directory_hash[:4]}"
 
+            bento_path = BENTOML_HOME / "bentos" / model_repo / model_version
+            built_bentos.add((model_repo, model_version))
+
+            if bento_path.exists():
+                print(
+                    f"Model {model_name} with version {model_version} already exists, skipping"
+                )
+                continue
+
             subprocess.run(
-                [sys.executable, "-m", "bentoml", "build", str(tempdir), "--version", model_version],
+                [
+                    sys.executable,
+                    "-m",
+                    "bentoml",
+                    "build",
+                    str(tempdir),
+                    "--version",
+                    model_version,
+                ],
                 check=True,
                 cwd=tempdir,
                 env=os.environ,
@@ -96,3 +117,12 @@ if __name__ == "__main__":
                         BENTOML_HOME / "bentos" / model_repo / model_version,
                         BENTOML_HOME / "bentos" / model_repo / alias,
                     )
+
+    for bento_path in BENTOML_HOME.glob("bentos/*/*"):
+        if (
+            bento_path.exists()
+            and bento_path.is_dir()
+            and (bento_path.parent.name, bento_path.name) not in built_bentos
+        ):
+            print(f"Deleting unused bento {bento_path}")
+            shutil.rmtree(bento_path)
