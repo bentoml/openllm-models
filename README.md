@@ -34,7 +34,6 @@
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | phi3 | 3.8b-instruct-fp16-30b8 | [HF Link](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct) |
-| phi3 | 3.8b-instruct-ggml-q4-1078 | [HF Link](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf) |
 
 ---
 
