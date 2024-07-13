@@ -1,6 +1,6 @@
 service: "service:VLLM"
 labels:
-  source: https://github.com/bentoml/openllm-models-feed/tree/main/source/vllm-chat
+  source: https://github.com/bentoml/openllm-models-feed/tree/main/src/vllm-chat
   platforms: linux
 include:
 - "*.py"
