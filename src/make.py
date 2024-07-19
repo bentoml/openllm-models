@@ -118,11 +118,12 @@ if __name__ == "__main__":
                         BENTOML_HOME / "bentos" / model_repo / alias,
                     )
 
-    for bento_path in BENTOML_HOME.glob("bentos/*/*"):
-        if (
-            bento_path.exists()
-            and bento_path.is_dir()
-            and (bento_path.parent.name, bento_path.name) not in built_bentos
-        ):
-            print(f"Deleting unused bento {bento_path}")
-            shutil.rmtree(bento_path)
+    if not specified_model:
+        for bento_path in BENTOML_HOME.glob("bentos/*/*"):
+            if (
+                bento_path.exists()
+                and bento_path.is_dir()
+                and (bento_path.parent.name, bento_path.name) not in built_bentos
+            ):
+                print(f"Deleting unused bento {bento_path}")
+                shutil.rmtree(bento_path)
