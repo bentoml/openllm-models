@@ -7,7 +7,7 @@ This repo (on `main` branch) is already included by openllm by default.
 If you want more up-to-date untested models, please add our nightly branch.
 
 ```bash
-openllm repo add nightly https://github.com/bentoml/openllm@nightly
+openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ```
 
 ## Supported Models
