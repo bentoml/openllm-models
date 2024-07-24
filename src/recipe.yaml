@@ -184,6 +184,69 @@
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3-70B-Instruct
+"llama3.1:8b-instruct-fp16":
+  project: vllm-chat
+  service_config:
+    name: llama3.1
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-l4
+  engine_config:
+    model: meta-llama/Meta-Llama-3.1-8B-Instruct
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 8b,8b-instruct
+    model_name: meta-llama/Meta-Llama-3.1-8B-Instruct
+"llama3.1:8b-instruct-awq-4bit":
+  project: vllm-chat
+  service_config:
+    name: llama3.1
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+  engine_config:
+    model: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
+    max_model_len: 2048
+    quantization: awq
+  extra_labels:
+    openllm_alias: 8b-4bit,8b-instruct-4bit
+    model_name: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
+"llama3.1:70b-instruct-fp16":
+  project: vllm-chat
+  service_config:
+    name: llama3.1
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 2
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: meta-llama/Meta-Llama-3.1-70B-Instruct
+    max_model_len: 2048
+  extra_labels:
+    openllm_alias: 70b,70b-instruct
+    model_name: meta-llama/Meta-Llama-3.1-70B-Instruct
+"llama3.1:70b-instruct-awq-4bit":
+  project: vllm-chat
+  service_config:
+    name: llama3.1
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4
+    max_model_len: 2048
+    quantization: awq
+  extra_labels:
+    openllm_alias: 70b-4bit,70b-instruct-4bit
+    model_name: hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4
 "gemma:2b-instruct-fp16":
   project: vllm-chat
   service_config:
