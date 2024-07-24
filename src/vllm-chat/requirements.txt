@@ -1,5 +1,6 @@
-torch==2.3.0
-vllm==0.4.3
+torch==2.3.1
+vllm==0.5.3.post1
 numpy==1.26.0
-transformers==4.41.0
+transformers==4.43.1
+fastapi==0.111.0
 pyyaml
