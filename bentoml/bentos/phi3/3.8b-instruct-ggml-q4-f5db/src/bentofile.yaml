@@ -11,7 +11,7 @@ docker:
   dockerfile_template: null
   env:
     CMAKE_ARGS: -DLLAMA_METAL=on
-  python_version: '3.11'
+  python_version: '3.9'
   setup_script: null
   system_packages: null
 envs:

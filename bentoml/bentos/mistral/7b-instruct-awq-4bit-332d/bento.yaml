@@ -2,7 +2,7 @@ service: service:VLLM
 name: mistral
 version: 7b-instruct-awq-4bit-332d
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T00:54:46.973899+00:00'
+creation_time: '2024-07-24T01:40:29.691418+00:00'
 labels:
   model_name: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
   openllm_alias: 7b-4bit,7b-instruct-4bit
@@ -117,7 +117,7 @@ schema:
 apis: []
 docker:
   distro: debian
-  python_version: '3.11'
+  python_version: '3.9'
   cuda_version: null
   env:
     HF_TOKEN: ''

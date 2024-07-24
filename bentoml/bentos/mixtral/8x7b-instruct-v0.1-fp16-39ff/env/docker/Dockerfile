@@ -5,7 +5,7 @@
 # ===========================================
 
 # Block SETUP_BENTO_BASE_IMAGE
-FROM python:3.11-slim as base-container
+FROM python:3.9-slim as base-container
 
 ENV LANG=C.UTF-8
 
