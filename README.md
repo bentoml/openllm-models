@@ -30,8 +30,9 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
+| llama3.1 | 405b-instruct-awq-4bit-a733 | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4) |
 | llama3.1 | 70b-instruct-awq-4bit-f55b | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4) |
-| llama3.1 | 70b-instruct-fp16-2eb2 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
+| llama3.1 | 70b-instruct-fp16-b665 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
 | llama3.1 | 8b-instruct-awq-4bit-f737 | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
 | llama3.1 | 8b-instruct-fp16-6d7b | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) |
 
@@ -43,7 +44,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | llama3 | 70b-instruct-awq-4bit-9204 | [HF Link](https://huggingface.co/casperhansen/llama-3-70b-instruct-awq) |
-| llama3 | 70b-instruct-fp16-7936 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
+| llama3 | 70b-instruct-fp16-53f1 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
 | llama3 | 8b-instruct-awq-4bit-985b | [HF Link](https://huggingface.co/casperhansen/llama-3-8b-instruct-awq) |
 | llama3 | 8b-instruct-fp16-8638 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) |
 
@@ -76,9 +77,9 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | --- | --- | --- |
 | qwen2 | 0.5b-instruct-fp16-0bca | [HF Link](https://huggingface.co/Qwen/Qwen2-0.5B-Instruct) |
 | qwen2 | 1.5b-instruct-fp16-f784 | [HF Link](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
-| qwen2 | 57b-a14b-instruct-fp16-c9b8 | [HF Link](https://huggingface.co/Qwen/Qwen2-57B-A14B-Instruct) |
+| qwen2 | 57b-a14b-instruct-fp16-4dcd | [HF Link](https://huggingface.co/Qwen/Qwen2-57B-A14B-Instruct) |
 | qwen2 | 72b-instruct-awq-4bit-13bf | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct-AWQ) |
-| qwen2 | 72b-instruct-fp16-8c5b | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
+| qwen2 | 72b-instruct-fp16-f73f | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
 | qwen2 | 7b-instruct-awq-4bit-3150 | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct-AWQ) |
 | qwen2 | 7b-instruct-fp16-0016 | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
 
@@ -101,7 +102,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | llama2 | 13b-chat-fp16-603a | [HF Link](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) |
-| llama2 | 70b-chat-fp16-95c5 | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
+| llama2 | 70b-chat-fp16-11af | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
 | llama2 | 7b-chat-awq-4bit-c733 | [HF Link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-AWQ) |
 | llama2 | 7b-chat-fp16-b8c6 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
 
@@ -113,7 +114,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | mixtral | 8x7b-instruct-v0.1-awq-4bit-7682 | [HF Link](https://huggingface.co/casperhansen/mixtral-instruct-awq) |
-| mixtral | 8x7b-instruct-v0.1-fp16-39ff | [HF Link](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) |
+| mixtral | 8x7b-instruct-v0.1-fp16-572d | [HF Link](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) |
 
 ---
 
