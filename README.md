@@ -14,6 +14,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 ### Table of Contents
 
+- [Llama-3.1](#llama3.1)
 - [Llama-3](#llama3)
 - [Phi-3](#phi3)
 - [Mistral](#mistral)
@@ -21,7 +22,18 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 - [Gemma](#gemma)
 - [Llama-2](#llama2)
 - [Mixtral](#mixtral)
-- [](#llama3.1)
+
+---
+
+
+### Llama-3.1 <a id="llama3.1"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| llama3.1 | 70b-instruct-awq-4bit-f55b | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4) |
+| llama3.1 | 70b-instruct-fp16-2eb2 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
+| llama3.1 | 8b-instruct-awq-4bit-f737 | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
+| llama3.1 | 8b-instruct-fp16-6d7b | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) |
 
 ---
 
@@ -102,18 +114,6 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | --- | --- | --- |
 | mixtral | 8x7b-instruct-v0.1-awq-4bit-7682 | [HF Link](https://huggingface.co/casperhansen/mixtral-instruct-awq) |
 | mixtral | 8x7b-instruct-v0.1-fp16-39ff | [HF Link](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) |
-
----
-
-
-###  <a id="llama3.1"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-| llama3.1 | 70b-instruct-awq-4bit-f55b | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4) |
-| llama3.1 | 70b-instruct-fp16-2eb2 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
-| llama3.1 | 8b-instruct-awq-4bit-f737 | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
-| llama3.1 | 8b-instruct-fp16-6d7b | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) |
 
 ---
 
