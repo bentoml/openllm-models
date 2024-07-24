@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2
 version: 1.5b-instruct-fp16-f784
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T01:42:24.759968+00:00'
+creation_time: '2024-07-24T08:20:11.672283+00:00'
 labels:
   model_name: Qwen/Qwen2-1.5B-Instruct
   openllm_alias: 1.5b,1.5b-instruct

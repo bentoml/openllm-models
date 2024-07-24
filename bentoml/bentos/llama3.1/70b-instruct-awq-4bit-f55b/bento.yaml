@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3.1
 version: 70b-instruct-awq-4bit-f55b
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T01:41:34.360467+00:00'
+creation_time: '2024-07-24T08:19:13.962795+00:00'
 labels:
   model_name: hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4
   openllm_alias: 70b-4bit,70b-instruct-4bit
