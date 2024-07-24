@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3.1
 version: 8b-instruct-awq-4bit-f737
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T01:41:20.145195+00:00'
+creation_time: '2024-07-24T08:18:59.587834+00:00'
 labels:
   model_name: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
   openllm_alias: 8b-4bit,8b-instruct-4bit

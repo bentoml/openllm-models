@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama2
 version: 7b-chat-fp16-b8c6
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T01:40:00.852316+00:00'
+creation_time: '2024-07-24T08:17:41.042045+00:00'
 labels:
   model_name: meta-llama/Llama-2-7b-chat-hf
   openllm_alias: 7b,7b-chat
