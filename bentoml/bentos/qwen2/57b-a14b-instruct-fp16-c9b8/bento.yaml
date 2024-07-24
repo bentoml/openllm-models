@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2
 version: 57b-a14b-instruct-fp16-c9b8
 bentoml_version: 1.3.0
-creation_time: '2024-07-24T00:57:03.679876+00:00'
+creation_time: '2024-07-24T01:42:53.406502+00:00'
 labels:
   model_name: Qwen/Qwen2-57B-A14B-Instruct
   openllm_alias: 57b-a14b,57b-a14b-instruct
@@ -117,7 +117,7 @@ schema:
 apis: []
 docker:
   distro: debian
-  python_version: '3.11'
+  python_version: '3.9'
   cuda_version: null
   env:
     HF_TOKEN: ''
