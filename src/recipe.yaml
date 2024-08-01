@@ -267,6 +267,50 @@
   extra_labels:
     openllm_alias: 405b-4bit,405b-instruct-4bit
     model_name: hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4
+"gemma2:9b-instruct-fp16":
+  project: vllm-chat
+  service_config:
+    name: gemma2
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-l4
+  engine_config:
+    model: google/gemma-2-9b-it
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 9b,9b-instruct
+    model_name: google/gemma-2-9b-it
+  extra_envs:
+    - name: VLLM_ATTENTION_BACKEND
+      value: FLASHINFER
+  extra_requirements:
+    - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
+    - flashinfer
+"gemma2:27b-instruct-fp16":
+  project: vllm-chat
+  service_config:
+    name: gemma2
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: google/gemma-2-27b-it
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 27b,27b-instruct
+    model_name: google/gemma-2-27b-it
+  extra_envs:
+    - name: VLLM_ATTENTION_BACKEND
+      value: FLASHINFER
+  extra_requirements:
+    - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
+    - flashinfer
 "gemma:2b-instruct-fp16":
   project: vllm-chat
   service_config:
