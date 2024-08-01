@@ -18,6 +18,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 - [Llama-3](#llama3)
 - [Phi-3](#phi3)
 - [Mistral](#mistral)
+- [Gemma-2](#gemma2)
 - [Qwen-2](#qwen2)
 - [Gemma](#gemma)
 - [Llama-2](#llama2)
@@ -67,6 +68,16 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | --- | --- | --- |
 | mistral | 7b-instruct-awq-4bit-332d | [HF Link](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-AWQ) |
 | mistral | 7b-instruct-fp16-c489 | [HF Link](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1) |
+
+---
+
+
+### Gemma-2 <a id="gemma2"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| gemma2 | 27b-instruct-fp16-9fff | [HF Link](https://huggingface.co/google/gemma-2-27b-it) |
+| gemma2 | 9b-instruct-fp16-dce1 | [HF Link](https://huggingface.co/google/gemma-2-9b-it) |
 
 ---
 
