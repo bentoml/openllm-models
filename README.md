@@ -68,6 +68,8 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | --- | --- | --- |
 | mistral | 7b-instruct-awq-4bit-332d | [HF Link](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-AWQ) |
 | mistral | 7b-instruct-fp16-c489 | [HF Link](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1) |
+| mistral | large-123b-instruct-awq-4bit-ec0c | [HF Link](https://huggingface.co/casperhansen/mistral-large-instruct-2407-awq) |
+| mistral | large-123b-instruct-fp16-cadc | [HF Link](https://huggingface.co/mistralai/Mistral-Large-Instruct-2407) |
 
 ---
 
