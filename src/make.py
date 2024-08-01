@@ -67,12 +67,19 @@ if __name__ == "__main__":
                 f.write(CONSTANT_YAML_TMPL.format(yaml.dump(config)))
 
             labels = config.get("extra_labels", {})
+            envs = config.get("extra_envs", [])
             yaml_content = yaml.load(
                 (tempdir / "bentofile.yaml").read_text(), Loader=yaml.SafeLoader
             )
             with open(tempdir / "bentofile.yaml", "w") as f:
                 yaml_content["labels"] = dict(yaml_content.get("labels", {}), **labels)
+                yaml_content["envs"] = yaml_content.get("envs", []) + envs
                 f.write(yaml.dump(yaml_content))
+
+            requirements = config.get("extra_requirements", [])
+            with open(tempdir / "requirements.txt", "a") as f:
+                for req in requirements:
+                    f.write(req + "\n")
 
             directory_hash = hash_directory(tempdir)
             model_version = f"{model_version}-{directory_hash[:4]}"
