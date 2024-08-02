@@ -42,6 +42,49 @@ def hash_directory(directory_path):
     return hasher.hexdigest()
 
 
+def ensure_venv(project, venv_dir):
+    req_hash = hash_file(project / "requirements.txt")
+    venv_path = venv_dir / req_hash[:7]
+    if not venv_path.exists():
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "venv",
+                venv_path,
+            ],
+            check=True,
+        )
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "uv",
+                "pip",
+                "install",
+                "bentoml",
+                "-p",
+                venv_path/"bin"/"python",
+            ],
+            check=True,
+        )
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "uv",
+                "pip",
+                "install",
+                "-r",
+                project / "requirements.txt",
+                "-p",
+                venv_path/"bin"/"python",
+            ],
+            check=True,
+        )
+    return venv_path
+
+
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         specified_model = sys.argv[1]
@@ -93,9 +136,11 @@ if __name__ == "__main__":
                 )
                 continue
 
+            version_path = ensure_venv(tempdir, pathlib.Path(project).absolute() / "venv")
+
             subprocess.run(
                 [
-                    sys.executable,
+                    version_path / "bin" / "python",
                     "-m",
                     "bentoml",
                     "build",
