@@ -39,7 +39,7 @@ jobs:
         if [[ -n $(git status -s) ]]; then
           git add bentoml/bentos/*
           git commit -m "chore: make bentos"
-          git push
+          git push origin nightly
         else
           echo "No changes to commit"
         fi
