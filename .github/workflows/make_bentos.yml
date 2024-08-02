@@ -1,0 +1,47 @@
+name: Make bentos
+
+on:
+  push:
+    branches:
+      - nightly
+
+permissions:
+  contents: write
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Make bentos
+      run: |
+        python -m pip install --upgrade pip
+        cd src
+        pip install -r make_requirements.txt
+        make
+        cd ..
+
+    - name: Configure git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Commit and push changes
+      run: |
+        if [[ -n $(git status -s) ]]; then
+          git add bentoml/bentos/*
+          git commit -m "chore: make bentos"
+          git push
+        else
+          echo "No changes to commit"
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
