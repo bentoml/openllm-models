@@ -1,0 +1,16 @@
+chat_template: phi-3
+engine_config:
+  dtype: half
+  max_model_len: 4096
+  model: microsoft/Phi-3-mini-4k-instruct
+extra_labels:
+  model_name: microsoft/Phi-3-mini-4k-instruct
+  openllm_alias: 3.8b,3.8b-mini,3.8b-mini-instruct-4k-fp16
+project: vllm-chat
+service_config:
+  name: phi3
+  resources:
+    gpu: 1
+    gpu_type: nvidia-rtx-3060
+  traffic:
+    timeout: 300
