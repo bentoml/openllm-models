@@ -3,7 +3,6 @@ from annotated_types import Ge, Le
 from typing_extensions import Annotated
 from llama_cpp import Llama
 from typing import AsyncGenerator, Optional
-from bento_constants import CONSTANT_YAML
 import yaml
 import fastapi
 import fastapi.staticfiles
@@ -20,7 +19,10 @@ You are a helpful, respectful and honest assistant. Always answer as helpfully a
 Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct.If you don't know the answer to a question, please don't share false information
 """
 
-CONSTANTS = yaml.safe_load(CONSTANT_YAML)
+# Load the constants from the yaml file
+CONSTANT_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
+with open(CONSTANT_YAML) as f:
+    CONSTANTS = yaml.safe_load(f)
 
 ENGINE_CONFIG = CONSTANTS["engine_config"]
 SERVICE_CONFIG = CONSTANTS["service_config"]

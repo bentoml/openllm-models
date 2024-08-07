@@ -1,4 +1,3 @@
-CONSTANT_YAML = """
 project: chattts
 service_config:
   name: chattts
@@ -6,4 +5,3 @@ service_config:
     timeout: 300
   resources:
     gpu: 1
-"""

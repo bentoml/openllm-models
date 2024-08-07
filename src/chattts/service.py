@@ -6,11 +6,13 @@ import bentoml
 import fastapi
 import fastapi.staticfiles
 import yaml
-from bento_constants import CONSTANT_YAML
 from bentoml.validators import ContentType
 from fastapi.responses import FileResponse
 
-CONSTANTS = yaml.safe_load(CONSTANT_YAML)
+# Load the constants from the yaml file
+CONSTANT_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
+with open(CONSTANT_YAML) as f:
+    CONSTANTS = yaml.safe_load(f)
 ROOT_DIR = os.path.join(os.path.dirname(__file__), "ui", "build")
 
 ui_app = fastapi.FastAPI()

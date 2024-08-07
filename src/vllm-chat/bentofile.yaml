@@ -4,6 +4,7 @@ labels:
   platforms: linux
 include:
 - "*.py"
+- "*.yaml"
 - "ui/*"
 - "ui/chunks/*"
 - "ui/css/*"

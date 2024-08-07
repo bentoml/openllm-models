@@ -13,7 +13,6 @@ import pydantic
 import vllm.entrypoints.openai.api_server as vllm_api_server
 import yaml
 from annotated_types import Ge, Le
-from bento_constants import CONSTANT_YAML
 from fastapi.responses import FileResponse
 from typing_extensions import Annotated, Literal
 
@@ -22,8 +21,10 @@ class Message(pydantic.BaseModel):
     content: str
     role: Literal["system", "user", "assistant"]
 
-
-CONSTANTS = yaml.safe_load(CONSTANT_YAML)
+# Load the constants from the yaml file
+CONSTANT_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
+with open(CONSTANT_YAML) as f:
+    CONSTANTS = yaml.safe_load(f)
 
 ENGINE_CONFIG = CONSTANTS["engine_config"]
 SERVICE_CONFIG = CONSTANTS["service_config"]
