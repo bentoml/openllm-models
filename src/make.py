@@ -15,13 +15,6 @@ with open("recipe.yaml") as f:
 BENTOML_HOME = pathlib.Path(os.environ["BENTOML_HOME"])
 
 
-CONSTANT_YAML_TMPL = r"""
-CONSTANT_YAML = '''
-{}
-'''
-"""
-
-
 def hash_file(file_path):
     hasher = hashlib.sha256()
     with open(file_path, "rb") as f:
@@ -42,16 +35,14 @@ def hash_directory(directory_path):
     return hasher.hexdigest()
 
 
-def ensure_venv(project, venv_dir):
-    req_hash = hash_file(project / "requirements.txt")
-    venv_path = venv_dir / req_hash[:7]
-    if not venv_path.exists():
+def ensure_venv(req_txt_file, venv_dir):
+    if not venv_dir.exists():
         subprocess.run(
             [
                 sys.executable,
                 "-m",
                 "venv",
-                venv_path,
+                venv_dir,
             ],
             check=True,
         )
@@ -64,7 +55,7 @@ def ensure_venv(project, venv_dir):
                 "install",
                 "bentoml",
                 "-p",
-                venv_path/"bin"/"python",
+                venv_dir/"bin"/"python",
             ],
             check=True,
         )
@@ -76,13 +67,13 @@ def ensure_venv(project, venv_dir):
                 "pip",
                 "install",
                 "-r",
-                project / "requirements.txt",
+                req_txt_file,
                 "-p",
-                venv_path/"bin"/"python",
+                venv_dir/"bin"/"python",
             ],
             check=True,
         )
-    return venv_path
+    return venv_dir
 
 
 if __name__ == "__main__":
@@ -106,8 +97,8 @@ if __name__ == "__main__":
             tempdir = pathlib.Path(tempdir)
             shutil.copytree(project, tempdir, dirs_exist_ok=True)
 
-            with open(tempdir / "bento_constants.py", "w") as f:
-                f.write(CONSTANT_YAML_TMPL.format(yaml.dump(config)))
+            with open(tempdir / "openllm_config.yaml", "w") as f:
+                f.write(yaml.dump(config))
 
             labels = config.get("extra_labels", {})
             envs = config.get("extra_envs", [])
@@ -136,7 +127,10 @@ if __name__ == "__main__":
                 )
                 continue
 
-            version_path = ensure_venv(tempdir, pathlib.Path(project).absolute() / "venv")
+            # prepare venv
+            req_txt_file = tempdir / "requirements.txt"
+            venv_dir = pathlib.Path("venv").absolute() / f"{project}-{hash_file(req_txt_file)[:7]}"
+            version_path = ensure_venv(req_txt_file, venv_dir)
 
             subprocess.run(
                 [

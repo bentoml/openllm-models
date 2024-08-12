@@ -4,6 +4,7 @@ labels:
   platforms: macos,linux
 include:
 - "*.py"
+- "*.yaml"
 - "ui/*"
 python:
   requirements_txt: "./requirements.txt"
