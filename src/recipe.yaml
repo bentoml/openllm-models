@@ -323,7 +323,7 @@
       value: FLASHINFER
   extra_requirements:
     - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
-    - flashinfer
+    - flashinfer==0.1.2+cu121torch2.3
 "gemma2:27b-instruct-fp16":
   project: vllm-chat
   service_config:
@@ -345,7 +345,7 @@
       value: FLASHINFER
   extra_requirements:
     - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
-    - flashinfer
+    - flashinfer==0.1.2+cu121torch2.3
 "gemma:2b-instruct-fp16":
   project: vllm-chat
   service_config:
