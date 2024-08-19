@@ -23,7 +23,8 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 - [Gemma](#gemma)
 - [Llama-2](#llama2)
 - [Mixtral](#mixtral)
-- [](#mistral-large)
+- [Mistral-Large](#mistral-large)
+- [Codestral](#codestral)
 
 ---
 
@@ -67,6 +68,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
+| mistral | 24b-instruct-nemo-ec54 | [HF Link](https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407) |
 | mistral | 7b-instruct-awq-4bit-01cd | [HF Link](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-AWQ) |
 | mistral | 7b-instruct-fp16-e1cd | [HF Link](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1) |
 
@@ -131,12 +133,21 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-###  <a id="mistral-large"></a>
+### Mistral-Large <a id="mistral-large"></a>
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | mistral-large | 123b-instruct-awq-4bit-1d37 | [HF Link](https://huggingface.co/casperhansen/mistral-large-instruct-2407-awq) |
 | mistral-large | 123b-instruct-fp16-5c96 | [HF Link](https://huggingface.co/mistralai/Mistral-Large-Instruct-2407) |
+
+---
+
+
+### Codestral <a id="codestral"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| codestral | 22b-v0.1-fp16-12d3 | [HF Link](https://huggingface.co/mistralai/Codestral-22B-v0.1) |
 
 ---
 
