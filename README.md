@@ -147,7 +147,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| codestral | 22b-v0.1-fp16-12d3 | [HF Link](https://huggingface.co/mistralai/Codestral-22B-v0.1) |
+| codestral | 22b-v0.1-fp16-b677 | [HF Link](https://huggingface.co/mistralai/Codestral-22B-v0.1) |
 
 ---
 
