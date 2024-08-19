@@ -1,4 +1,4 @@
-# codestral:22b-v0.1-fp16-12d3
+# codestral:22b-v0.1-fp16-b677
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.2-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)

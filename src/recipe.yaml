@@ -151,7 +151,7 @@
       gpu_type: nvidia-a100-80g
   engine_config:
     model: mistralai/Codestral-22B-v0.1
-    max_model_len: 1024
+    max_model_len: 8192
     enforce_eager: true
     dtype: half
   chat_template: mistral-instruct
