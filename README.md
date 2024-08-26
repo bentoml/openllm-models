@@ -59,7 +59,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 | phi3 | 3.8b-instruct-fp16-166c | [HF Link](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct) |
-| phi3 | 3.8b-instruct-ggml-q4-8789 | [HF Link](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf) |
+| phi3 | 3.8b-instruct-ggml-q4-76aa | [HF Link](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf) |
 
 ---
 
