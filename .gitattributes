@@ -1,3 +1,3 @@
 * text=auto eol=lf
-bentoml/** linguist-generated=true
+bentoml/** linguist-vendored=true
 README.md linguist-generated=true
