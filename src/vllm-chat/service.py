@@ -110,7 +110,7 @@ class VLLM:
 
         # inject the engine into the openai serving chat and completion
         vllm_api_server.openai_serving_chat = OpenAIServingChat(
-            engine=self.engine,
+            async_engine_client=self.engine,
             served_model_names=[ENGINE_CONFIG["model"]],
             response_role="assistant",
             chat_template=chat_template,
@@ -120,7 +120,7 @@ class VLLM:
             request_logger=None,
         )
         vllm_api_server.openai_serving_completion = OpenAIServingCompletion(
-            engine=self.engine,
+            async_engine_client=self.engine,
             served_model_names=[ENGINE_CONFIG["model"]],
             model_config=model_config,
             lora_modules=None,
