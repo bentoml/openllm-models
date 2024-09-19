@@ -1,4 +1,5 @@
 * text=auto eol=lf
-bentoml/** linguist-generated=true
-README.md linguist-generated=true
-**/ui/** linguist-vendored=true
+bentoml/** linguist-generated
+README.md linguist-generated
+**/ui/** linguist-vendored
+src/vllm-chat/chat_templates/** linguist-vendored
