@@ -13,6 +13,7 @@ model_display_names = {
     "phi3": "Phi-3",
     "mistral": "Mistral",
     "qwen2": "Qwen-2",
+    "qwen2.5": "Qwen-2.5",
     "gemma": "Gemma",
     "gemma2": "Gemma-2",
     "llama2": "Llama-2",
@@ -28,11 +29,12 @@ model_priority = {
     "mistral": 4,
     "gemma2": 5,
     "qwen2": 6,
-    "gemma": 7,
-    "llama2": 8,
-    "mixtral": 9,
-    "mistral-large": 10,
-    "codestral": 11,
+    "qwen2.5": 7,
+    "gemma": 8,
+    "llama2": 9,
+    "mixtral": 10,
+    "mistral-large": 11,
+    "codestral": 12,
 }
 
 yaml_files = glob.glob(os.path.join(root_dir, "**/bento.yaml"), recursive=True)
