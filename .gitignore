@@ -5,6 +5,7 @@ __pycache__/
 
 # Environments
 venv/
+.venv/
 
 # BentoML
 bentoml/client_id
