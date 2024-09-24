@@ -10,3 +10,4 @@ venv/
 bentoml/client_id
 bentoml/prometheus_multiproc_dir/
 *.db
+**/.yatai.yaml
