@@ -10,6 +10,6 @@ service_config:
   name: qwen2.5
   resources:
     gpu: 1
-    gpu_type: nvidia-l4
+    gpu_type: nvidia-a100-80g
   traffic:
     timeout: 300
