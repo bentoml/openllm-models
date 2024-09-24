@@ -105,9 +105,13 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| qwen2.5 | 0.5b-instruct-fp16-6a1b | [HF Link](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) |
-| qwen2.5 | 1.5b-instruct-fp16-86f6 | [HF Link](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
-| qwen2.5 | 3b-instruct-fp16-faad | [HF Link](https://huggingface.co/Qwen/Qwen2-3B-Instruct) |
+| qwen2.5 | 0.5b-instruct-fp16-5a57 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) |
+| qwen2.5 | 1.5b-instruct-fp16-6c7f | [HF Link](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) |
+| qwen2.5 | 14b-instruct-fp16-8d25 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct) |
+| qwen2.5 | 32b-instruct-fp16-0862 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) |
+| qwen2.5 | 3b-instruct-fp16-7eb6 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) |
+| qwen2.5 | 72b-instruct-fp16-b679 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) |
+| qwen2.5 | 7b-instruct-fp16-de92 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) |
 
 ---
 

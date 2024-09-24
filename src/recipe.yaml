@@ -514,6 +514,70 @@
   extra_labels:
     openllm_alias: 3b,3b-instruct
     model_name: Qwen/Qwen2.5-3B-Instruct
+'qwen2.5:7b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: qwen2.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+  engine_config:
+    model: Qwen/Qwen2.5-7B-Instruct
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 7b,7b-instruct
+    model_name: Qwen/Qwen2.5-7B-Instruct
+'qwen2.5:14b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: qwen2.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: Qwen/Qwen2.5-14B-Instruct
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 14b,14b-instruct
+    model_name: Qwen/Qwen2.5-14B-Instruct
+'qwen2.5:32b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: qwen2.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: Qwen/Qwen2.5-32B-Instruct
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 32b,32b-instruct
+    model_name: Qwen/Qwen2.5-32B-Instruct
+'qwen2.5:72b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: qwen2.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 2
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: Qwen/Qwen2.5-72B-Instruct
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 72b,72b-instruct
+    model_name: Qwen/Qwen2.5-72B-Instruct
 'qwen2:0.5b-instruct-fp16':
   project: vllm-chat
   service_config:
