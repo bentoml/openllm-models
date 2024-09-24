@@ -1,7 +1,7 @@
 engine_config:
   dtype: half
   max_model_len: 2048
-  model: Qwen/Qwen2-1.5B-Instruct
+  model: Qwen/Qwen2.5-1.5B-Instruct
 extra_labels:
   model_name: Qwen/Qwen2.5-1.5B-Instruct
   openllm_alias: 1.5b,1.5b-instruct
