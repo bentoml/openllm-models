@@ -3,7 +3,7 @@ engine_config:
   max_model_len: 2048
   model: Qwen/Qwen2.5-0.5B-Instruct
 extra_labels:
-  model_name: Qwen/Qwen2-0.5B-Instruct
+  model_name: Qwen/Qwen2.5-0.5B-Instruct
   openllm_alias: 0.5b,0.5b-instruct
 project: vllm-chat
 service_config:
