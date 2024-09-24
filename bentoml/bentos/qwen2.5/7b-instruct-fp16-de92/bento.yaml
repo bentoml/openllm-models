@@ -1,11 +1,11 @@
 service: service:VLLM
 name: qwen2.5
-version: 14b-instruct-fp16-a26b
+version: 7b-instruct-fp16-de92
 bentoml_version: 1.3.5
-creation_time: '2024-09-24T23:05:34.473057+00:00'
+creation_time: '2024-09-24T23:25:08.277776+00:00'
 labels:
-  model_name: Qwen/Qwen2.5-14B-Instruct
-  openllm_alias: 14b,14b-instruct
+  model_name: Qwen/Qwen2.5-7B-Instruct
+  openllm_alias: 7b,7b-instruct
   platforms: linux
   source: https://github.com/bentoml/openllm-models-feed/tree/main/src/vllm-chat
 models: []
@@ -20,7 +20,7 @@ services:
     name: qwen2.5
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
     traffic:
       timeout: 300
 envs:
@@ -58,7 +58,7 @@ schema:
           title: Messages
           type: array
         model:
-          default: Qwen/Qwen2.5-14B-Instruct
+          default: Qwen/Qwen2.5-7B-Instruct
           title: Model
           type: string
         max_tokens:
@@ -91,7 +91,7 @@ schema:
           title: Prompt
           type: string
         model:
-          default: Qwen/Qwen2.5-14B-Instruct
+          default: Qwen/Qwen2.5-7B-Instruct
           title: Model
           type: string
         max_tokens:

@@ -10,6 +10,6 @@ service_config:
   name: qwen2.5
   resources:
     gpu: 1
-    gpu_type: nvidia-tesla-l4
+    gpu_type: nvidia-l4
   traffic:
     timeout: 300
