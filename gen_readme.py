@@ -8,6 +8,7 @@ root_dir = "bentoml/bentos"
 grouped_data = defaultdict(list)
 
 model_display_names = {
+    "llama3.2": "Llama-3.2",
     "llama3.1": "Llama-3.1",
     "llama3": "Llama-3",
     "phi3": "Phi-3",
@@ -23,18 +24,19 @@ model_display_names = {
 }
 
 model_priority = {
-    "llama3.1": 1,
-    "llama3": 2,
-    "phi3": 3,
-    "mistral": 4,
-    "gemma2": 5,
-    "qwen2": 6,
+    "llama3.2": 1,
+    "llama3.1": 2,
+    "llama3": 3,
+    "phi3": 4,
+    "mistral": 5,
+    "gemma2": 6,
     "qwen2.5": 7,
-    "gemma": 8,
-    "llama2": 9,
-    "mixtral": 10,
-    "mistral-large": 11,
-    "codestral": 12,
+    "qwen2": 8,
+    "gemma": 9,
+    "llama2": 10,
+    "mixtral": 11,
+    "mistral-large": 12,
+    "codestral": 13,
 }
 
 yaml_files = glob.glob(os.path.join(root_dir, "**/bento.yaml"), recursive=True)
