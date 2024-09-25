@@ -1,0 +1,20 @@
+alias:
+  - 12b
+project: vllm-chat
+bentoml:
+  service_args:
+    name: pixtral
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+vllm:
+  engine_args:
+    model: mistral-community/pixtral-12b-240910
+    tokenizer_mode: mistral
+    enable_prefix_caching: true
+    enable_chunked_prefill: false
+    limit_mm_per_prompt:
+      image: 1
+    max_model_len: 16384
