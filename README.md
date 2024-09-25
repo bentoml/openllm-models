@@ -14,18 +14,29 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 ### Table of Contents
 
+- [Llama-3.2](#llama3.2)
 - [Llama-3.1](#llama3.1)
 - [Llama-3](#llama3)
 - [Phi-3](#phi3)
 - [Mistral](#mistral)
 - [Gemma-2](#gemma2)
-- [Qwen-2](#qwen2)
 - [Qwen-2.5](#qwen2.5)
+- [Qwen-2](#qwen2)
 - [Gemma](#gemma)
 - [Llama-2](#llama2)
 - [Mixtral](#mixtral)
 - [Mistral-Large](#mistral-large)
 - [Codestral](#codestral)
+
+---
+
+
+### Llama-3.2 <a id="llama3.2"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| llama3.2 | 1b-instruct-fp16-044b | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.2-1B-Instruct) |
+| llama3.2 | 3b-instruct-fp16-cef8 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.2-3B-Instruct) |
 
 ---
 
@@ -86,21 +97,6 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-### Qwen-2 <a id="qwen2"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-| qwen2 | 0.5b-instruct-fp16-114e | [HF Link](https://huggingface.co/Qwen/Qwen2-0.5B-Instruct) |
-| qwen2 | 1.5b-instruct-fp16-743d | [HF Link](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
-| qwen2 | 57b-a14b-instruct-fp16-13ca | [HF Link](https://huggingface.co/Qwen/Qwen2-57B-A14B-Instruct) |
-| qwen2 | 72b-instruct-awq-4bit-5384 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct-AWQ) |
-| qwen2 | 72b-instruct-fp16-4755 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
-| qwen2 | 7b-instruct-awq-4bit-89de | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct-AWQ) |
-| qwen2 | 7b-instruct-fp16-c17f | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
-
----
-
-
 ### Qwen-2.5 <a id="qwen2.5"></a>
 
 | Model | Version | Huggingface Link |
@@ -112,6 +108,21 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | qwen2.5 | 3b-instruct-fp16-7eb6 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) |
 | qwen2.5 | 72b-instruct-fp16-b679 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) |
 | qwen2.5 | 7b-instruct-fp16-de92 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) |
+
+---
+
+
+### Qwen-2 <a id="qwen2"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| qwen2 | 0.5b-instruct-fp16-114e | [HF Link](https://huggingface.co/Qwen/Qwen2-0.5B-Instruct) |
+| qwen2 | 1.5b-instruct-fp16-743d | [HF Link](https://huggingface.co/Qwen/Qwen2-1.5B-Instruct) |
+| qwen2 | 57b-a14b-instruct-fp16-13ca | [HF Link](https://huggingface.co/Qwen/Qwen2-57B-A14B-Instruct) |
+| qwen2 | 72b-instruct-awq-4bit-5384 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct-AWQ) |
+| qwen2 | 72b-instruct-fp16-4755 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
+| qwen2 | 7b-instruct-awq-4bit-89de | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct-AWQ) |
+| qwen2 | 7b-instruct-fp16-c17f | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
 
 ---
 
