@@ -35,8 +35,8 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| llama3.2 | 1b-instruct-fp16-044b | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.2-1B-Instruct) |
-| llama3.2 | 3b-instruct-fp16-cef8 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.2-3B-Instruct) |
+| llama3.2 | 1b-instruct-fp16-f6ac | [HF Link](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) |
+| llama3.2 | 3b-instruct-fp16-f88f | [HF Link](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) |
 
 ---
 
