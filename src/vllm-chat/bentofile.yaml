@@ -1,6 +1,6 @@
 service: "service:VLLM"
 labels:
-  source: https://github.com/bentoml/openllm-models-feed/tree/main/src/vllm-chat
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
   platforms: linux
 include:
 - "*.py"
@@ -10,11 +10,5 @@ include:
 - "ui/css/*"
 - "ui/media/*"
 - "ui/chunks/pages/*"
-- "bentovllm_openai/*.py"
-- "chat_templates/chat_templates/*.jinja"
-- "chat_templates/generation_configs/*.json"
 python:
   requirements_txt: "./requirements.txt"
-  lock_packages: true
-envs:
-  - name: HF_TOKEN
