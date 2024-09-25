@@ -1,10 +1,10 @@
 import functools
+from openai import AsyncOpenAI
+import PIL.Image
 import json
 import logging
 import os
-import sys
-import uuid
-from typing import AsyncGenerator, Literal, Optional
+from typing import AsyncGenerator, Literal
 
 import bentoml
 import fastapi
@@ -17,18 +17,14 @@ from fastapi.responses import FileResponse
 from typing_extensions import Annotated, Literal
 
 
-class Message(pydantic.BaseModel):
-    content: str
-    role: Literal["system", "user", "assistant"]
-
 # Load the constants from the yaml file
 CONSTANT_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
 with open(CONSTANT_YAML) as f:
-    CONSTANTS = yaml.safe_load(f)
+    PARAMETERS = yaml.safe_load(f)
 
-ENGINE_CONFIG = CONSTANTS["engine_config"]
-SERVICE_CONFIG = CONSTANTS["service_config"]
-OVERRIDE_CHAT_TEMPLATE = CONSTANTS.get("chat_template")
+ENGINE_CONFIG = PARAMETERS.get("vllm", {}).get("engine_args", {})
+SERVICE_CONFIG = PARAMETERS.get("bentoml", {}).get("service_args", {})
+OVERRIDE_CHAT_TEMPLATE = PARAMETERS.get("chat_template")
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -80,28 +76,21 @@ async def catch_all(full_path: str):
     return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
 
 
-# special handling for prometheus_client of bentoml
-if "prometheus_client" in sys.modules:
-    sys.modules.pop("prometheus_client")
-
-
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.mount_asgi_app(ui_app, path="/chat")
 @bentoml.service(**SERVICE_CONFIG)
 class VLLM:
     def __init__(self) -> None:
-        from transformers import AutoTokenizer
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
         from vllm.entrypoints.openai.serving_completion import OpenAIServingCompletion
 
         ENGINE_ARGS = AsyncEngineArgs(**ENGINE_CONFIG)
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
-        self.tokenizer = AutoTokenizer.from_pretrained(ENGINE_CONFIG["model"])
         logger.info(f"VLLM service initialized with model: {ENGINE_CONFIG['model']}")
 
         if OVERRIDE_CHAT_TEMPLATE:  # use community chat template
-            gen_config = _get_gen_config(CONSTANTS["chat_template"])
+            gen_config = _get_gen_config(OVERRIDE_CHAT_TEMPLATE)
             chat_template = gen_config["template"]
         else:
             chat_template = None
@@ -128,103 +117,45 @@ class VLLM:
             request_logger=None,
         )
 
-    @bentoml.api(route="/api/generate")
-    async def generate(
-        self,
-        prompt: str = "Explain superconductors like I'm five years old",
-        model: str = ENGINE_CONFIG["model"],
-        max_tokens: Annotated[
-            int,
-            Ge(128),
-            Le(ENGINE_CONFIG["max_model_len"]),
-        ] = ENGINE_CONFIG["max_model_len"],
-        stop: Optional[list[str]] = None,
-    ) -> AsyncGenerator[str, None]:
-        if stop is None:
-            stop = []
-
-        from vllm import SamplingParams
-
-        SAMPLING_PARAM = SamplingParams(
-            max_tokens=max_tokens,
-            stop=stop,
-        )
-        stream = await self.engine.add_request(uuid.uuid4().hex, prompt, SAMPLING_PARAM)
-
-        cursor = 0
-        async for request_output in stream:
-            text = request_output.outputs[0].text
-            yield text[cursor:]
-            cursor = len(text)
-
     @bentoml.api(route="/api/chat")
     async def chat(
         self,
-        messages: list[Message] = [
-            Message(content="what is the meaning of life?", role="user")
-        ],
-        model: str = ENGINE_CONFIG["model"],
+        image: PIL.Image.Image,
+        prompt: str = "Describe the image",
         max_tokens: Annotated[
             int,
             Ge(128),
             Le(ENGINE_CONFIG["max_model_len"]),
         ] = ENGINE_CONFIG["max_model_len"],
-        stop: Optional[list[str]] = None,
     ) -> AsyncGenerator[str, None]:
         """
         light-weight chat API that takes in a list of messages and returns a response
         """
-        from vllm import SamplingParams
-
-        try:
-            if OVERRIDE_CHAT_TEMPLATE:  # community chat template
-                gen_config = _get_gen_config(CONSTANTS["chat_template"])
-                if not stop:
-                    if gen_config["stop_str"]:
-                        stop = [gen_config["stop_str"]]
-                    else:
-                        stop = []
-                system_prompt = gen_config["system_prompt"]
-                self.tokenizer.chat_template = gen_config["template"]
-            else:
-                if not stop:
-                    if self.tokenizer.eos_token is not None:
-                        stop = [self.tokenizer.eos_token]
-                    else:
-                        stop = []
-                system_prompt = None
-
-            SAMPLING_PARAM = SamplingParams(
-                max_tokens=max_tokens,
-                stop=stop,
-            )
-            if system_prompt and messages[0].role != "system":
-                messages = [dict(role="system", content=system_prompt)] + messages
-
-            prompt = self.tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True,
-            )
-
-            stream = await self.engine.add_request(
-                uuid.uuid4().hex, prompt, SAMPLING_PARAM
-            )
-
-            cursor = 0
-            strip_flag = True
-            async for request_output in stream:
-                text = request_output.outputs[0].text
-                assistant_message = text[cursor:]
-                if not strip_flag:  # strip the leading whitespace
-                    yield assistant_message
-                elif assistant_message.strip():
-                    strip_flag = False
-                    yield assistant_message.lstrip()
-                cursor = len(text)
-        except Exception as e:
-            logger.error(f"Error in chat API: {e}")
-            yield f"Error in chat API: {e}"
+        import io
+        import base64
+    
+        img_byte_arr = io.BytesIO()
+        image.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+        img_b64_str = base64.b64encode(img_byte_arr).decode('utf-8')
+        img_type = 'image/png'
+    
+        client = AsyncOpenAI(base_url="http://localhost:3000/v1")
+        chat_completion = await client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt},
+                        {"type": "image_url", "image_url": {"url": f"data:{img_type};base64,{img_b64_str}"}},
+                    ]
+                },
+            ],
+            max_tokens=max_tokens,
+            model=ENGINE_CONFIG["model"],
+        )
+        async for message in chat_completion.messages:
+            yield message.content
 
 
 @functools.lru_cache(maxsize=1)

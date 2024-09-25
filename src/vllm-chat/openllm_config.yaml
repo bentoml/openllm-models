@@ -1,14 +1,20 @@
 alias:
-  - 7b-4bit
+  - 12b
 project: vllm-chat
-service_config:
-  name: qwen2
-  traffic:
-    timeout: 300
-  resources:
-    gpu: 1
-    gpu_type: nvidia-rtx-3060
-engine_config:
-  model: Qwen/Qwen2-7B-Instruct-AWQ
-  max_model_len: 2048
-  quantization: awq
+bentoml:
+  service_args:
+    name: pixtral
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+vllm:
+  engine_args:
+    model: mistral-community/pixtral-12b-240910
+    tokenizer_mode: mistral
+    enable_prefix_caching: true
+    enable_chunked_prefill: false
+    limit_mm_per_prompt:
+      image: 1
+    max_model_len: 16384
