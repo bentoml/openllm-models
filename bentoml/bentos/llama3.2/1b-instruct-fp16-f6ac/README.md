@@ -1,4 +1,4 @@
-# llama3.2:3b-instruct-fp16-cef8
+# llama3.2:1b-instruct-fp16-f6ac
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.5-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)

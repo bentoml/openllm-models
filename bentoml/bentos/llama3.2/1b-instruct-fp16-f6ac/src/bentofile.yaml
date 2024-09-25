@@ -12,7 +12,7 @@ include:
 - chat_templates/chat_templates/*.jinja
 - chat_templates/generation_configs/*.json
 labels:
-  model_name: meta-llama/Meta-Llama-3.2-1B-Instruct
+  model_name: meta-llama/Llama-3.2-1B-Instruct
   openllm_alias: 1b,1b-instruct
   platforms: linux
   source: https://github.com/bentoml/openllm-models-feed/tree/main/src/vllm-chat

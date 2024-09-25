@@ -1,10 +1,10 @@
 service: service:VLLM
 name: llama3.2
-version: 3b-instruct-fp16-cef8
+version: 3b-instruct-fp16-f88f
 bentoml_version: 1.3.5
-creation_time: '2024-09-25T19:57:05.431883+00:00'
+creation_time: '2024-09-25T20:15:49.464375+00:00'
 labels:
-  model_name: meta-llama/Meta-Llama-3.2-3B-Instruct
+  model_name: meta-llama/Llama-3.2-3B-Instruct
   openllm_alias: 3b,3b-instruct
   platforms: linux
   source: https://github.com/bentoml/openllm-models-feed/tree/main/src/vllm-chat
@@ -58,7 +58,7 @@ schema:
           title: Messages
           type: array
         model:
-          default: meta-llama/Meta-Llama-3.2-3B-Instruct
+          default: meta-llama/Llama-3.2-3B-Instruct
           title: Model
           type: string
         max_tokens:
@@ -91,7 +91,7 @@ schema:
           title: Prompt
           type: string
         model:
-          default: meta-llama/Meta-Llama-3.2-3B-Instruct
+          default: meta-llama/Llama-3.2-3B-Instruct
           title: Model
           type: string
         max_tokens:

@@ -42,7 +42,7 @@
             "type": "array"
           },
           "model": {
-            "default": "meta-llama/Meta-Llama-3.2-3B-Instruct",
+            "default": "meta-llama/Llama-3.2-3B-Instruct",
             "title": "Model",
             "type": "string"
           },
@@ -85,7 +85,7 @@
             "type": "string"
           },
           "model": {
-            "default": "meta-llama/Meta-Llama-3.2-3B-Instruct",
+            "default": "meta-llama/Llama-3.2-3B-Instruct",
             "title": "Model",
             "type": "string"
           },
