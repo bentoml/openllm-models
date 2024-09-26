@@ -1,15 +1,14 @@
 project: vllm-chat
 service_config:
-  name: llama3.2
+  name: llama2
   traffic:
     timeout: 300
   resources:
     gpu: 1
-    gpu_type: nvidia-a100-80gb
+    gpu_type: nvidia-rtx-3060
 engine_config:
-  model: meta-llama/Llama-3.2-11B-Vision-Instruct
+  model: TheBloke/Llama-2-7B-Chat-AWQ
+  max_model_len: 1024
+  quantization: awq
   enforce_eager: true
-  limit_mm_per_prompt:
-    image: 1
-  max_model_len: 16384
-  max_num_seqs: 16
+chat_template: llama-2-chat
