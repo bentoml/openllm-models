@@ -1,19 +1,19 @@
-import logging
-import traceback
 import base64
 import io
+import logging
 import os
+import traceback
 from argparse import Namespace
-from typing import Literal, Optional, AsyncGenerator
+from typing import AsyncGenerator, Literal, Optional
 
 import bentoml
 import fastapi
 import fastapi.staticfiles
+import PIL.Image
 import pydantic
 import vllm.entrypoints.openai.api_server as vllm_api_server
 import yaml
 from fastapi.responses import FileResponse
-import PIL.Image
 
 
 class URL(pydantic.BaseModel):
@@ -31,18 +31,14 @@ class Message(pydantic.BaseModel):
     content: list[Content]
 
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-
-# Load the constants from the yaml file
 PARAMETER_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
 with open(PARAMETER_YAML) as f:
     PARAMETERS = yaml.safe_load(f)
+ENGINE_CONFIG = PARAMETERS.get("engine_config", {})
+SERVICE_CONFIG = PARAMETERS.get("service_config", {})
 
-ENGINE_CONFIG = PARAMETERS.get("vllm", {}).get("engine_args", {})
-SERVICE_CONFIG = PARAMETERS.get("bentoml", {}).get("service_args", {})
-
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # openai api app
 openai_api_app = fastapi.FastAPI()
@@ -58,7 +54,6 @@ for route, endpoint, methods in OPENAI_ENDPOINTS:
         methods=methods,
         include_in_schema=True,
     )
-
 
 # chat UI app
 ui_app = fastapi.FastAPI()
@@ -114,18 +109,19 @@ class VLLM:
         init_app_state(self.engine, model_config, openai_api_app.state, args)
 
     @bentoml.api
-    async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
+    async def generate(
+        self, prompt: str = "what is this?"
+    ) -> AsyncGenerator[str, None]:
         async for text in self.generate_with_image(prompt):
             yield text
 
     @bentoml.api
-    async def generate_with_image(self, prompt: str = "what is this?", image: Optional[PIL.Image.Image] = None) -> AsyncGenerator[str, None]:
+    async def generate_with_image(
+        self, prompt: str = "what is this?", image: Optional[PIL.Image.Image] = None
+    ) -> AsyncGenerator[str, None]:
         from openai import AsyncOpenAI
 
-        client = AsyncOpenAI(
-            base_url="http://127.0.0.1:3000/v1",
-            api_key="dummy",
-        )
+        client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
         if image:
             buffered = io.BytesIO()
             image.save(buffered, format="PNG")
@@ -133,28 +129,17 @@ class VLLM:
             buffered.close()
             image_url = f"data:image/png;base64,{img_str}"
             content = [
-                Content(
-                    type="image_url",
-                    image_url=URL(url=image_url),
-                ),
-                Content(
-                    type="text",
-                    text=prompt,
-                )
+                Content(type="image_url", image_url=URL(url=image_url)),
+                Content(type="text", text=prompt),
             ]
         else:
-            content = [
-                Content(
-                    type="text",
-                    text=prompt,
-                )
-            ]
+            content = [Content(type="text", text=prompt)]
         message = Message(role="user", content=content)
 
         try:
-            completion = await client.chat.completions.create(
+            completion = await client.chat.completions.create(  # type: ignore
                 model=ENGINE_CONFIG["model"],
-                messages=[message.model_dump()],
+                messages=[message.model_dump()],  # type: ignore
                 stream=True,
             )
             async for chunk in completion:
