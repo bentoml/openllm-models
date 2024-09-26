@@ -1,7 +1,10 @@
 import logging
+import traceback
+import base64
+import io
 import os
 from argparse import Namespace
-from typing import Literal
+from typing import Literal, Optional, AsyncGenerator
 
 import bentoml
 import fastapi
@@ -10,11 +13,22 @@ import pydantic
 import vllm.entrypoints.openai.api_server as vllm_api_server
 import yaml
 from fastapi.responses import FileResponse
+import PIL.Image
+
+
+class URL(pydantic.BaseModel):
+    url: str
+
+
+class Content(pydantic.BaseModel):
+    type: Literal["text", "image_url"] = "text"
+    text: Optional[str] = None
+    image_url: Optional[URL] = None
 
 
 class Message(pydantic.BaseModel):
-    role: Literal["system", "user", "assistant"]
-    content: str
+    role: Literal["system", "user", "assistant"] = "user"
+    content: list[Content]
 
 
 logger = logging.getLogger(__name__)
@@ -98,3 +112,74 @@ class VLLM:
         args.tool_call_parser = None
 
         init_app_state(self.engine, model_config, openai_api_app.state, args)
+
+    @bentoml.api
+    async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
+        from openai import AsyncOpenAI
+
+        client = AsyncOpenAI(
+            base_url="http://127.0.0.1:3000/v1",
+            api_key="dummy",
+        )
+        content = [
+            Content(
+                type="text",
+                text=prompt,
+            )
+        ]
+        message = Message(role="user", content=content)
+
+        try:
+            completion = await client.chat.completions.create(
+                model=ENGINE_CONFIG["model"],
+                messages=[message.model_dump()],
+                stream=True,
+            )
+            async for chunk in completion:
+                yield chunk.choices[0].delta.content or ""
+        except Exception:
+            yield traceback.format_exc()
+
+    @bentoml.api
+    async def generate_with_image(self, prompt: str = "what is this?", image: Optional[PIL.Image.Image] = None) -> AsyncGenerator[str, None]:
+        from openai import AsyncOpenAI
+
+        client = AsyncOpenAI(
+            base_url="http://127.0.0.1:3000/v1",
+            api_key="dummy",
+        )
+        if image:
+            buffered = io.BytesIO()
+            image.save(buffered, format="PNG")
+            img_str = base64.b64encode(buffered.getvalue()).decode()
+            buffered.close()
+            image_url = f"data:image/png;base64,{img_str}"
+            content = [
+                Content(
+                    type="image_url",
+                    image_url=URL(url=image_url),
+                ),
+                Content(
+                    type="text",
+                    text=prompt,
+                )
+            ]
+        else:
+            content = [
+                Content(
+                    type="text",
+                    text=prompt,
+                )
+            ]
+        message = Message(role="user", content=content)
+
+        try:
+            completion = await client.chat.completions.create(
+                model=ENGINE_CONFIG["model"],
+                messages=[message.model_dump()],
+                stream=True,
+            )
+            async for chunk in completion:
+                yield chunk.choices[0].delta.content or ""
+        except Exception:
+            yield traceback.format_exc()
