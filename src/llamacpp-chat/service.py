@@ -28,9 +28,11 @@ ENGINE_CONFIG = CONSTANTS["engine_config"]
 SERVICE_CONFIG = CONSTANTS["service_config"]
 OVERRIDE_CHAT_TEMPLATE = CONSTANTS.get("chat_template")
 
+
 class Message(pydantic.BaseModel):
     role: Literal["system", "user", "assistant"]
     content: str
+
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "ui")
 
@@ -38,11 +40,12 @@ static_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
 openai_api_app = fastapi.FastAPI()
 
+
 @openai_api_app.get("/models")
 async def show_available_models():
     # Return the available models
     return {
-        "data":[
+        "data": [
             {
                 "id": ENGINE_CONFIG["model"],
                 "object": "model",
@@ -51,6 +54,7 @@ async def show_available_models():
             }
         ]
     }
+
 
 ui_app.mount(
     "/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static"
@@ -79,7 +83,6 @@ if "prometheus_client" in sys.modules:
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.service(**SERVICE_CONFIG)
 class LlamaCppChat:
-
     def __init__(self) -> None:
         self.llm = Llama.from_pretrained(
             repo_id=ENGINE_CONFIG["model"],
