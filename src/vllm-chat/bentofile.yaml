@@ -10,5 +10,6 @@ include:
 - "ui/css/*"
 - "ui/media/*"
 - "ui/chunks/pages/*"
+- "chat_templates/chat_templates/*"
 python:
   requirements_txt: "./requirements.txt"

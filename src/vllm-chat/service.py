@@ -58,6 +58,7 @@ for route, endpoint, methods in OPENAI_ENDPOINTS:
 # chat UI app
 ui_app = fastapi.FastAPI()
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "ui")
+CHAT_TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "chat_templates", "chat_templates")
 ui_app.mount(
     "/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static"
 )
@@ -96,7 +97,10 @@ class VLLM:
         args.max_log_len = 1000
         args.response_role = "assistant"
         args.served_model_name = None
-        args.chat_template = None
+        if "chat_template" in PARAMETERS:
+            args.chat_template = os.path.join(CHAT_TEMPLATE_DIR, f'{PARAMETERS["chat_template"]}.jinja')
+        else:
+            args.chat_template = None
         args.lora_modules = None
         args.prompt_adapters = None
         args.request_logger = None
