@@ -13,9 +13,7 @@ model_display_names = {
     "llama3": "Llama-3",
     "phi3": "Phi-3",
     "mistral": "Mistral",
-    "qwen2": "Qwen-2",
     "qwen2.5": "Qwen-2.5",
-    "gemma": "Gemma",
     "gemma2": "Gemma-2",
     "mixtral": "Mixtral",
     "mistral-large": "Mistral-Large",
@@ -40,6 +38,7 @@ yaml_files = glob.glob(os.path.join(root_dir, "**/bento.yaml"), recursive=True)
 for yaml_file in yaml_files:
     with open(yaml_file, "r") as f:
         data = yaml.safe_load(f)
+        if data['name'] not in model_display_names: continue
         # Extract the HF model ID from routes.input.model.default
         for route in data.get("schema", {}).get("routes", []):
             for prop, details in route.get("input", {}).get("properties", {}).items():
