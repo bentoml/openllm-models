@@ -3,7 +3,7 @@ alias:
 project: vllm-chat
 bentoml:
   service_args:
-    name: pixtral
+    name: llama3_2
     traffic:
       timeout: 300
     resources:
@@ -11,10 +11,9 @@ bentoml:
       gpu_type: nvidia-a100-80gb
 vllm:
   engine_args:
-    model: mistral-community/pixtral-12b-240910
-    tokenizer_mode: mistral
-    enable_prefix_caching: true
-    enable_chunked_prefill: false
+    model: meta-llama/Llama-3.2-11B-Vision-Instruct
+    enforce_eager: true
     limit_mm_per_prompt:
       image: 1
-    max_model_len: 16384
+    max_model_len: 8192
+    max_num_seqs: 16
