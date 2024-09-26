@@ -23,10 +23,10 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 - [Mixtral](#mixtral)
 - [Mistral-Large](#mistral-large)
 - [Codestral](#codestral)
-- [](#llama2)
-- [Gemma](#gemma)
 - [Llama-3](#llama3)
 - [Qwen-2](#qwen2)
+- [](#llama2)
+- [Gemma](#gemma)
 
 ---
 
@@ -129,29 +129,6 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-###  <a id="llama2"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-| llama2 | 13b-chat-fp16-15d8 | [HF Link](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) |
-| llama2 | 70b-chat-fp16-8365 | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
-| llama2 | 7b-chat-awq-4bit-8f2f | [HF Link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-AWQ) |
-| llama2 | 7b-chat-fp16-5e52 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
-
----
-
-
-### Gemma <a id="gemma"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-| gemma | 2b-instruct-fp16-e12f | [HF Link](https://huggingface.co/google/gemma-2b-it) |
-| gemma | 7b-instruct-awq-4bit-1134 | [HF Link](https://huggingface.co/casperhansen/gemma-7b-it-awq) |
-| gemma | 7b-instruct-fp16-e12a | [HF Link](https://huggingface.co/google/gemma-7b-it) |
-
----
-
-
 ### Llama-3 <a id="llama3"></a>
 
 | Model | Version | Huggingface Link |
@@ -175,6 +152,29 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | qwen2 | 72b-instruct-fp16-4755 | [HF Link](https://huggingface.co/Qwen/Qwen2-72B-Instruct) |
 | qwen2 | 7b-instruct-awq-4bit-89de | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct-AWQ) |
 | qwen2 | 7b-instruct-fp16-c17f | [HF Link](https://huggingface.co/Qwen/Qwen2-7B-Instruct) |
+
+---
+
+
+###  <a id="llama2"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| llama2 | 13b-chat-fp16-15d8 | [HF Link](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) |
+| llama2 | 70b-chat-fp16-8365 | [HF Link](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) |
+| llama2 | 7b-chat-awq-4bit-8f2f | [HF Link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-AWQ) |
+| llama2 | 7b-chat-fp16-5e52 | [HF Link](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) |
+
+---
+
+
+### Gemma <a id="gemma"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| gemma | 2b-instruct-fp16-e12f | [HF Link](https://huggingface.co/google/gemma-2b-it) |
+| gemma | 7b-instruct-awq-4bit-1134 | [HF Link](https://huggingface.co/casperhansen/gemma-7b-it-awq) |
+| gemma | 7b-instruct-fp16-e12a | [HF Link](https://huggingface.co/google/gemma-7b-it) |
 
 ---
 
