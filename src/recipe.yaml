@@ -735,7 +735,47 @@
   engine_config:
     model: microsoft/Phi-3-mini-4k-instruct-gguf
     max_model_len: 2048
-  chat_template: phi-3
   extra_labels:
     openllm_alias: 3.8b-ggml-q4,3.8b-mini-instruct-4k-ggml-q4
     model_name: microsoft/Phi-3-mini-4k-instruct-gguf
+'llama3.2:11b-vision-instruct':
+  project: vllm-chat
+  service_config:
+    name: llama3.2
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+  engine_config:
+    model: meta-llama/Llama-3.2-11B-Vision-Instruct
+    enforce_eager: true
+    limit_mm_per_prompt:
+      image: 1
+    max_model_len: 16384
+    max_num_seqs: 16
+  extra_labels:
+    openllm_alias: 11b-vision
+    model_name: meta-llama/Llama-3.2-11B-Vision-Instruct
+'pixtral:12b-240910':
+  project: vllm-chat
+  service_config:
+    name: pixtral
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+  engine_config:
+    model: mistral-community/pixtral-12b-240910
+    tokenizer_mode: mistral
+    enable_prefix_caching: true
+    enable_chunked_prefill: false
+    limit_mm_per_prompt:
+      image: 1
+    max_model_len: 16384
+  extra_labels:
+    openllm_alias: 12b, 12b-vision
+    model_name: mistral-community/pixtral-12b-240910
+  extra_requirements:
+    - mistral_common[opencv]

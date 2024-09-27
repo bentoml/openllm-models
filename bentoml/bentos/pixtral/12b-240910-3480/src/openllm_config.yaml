@@ -1,0 +1,21 @@
+engine_config:
+  enable_chunked_prefill: false
+  enable_prefix_caching: true
+  limit_mm_per_prompt:
+    image: 1
+  max_model_len: 16384
+  model: mistral-community/pixtral-12b-240910
+  tokenizer_mode: mistral
+extra_labels:
+  model_name: mistral-community/pixtral-12b-240910
+  openllm_alias: 12b, 12b-vision
+extra_requirements:
+- mistral_common[opencv]
+project: vllm-chat
+service_config:
+  name: pixtral
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

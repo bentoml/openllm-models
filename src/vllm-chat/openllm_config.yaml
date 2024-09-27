@@ -1,14 +1,14 @@
-alias:
-  - 7b-4bit
 project: vllm-chat
 service_config:
-  name: qwen2
+  name: llama2
   traffic:
     timeout: 300
   resources:
     gpu: 1
     gpu_type: nvidia-rtx-3060
 engine_config:
-  model: Qwen/Qwen2-7B-Instruct-AWQ
-  max_model_len: 2048
+  model: TheBloke/Llama-2-7B-Chat-AWQ
+  max_model_len: 1024
   quantization: awq
+  enforce_eager: true
+chat_template: llama-2-chat
