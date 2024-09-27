@@ -25,7 +25,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
 {%- for item in items %}
-| {{ item.name }} | {{ item.version }} | [HF Link](https://huggingface.co/{{ item.hf_model }}) |
+| {{ item.name }} | {{ item.version }} | [HF Link](https://huggingface.co/{{ item.model_name }}) |
 {%- endfor %}
 
 ---
