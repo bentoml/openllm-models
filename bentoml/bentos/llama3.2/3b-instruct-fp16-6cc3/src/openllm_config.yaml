@@ -1,0 +1,17 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: meta-llama/Llama-3.2-3B-Instruct
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: meta-llama/Llama-3.2-3B-Instruct
+  openllm_alias: 3b,3b-instruct
+project: vllm-chat
+service_config:
+  name: llama3.2
+  resources:
+    gpu: 1
+    gpu_type: nvidia-rtx-3060
+  traffic:
+    timeout: 300
