@@ -24,6 +24,8 @@
     resources:
       gpu: 1
       gpu_type: nvidia-tesla-t4
+  extra_envs:
+    - name: HF_TOKEN
   engine_config:
     model: meta-llama/Llama-2-7b-chat-hf
     max_model_len: 1024
@@ -41,6 +43,8 @@
     resources:
       gpu: 1
       gpu_type: nvidia-tesla-a100
+  extra_envs:
+    - name: HF_TOKEN
   engine_config:
     model: meta-llama/Llama-2-13b-chat-hf
     max_model_len: 1024
@@ -58,6 +62,8 @@
     resources:
       gpu: 2
       gpu_type: nvidia-a100-80g
+  extra_envs:
+    - name: HF_TOKEN
   engine_config:
     model: meta-llama/Llama-2-70b-chat-hf
     max_model_len: 1024
@@ -118,6 +124,8 @@
     max_model_len: 1024
     enforce_eager: true
     dtype: half
+  extra_envs:
+    - name: HF_TOKEN
   chat_template: mistral-instruct
   extra_labels:
     openllm_alias: 7b,7b-instruct
@@ -137,6 +145,8 @@
     enforce_eager: true
     dtype: half
   chat_template: mistral-instruct
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: nemo,nemo-instruct
     model_name: mistralai/Mistral-Nemo-Instruct-2407
@@ -155,6 +165,8 @@
     enforce_eager: true
     dtype: half
   chat_template: mistral-instruct
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 22b,22b-v0.1
     model_name: mistralai/Codestral-22B-v0.1
@@ -173,6 +185,8 @@
     dtype: half
     tensor_parallel_size: 4
   chat_template: mistral-instruct
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 123b, 123b-instruct-2407
     model_name: mistralai/Mistral-Large-Instruct-2407
@@ -238,6 +252,8 @@
     model: meta-llama/Meta-Llama-3-8B-Instruct
     max_model_len: 2048
     dtype: half
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 8b,8b-instruct
     model_name: meta-llama/Meta-Llama-3-8B-Instruct
@@ -254,6 +270,8 @@
     model: meta-llama/Meta-Llama-3-70B-Instruct
     max_model_len: 2048
     tensor_parallel_size: 2
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3-70B-Instruct
@@ -270,6 +288,8 @@
     model: meta-llama/Llama-3.2-1B-Instruct
     max_model_len: 2048
     dtype: half
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 1b,1b-instruct
     model_name: meta-llama/Llama-3.2-1B-Instruct
@@ -286,6 +306,8 @@
     model: meta-llama/Llama-3.2-3B-Instruct
     max_model_len: 2048
     dtype: half
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 3b,3b-instruct
     model_name: meta-llama/Llama-3.2-3B-Instruct
@@ -298,6 +320,8 @@
     resources:
       gpu: 1
       gpu_type: nvidia-tesla-l4
+  extra_envs:
+    - name: HF_TOKEN
   engine_config:
     model: meta-llama/Meta-Llama-3.1-8B-Instruct
     max_model_len: 2048
@@ -334,6 +358,8 @@
     model: meta-llama/Meta-Llama-3.1-70B-Instruct
     max_model_len: 2048
     tensor_parallel_size: 2
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3.1-70B-Instruct
@@ -389,6 +415,7 @@
   extra_envs:
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
+    - name: HF_TOKEN
   extra_requirements:
     - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
     - flashinfer==0.1.2+cu121torch2.3
@@ -411,6 +438,7 @@
   extra_envs:
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
+    - name: HF_TOKEN
   extra_requirements:
     - --extra-index-url https://flashinfer.ai/whl/cu121/torch2.3
     - flashinfer==0.1.2+cu121torch2.3
@@ -430,6 +458,8 @@
   extra_labels:
     openllm_alias: 2b,2b-instruct
     model_name: google/gemma-2b-it
+  extra_envs:
+    - name: HF_TOKEN
 'gemma:7b-instruct-fp16':
   project: vllm-chat
   service_config:
@@ -446,6 +476,8 @@
   extra_labels:
     openllm_alias: 7b,7b-instruct
     model_name: google/gemma-7b-it
+  extra_envs:
+    - name: HF_TOKEN
 'gemma:7b-instruct-awq-4bit':
   project: vllm-chat
   service_config:
@@ -477,6 +509,8 @@
     max_model_len: 2048
     tensor_parallel_size: 2
   chat_template: mistral-instruct
+  extra_envs:
+    - name: HF_TOKEN
   extra_labels:
     openllm_alias: 8x7b,8x7b-instruct
     model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
@@ -757,6 +791,8 @@
   extra_labels:
     openllm_alias: 11b-vision
     model_name: meta-llama/Llama-3.2-11B-Vision-Instruct
+  extra_envs:
+    - name: HF_TOKEN
 'pixtral:12b-240910':
   project: vllm-chat
   service_config:
