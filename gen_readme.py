@@ -26,11 +26,11 @@ model_display_names = {
 
 model_priority = {
     "llama3.2": 1,
-    "llama3.1": 2,
+    "qwen2.5": 2,
+    "pixtral": 2,
     "phi3": 3,
     "mistral": 4,
     "gemma2": 5,
-    "qwen2.5": 6,
     "mixtral": 7,
     "mistral-large": 8,
     "codestral": 9,
@@ -50,7 +50,7 @@ for yaml_file in yaml_files:
             grouped_data[data["name"]].append(
                 {
                     "name": data["name"],
-                    "version": data["version"],
+                    "version": data["version"].rsplit("-", 1)[0],
                     "model_name": data["labels"]["model_name"],
                 }
             )
