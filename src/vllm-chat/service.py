@@ -4,7 +4,7 @@ import logging
 import os
 import traceback
 from argparse import Namespace
-from typing import AsyncGenerator, Literal, Optional, Union
+from typing import AsyncGenerator, Literal, Optional, Union, Sequence
 
 import bentoml
 import fastapi
@@ -29,7 +29,7 @@ class ImageContent(pydantic.BaseModel):
 
 class Message(pydantic.BaseModel):
     role: Literal["system", "user", "assistant"] = "user"
-    content: list[Union[TextContent, ImageContent]]
+    content: Sequence[Union[TextContent, ImageContent]]
 
 
 PARAMETER_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
@@ -114,31 +114,15 @@ class VLLM:
         init_app_state(self.engine, model_config, openai_api_app.state, args)
 
     @bentoml.api
-    async def generate(
-        self, prompt: str = "what is this?"
-    ) -> AsyncGenerator[str, None]:
-        from openai import AsyncOpenAI
-
-        client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
-        content = [TextContent(text=prompt)]
-        message = Message(role="user", content=content)
-
-        try:
-            completion = await client.chat.completions.create(  # type: ignore
-                model=ENGINE_CONFIG["model"],
-                messages=[message.model_dump()],  # type: ignore
-                stream=True,
-            )
-            async for chunk in completion:
-                yield chunk.choices[0].delta.content or ""
-        except Exception:
-            yield traceback.format_exc()
-        # async for text in self.generate_with_image(prompt):
-        #     yield text
+    async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
+        async for text in self.generate_with_image(prompt):
+            yield text
 
     @bentoml.api
     async def generate_with_image(
-        self, prompt: str = "what is this?", image: Optional[PIL.Image.Image] = None
+        self,
+        prompt: str = "what is this?",
+        image: Optional[PIL.Image.Image] = None,
     ) -> AsyncGenerator[str, None]:
         from openai import AsyncOpenAI
 
