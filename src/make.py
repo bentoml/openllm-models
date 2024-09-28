@@ -41,8 +41,11 @@ def ensure_venv(req_txt_file, venv_dir):
             [
                 sys.executable,
                 "-m",
+                "uv",
                 "venv",
                 venv_dir,
+                "-p",
+                "3.9",
             ],
             check=True,
         )
