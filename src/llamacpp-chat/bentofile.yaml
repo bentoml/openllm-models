@@ -1,7 +1,6 @@
 service: "service:LlamaCppChat"
 labels:
   source: https://github.com/bentoml/openllm-models-feed/tree/main/src/llamacpp-chat
-  platforms: macos
 include:
 - "*.py"
 - "*.yaml"
@@ -9,6 +8,4 @@ include:
 python:
   requirements_txt: "./requirements.txt"
   lock_packages: true
-envs:
-- name: CMAKE_ARGS
-  value: "-DLLAMA_METAL=on"
+

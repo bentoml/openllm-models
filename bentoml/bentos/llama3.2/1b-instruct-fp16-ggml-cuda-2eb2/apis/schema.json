@@ -1,0 +1,97 @@
+{
+  "name": "llama3.2",
+  "type": "service",
+  "routes": [
+    {
+      "name": "chat_completions",
+      "route": "/v1/chat/completions",
+      "batchable": false,
+      "input": {
+        "properties": {
+          "messages": {
+            "default": [
+              {
+                "role": "user",
+                "content": "What is the meaning of life?"
+              }
+            ],
+            "items": {
+              "properties": {
+                "role": {
+                  "enum": [
+                    "system",
+                    "user",
+                    "assistant"
+                  ],
+                  "title": "Role",
+                  "type": "string"
+                },
+                "content": {
+                  "title": "Content",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "content"
+              ],
+              "title": "Message",
+              "type": "object"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "model": {
+            "default": "unsloth/Llama-3.2-1B-Instruct-GGUF",
+            "title": "Model",
+            "type": "string"
+          },
+          "max_tokens": {
+            "default": 2048,
+            "maximum": 2048,
+            "minimum": 128,
+            "title": "Max Tokens",
+            "type": "integer"
+          },
+          "stop": {
+            "default": null,
+            "title": "Stop",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "stream": {
+            "default": true,
+            "title": "Stream",
+            "type": "boolean"
+          },
+          "temperature": {
+            "default": 0,
+            "title": "Temperature",
+            "type": "number"
+          },
+          "top_p": {
+            "default": 1.0,
+            "title": "Top P",
+            "type": "number"
+          },
+          "frequency_penalty": {
+            "default": 0.0,
+            "title": "Frequency Penalty",
+            "type": "number"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "output": {
+        "title": "IORootModel[str]",
+        "type": "string",
+        "is_stream": true,
+        "media_type": "text/event-stream"
+      },
+      "is_task": false
+    }
+  ]
+}
