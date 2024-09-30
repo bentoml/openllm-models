@@ -2,7 +2,7 @@ service: service:LlamaCppChat
 name: llama3.2
 version: 1b-instruct-fp16-ggml-mac-90ea
 bentoml_version: 1.3.7
-creation_time: '2024-09-30T09:13:12.835300+00:00'
+creation_time: '2024-09-30T12:08:00.546066+00:00'
 labels:
   model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
   openllm_alias: llama3.2,1b-instruct-fp16-ggml-mac

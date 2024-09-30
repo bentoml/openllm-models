@@ -1,4 +1,4 @@
-# llama3.2:1b-instruct-fp16-ggml-linux-7fbb
+# llama3.2:1b-instruct-fp16-ggml-linux-4d99
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.7-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)

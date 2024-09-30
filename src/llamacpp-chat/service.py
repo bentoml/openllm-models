@@ -1,7 +1,6 @@
 import bentoml
 from annotated_types import Ge, Le
 from typing_extensions import Annotated
-from llama_cpp import Llama
 from typing import AsyncGenerator, Optional
 import yaml
 import fastapi
@@ -81,6 +80,7 @@ if "prometheus_client" in sys.modules:
 class LlamaCppChat:
 
     def __init__(self) -> None:
+        from llama_cpp import Llama
         self.llm = Llama.from_pretrained(
             repo_id=ENGINE_CONFIG["model"],
             filename=ENGINE_CONFIG["filename"],
