@@ -816,7 +816,7 @@
     model_name: mistral-community/pixtral-12b-240910
   extra_requirements:
     - mistral_common[opencv]
-'llama3.2:1b-instruct-fp16-ggml-mac':
+'llama3.2:1b-instruct-fp16-ggml-darwin':
   project: llamacpp-chat
   service_config:
     name: llama3.2
