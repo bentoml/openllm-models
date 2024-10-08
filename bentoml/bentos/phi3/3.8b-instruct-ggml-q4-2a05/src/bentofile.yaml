@@ -1,4 +1,6 @@
-envs: []
+envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
 include:
 - '*.py'
 - '*.yaml'
