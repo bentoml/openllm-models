@@ -769,9 +769,11 @@
   engine_config:
     model: microsoft/Phi-3-mini-4k-instruct-gguf
     max_model_len: 2048
+    filename: "Phi-3-mini-4k-instruct-q4.gguf"
   extra_labels:
     openllm_alias: 3.8b-ggml-q4,3.8b-mini-instruct-4k-ggml-q4
     model_name: microsoft/Phi-3-mini-4k-instruct-gguf
+    platforms: macos
 'llama3.2:11b-vision-instruct':
   project: vllm-chat
   service_config:
@@ -815,3 +817,43 @@
     model_name: mistral-community/pixtral-12b-240910
   extra_requirements:
     - mistral_common[opencv]
+'llama3.2:1b-instruct-fp16-ggml-darwin':
+  project: llamacpp-chat
+  service_config:
+    name: llama3.2
+    traffic:
+      timeout: 300
+    resources:
+      cpu: 1
+      memory: 3Gi
+  engine_config:
+    model: unsloth/Llama-3.2-1B-Instruct-GGUF
+    max_model_len: 2048
+    filename: "Llama-3.2-1B-Instruct-F16.gguf"
+  extra_labels:
+    openllm_alias: llama3.2,1b-instruct-fp16-ggml-darwin
+    model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
+    platforms: macos
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"
+'llama3.2:1b-instruct-fp16-ggml-linux':
+  project: llamacpp-chat
+  service_config:
+    name: llama3.2
+    traffic:
+      timeout: 300
+    resources:
+      cpu: 1
+      memory: 3Gi
+  engine_config:
+    model: unsloth/Llama-3.2-1B-Instruct-GGUF
+    max_model_len: 2048
+    filename: "Llama-3.2-1B-Instruct-F16.gguf"
+  extra_labels:
+    openllm_alias: llama3.2,1b-instruct-fp16-ggml-linux
+    model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
+    platforms: linux
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
