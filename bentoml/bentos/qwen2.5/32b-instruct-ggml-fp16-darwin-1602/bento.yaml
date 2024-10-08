@@ -1,11 +1,12 @@
 service: service:LlamaCppChat
 name: qwen2.5
-version: 32b-instruct-ggml-fp16-darwin-8ba6
+version: 32b-instruct-ggml-fp16-darwin-1602
 bentoml_version: 1.3.7
-creation_time: '2024-10-08T09:03:57.044750+00:00'
+creation_time: '2024-10-08T09:14:26.035668+00:00'
 labels:
   model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
   openllm_alias: 32b-ggml-fp16
+  platforms: macos
   source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
 models: []
 runners: []

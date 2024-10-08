@@ -21,6 +21,7 @@ extra_envs:
 extra_labels:
   model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
   openllm_alias: 72b-ggml-q4
+  platforms: macos
 project: llamacpp-chat
 service_config:
   name: qwen2.5
