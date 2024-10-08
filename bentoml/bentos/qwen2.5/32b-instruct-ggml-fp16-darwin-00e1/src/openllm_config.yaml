@@ -24,7 +24,7 @@ extra_envs:
 - name: CMAKE_ARGS
   value: -DGGML_METAL=on
 extra_labels:
-  model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
+  model_name: Qwen/Qwen2.5-32B-Instruct-GGUF
   openllm_alias: 32b-ggml-fp16
   platforms: macos
 project: llamacpp-chat

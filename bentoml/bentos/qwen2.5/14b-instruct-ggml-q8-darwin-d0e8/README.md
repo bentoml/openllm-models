@@ -1,4 +1,4 @@
-# qwen2.5:32b-instruct-ggml-fp16-darwin-1602
+# qwen2.5:14b-instruct-ggml-q8-darwin-d0e8
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.7-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)
