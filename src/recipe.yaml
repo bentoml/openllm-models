@@ -767,7 +767,7 @@
     resources:
       memory: 3Gi
   engine_config:
-    model: microsoft/Phi-3-mini-4k-instruct-gguf
+    repo_id: microsoft/Phi-3-mini-4k-instruct-gguf
     max_model_len: 2048
     filename: "Phi-3-mini-4k-instruct-q4.gguf"
   extra_labels:
@@ -817,7 +817,7 @@
     model_name: mistral-community/pixtral-12b-240910
   extra_requirements:
     - mistral_common[opencv]
-'llama3.2:1b-instruct-fp16-ggml-darwin':
+'llama3.2:1b-instruct-ggml-fp16-darwin':
   project: llamacpp-chat
   service_config:
     name: llama3.2
@@ -827,17 +827,17 @@
       cpu: 1
       memory: 3Gi
   engine_config:
-    model: unsloth/Llama-3.2-1B-Instruct-GGUF
+    repo_id: unsloth/Llama-3.2-1B-Instruct-GGUF
     max_model_len: 2048
     filename: "Llama-3.2-1B-Instruct-F16.gguf"
   extra_labels:
-    openllm_alias: llama3.2,1b-instruct-fp16-ggml-darwin
+    openllm_alias: llama3.2,1b-instruct-ggml-fp16-darwin
     model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
     platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
-'llama3.2:1b-instruct-fp16-ggml-linux':
+'llama3.2:1b-instruct-ggml-fp16-linux':
   project: llamacpp-chat
   service_config:
     name: llama3.2
@@ -847,13 +847,80 @@
       cpu: 1
       memory: 3Gi
   engine_config:
-    model: unsloth/Llama-3.2-1B-Instruct-GGUF
+    repo_id: unsloth/Llama-3.2-1B-Instruct-GGUF
     max_model_len: 2048
     filename: "Llama-3.2-1B-Instruct-F16.gguf"
   extra_labels:
-    openllm_alias: llama3.2,1b-instruct-fp16-ggml-linux
+    openllm_alias: llama3.2,1b-instruct-ggml-fp16-linux
     model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
     platforms: linux
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
+'qwen2.5:72b-instruct-ggml-q4-darwin':
+  project: llamacpp-chat
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-72b-instruct-q4_k_m-00001-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00002-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00003-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00004-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00005-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00006-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00007-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00008-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00009-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00010-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00011-of-00012.gguf
+      - qwen2.5-72b-instruct-q4_k_m-00012-of-00012.gguf
+    filename: qwen2.5-72b-instruct-q4_k_m-00001-of-00012.gguf
+    repo_id: Qwen/Qwen2.5-72B-Instruct-GGUF
+  extra_labels:
+    model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
+    openllm_alias: 72b-ggml-q4
+  service_config:
+    name: qwen2.5
+    resources:
+      memory: 60Gi
+    traffic:
+      timeout: 300
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"
+'qwen2.5:32b-instruct-ggml-fp16-darwin':
+  project: llamacpp-chat
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00002-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00003-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00004-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00005-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00006-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00007-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00008-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00009-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00010-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00011-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00012-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00013-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00014-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00015-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00016-of-00017.gguf
+      - qwen2.5-32b-instruct-fp16-00017-of-00017.gguf
+    filename: qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
+    repo_id: Qwen/Qwen2.5-32B-Instruct-GGUF
+  extra_labels:
+    model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
+    openllm_alias: 32b-ggml-fp16
+  service_config:
+    name: qwen2.5
+    resources:
+      memory: 60Gi
+    traffic:
+      timeout: 300
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"

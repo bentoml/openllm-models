@@ -25,7 +25,6 @@ with open(CONSTANT_YAML) as f:
 
 ENGINE_CONFIG = CONSTANTS["engine_config"]
 SERVICE_CONFIG = CONSTANTS["service_config"]
-OVERRIDE_CHAT_TEMPLATE = CONSTANTS.get("chat_template")
 
 class Message(pydantic.BaseModel):
     role: Literal["system", "user", "assistant"]
@@ -43,7 +42,7 @@ async def show_available_models():
     return {
         "data":[
             {
-                "id": ENGINE_CONFIG["model"],
+                "id": ENGINE_CONFIG["repo_id"],
                 "object": "model",
                 "created": 1686935002,
                 "owned_by": "bentoml",
@@ -82,8 +81,7 @@ class LlamaCppChat:
     def __init__(self) -> None:
         from llama_cpp import Llama
         self.llm = Llama.from_pretrained(
-            repo_id=ENGINE_CONFIG["model"],
-            filename=ENGINE_CONFIG["filename"],
+            **ENGINE_CONFIG,
             verbose=False,
         )
 
@@ -93,7 +91,7 @@ class LlamaCppChat:
         messages: list[Message] = [
             {"role": "user", "content": "What is the meaning of life?"}
         ],
-        model: str = ENGINE_CONFIG["model"],
+        model: str = ENGINE_CONFIG["repo_id"],
         max_tokens: Annotated[
             int,
             Ge(128),
