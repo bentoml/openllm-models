@@ -891,6 +891,13 @@
       value: "-DGGML_METAL=on"
 'qwen2.5:32b-instruct-ggml-fp16-darwin':
   project: llamacpp-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-32B-Instruct-GGUF
+    openllm_alias: 32b-ggml-fp16
+    platforms: macos
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"
   engine_config:
     max_model_len: 2048
     additional_files:
@@ -913,16 +920,56 @@
       - qwen2.5-32b-instruct-fp16-00017-of-00017.gguf
     filename: qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
     repo_id: Qwen/Qwen2.5-32B-Instruct-GGUF
-  extra_labels:
-    model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
-    openllm_alias: 32b-ggml-fp16
-    platforms: macos
   service_config:
     name: qwen2.5
     resources:
       memory: 60Gi
     traffic:
       timeout: 300
+'qwen2.5:14b-instruct-ggml-q4-darwin':
+  project: llamacpp-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-14B-Instruct-GGUF
+    openllm_alias: 14b-ggml-q4
+    platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-14b-instruct-q4_0-00001-of-00003.gguf
+      - qwen2.5-14b-instruct-q4_0-00002-of-00003.gguf
+      - qwen2.5-14b-instruct-q4_0-00003-of-00003.gguf
+    filename: qwen2.5-14b-instruct-q4_0-00001-of-00003.gguf
+    repo_id: Qwen/Qwen2.5-14B-Instruct-GGUF
+  service_config:
+    name: qwen2.5
+    resources:
+      memory: 60Gi
+    traffic:
+      timeout: 300
+'qwen2.5:14b-instruct-ggml-q8-darwin':
+  project: llamacpp-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-14B-Instruct-GGUF
+    openllm_alias: 14b-ggml-q8
+    platforms: macos
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-14b-instruct-q8_0-00001-of-00004.gguf
+      - qwen2.5-14b-instruct-q8_0-00002-of-00004.gguf
+      - qwen2.5-14b-instruct-q8_0-00003-of-00004.gguf
+      - qwen2.5-14b-instruct-q8_0-00004-of-00004.gguf
+    filename: qwen2.5-14b-instruct-q8_0-00001-of-00004.gguf
+    repo_id: Qwen/Qwen2.5-14B-Instruct-GGUF
+  service_config:
+    name: qwen2.5
+    resources:
+      memory: 60Gi
+    traffic:
+      timeout: 300
