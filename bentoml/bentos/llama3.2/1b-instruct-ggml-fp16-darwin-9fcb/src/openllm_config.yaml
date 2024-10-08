@@ -1,0 +1,19 @@
+engine_config:
+  filename: Llama-3.2-1B-Instruct-F16.gguf
+  max_model_len: 2048
+  repo_id: unsloth/Llama-3.2-1B-Instruct-GGUF
+extra_envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+extra_labels:
+  model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
+  openllm_alias: llama3.2,1b-instruct-ggml-fp16-darwin
+  platforms: macos
+project: llamacpp-chat
+service_config:
+  name: llama3.2
+  resources:
+    cpu: 1
+    memory: 3Gi
+  traffic:
+    timeout: 300
