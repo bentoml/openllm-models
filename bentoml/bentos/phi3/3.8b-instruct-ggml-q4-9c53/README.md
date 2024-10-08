@@ -1,4 +1,4 @@
-# phi3:3.8b-instruct-ggml-q4-e6bc
+# phi3:3.8b-instruct-ggml-q4-9c53
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.7-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)
