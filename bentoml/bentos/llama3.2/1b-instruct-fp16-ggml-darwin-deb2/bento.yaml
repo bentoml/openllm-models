@@ -1,13 +1,13 @@
 service: service:LlamaCppChat
 name: llama3.2
-version: 1b-instruct-fp16-ggml-linux-4d99
+version: 1b-instruct-fp16-ggml-darwin-deb2
 bentoml_version: 1.3.7
-creation_time: '2024-09-30T12:08:07.781457+00:00'
+creation_time: '2024-10-08T06:37:12.850670+00:00'
 labels:
   model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
-  openllm_alias: llama3.2,1b-instruct-fp16-ggml-linux
-  platforms: linux
-  source: https://github.com/bentoml/openllm-models-feed/tree/main/src/llamacpp-chat
+  openllm_alias: llama3.2,1b-instruct-fp16-ggml-darwin
+  platforms: macos
+  source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
 models: []
 runners: []
 entry_service: llama3.2
@@ -25,7 +25,7 @@ services:
       timeout: 300
 envs:
 - name: CMAKE_ARGS
-  value: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+  value: -DGGML_METAL=on
 schema:
   name: llama3.2
   type: service
@@ -104,7 +104,7 @@ docker:
   python_version: '3.9'
   cuda_version: null
   env:
-    CMAKE_ARGS: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+    CMAKE_ARGS: -DGGML_METAL=on
   system_packages: null
   setup_script: null
   base_image: null
