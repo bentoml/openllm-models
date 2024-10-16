@@ -1,0 +1,22 @@
+engine_config:
+  additional_files:
+  - qwen2.5-14b-instruct-q4_0-00001-of-00003.gguf
+  - qwen2.5-14b-instruct-q4_0-00002-of-00003.gguf
+  - qwen2.5-14b-instruct-q4_0-00003-of-00003.gguf
+  filename: qwen2.5-14b-instruct-q4_0-00001-of-00003.gguf
+  max_model_len: 2048
+  repo_id: Qwen/Qwen2.5-14B-Instruct-GGUF
+extra_envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+extra_labels:
+  model_name: Qwen/Qwen2.5-14B-Instruct-GGUF
+  openllm_alias: 14b-ggml-q4
+  platforms: macos
+project: llamacpp-chat
+service_config:
+  name: qwen2.5
+  resources:
+    memory: 60Gi
+  traffic:
+    timeout: 300

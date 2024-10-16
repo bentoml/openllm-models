@@ -1,0 +1,36 @@
+engine_config:
+  additional_files:
+  - qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00002-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00003-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00004-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00005-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00006-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00007-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00008-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00009-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00010-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00011-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00012-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00013-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00014-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00015-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00016-of-00017.gguf
+  - qwen2.5-32b-instruct-fp16-00017-of-00017.gguf
+  filename: qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
+  max_model_len: 2048
+  repo_id: Qwen/Qwen2.5-32B-Instruct-GGUF
+extra_envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+extra_labels:
+  model_name: Qwen/Qwen2.5-32B-Instruct-GGUF
+  openllm_alias: 32b-ggml-fp16
+  platforms: macos
+project: llamacpp-chat
+service_config:
+  name: qwen2.5
+  resources:
+    memory: 60Gi
+  traffic:
+    timeout: 300

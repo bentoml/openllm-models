@@ -1,0 +1,31 @@
+engine_config:
+  additional_files:
+  - qwen2.5-72b-instruct-q4_k_m-00001-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00002-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00003-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00004-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00005-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00006-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00007-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00008-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00009-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00010-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00011-of-00012.gguf
+  - qwen2.5-72b-instruct-q4_k_m-00012-of-00012.gguf
+  filename: qwen2.5-72b-instruct-q4_k_m-00001-of-00012.gguf
+  max_model_len: 2048
+  repo_id: Qwen/Qwen2.5-72B-Instruct-GGUF
+extra_envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+extra_labels:
+  model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
+  openllm_alias: 72b-ggml-q4
+  platforms: macos
+project: llamacpp-chat
+service_config:
+  name: qwen2.5
+  resources:
+    memory: 60Gi
+  traffic:
+    timeout: 300
