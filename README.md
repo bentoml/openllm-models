@@ -23,11 +23,11 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 - [Mixtral](#mixtral)
 - [Mistral-Large](#mistral-large)
 - [Codestral](#codestral)
-- [Llama-3](#llama3)
-- [Qwen-2](#qwen2)
-- [Llama-3.1](#llama3.1)
-- [Llama-2](#llama2)
 - [Gemma](#gemma)
+- [Llama-3.1](#llama3.1)
+- [Qwen-2](#qwen2)
+- [Llama-2](#llama2)
+- [Llama-3](#llama3)
 
 ---
 
@@ -38,6 +38,8 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | --- | --- | --- |
 | llama3.2 | 11b-vision-instruct | [HF Link](https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct) |
 | llama3.2 | 1b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) |
+| llama3.2 | 1b-instruct-ggml-fp16-darwin | [HF Link](https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF) |
+| llama3.2 | 1b-instruct-ggml-fp16-linux | [HF Link](https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF) |
 | llama3.2 | 3b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) |
 
 ---
@@ -50,9 +52,13 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 | qwen2.5 | 0.5b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) |
 | qwen2.5 | 1.5b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) |
 | qwen2.5 | 14b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct) |
+| qwen2.5 | 14b-instruct-ggml-q4-darwin | [HF Link](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF) |
+| qwen2.5 | 14b-instruct-ggml-q8-darwin | [HF Link](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct-GGUF) |
 | qwen2.5 | 32b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct) |
+| qwen2.5 | 32b-instruct-ggml-fp16-darwin | [HF Link](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct-GGUF) |
 | qwen2.5 | 3b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) |
 | qwen2.5 | 72b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) |
+| qwen2.5 | 72b-instruct-ggml-q4-darwin | [HF Link](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct-GGUF) |
 | qwen2.5 | 7b-instruct-fp16 | [HF Link](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) |
 
 ---
@@ -127,14 +133,26 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-### Llama-3 <a id="llama3"></a>
+### Gemma <a id="gemma"></a>
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| llama3 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-70b-instruct-awq) |
-| llama3 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
-| llama3 | 8b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-8b-instruct-awq) |
-| llama3 | 8b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) |
+| gemma | 2b-instruct-fp16 | [HF Link](https://huggingface.co/google/gemma-2b-it) |
+| gemma | 7b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/gemma-7b-it-awq) |
+| gemma | 7b-instruct-fp16 | [HF Link](https://huggingface.co/google/gemma-7b-it) |
+
+---
+
+
+### Llama-3.1 <a id="llama3.1"></a>
+
+| Model | Version | Huggingface Link |
+| --- | --- | --- |
+| llama3.1 | 405b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4) |
+| llama3.1 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4) |
+| llama3.1 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
+| llama3.1 | 8b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
+| llama3.1 | 8b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) |
 
 ---
 
@@ -154,19 +172,6 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-### Llama-3.1 <a id="llama3.1"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-| llama3.1 | 405b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4) |
-| llama3.1 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4) |
-| llama3.1 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct) |
-| llama3.1 | 8b-instruct-awq-4bit | [HF Link](https://huggingface.co/hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4) |
-| llama3.1 | 8b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct) |
-
----
-
-
 ### Llama-2 <a id="llama2"></a>
 
 | Model | Version | Huggingface Link |
@@ -179,13 +184,14 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ---
 
 
-### Gemma <a id="gemma"></a>
+### Llama-3 <a id="llama3"></a>
 
 | Model | Version | Huggingface Link |
 | --- | --- | --- |
-| gemma | 2b-instruct-fp16 | [HF Link](https://huggingface.co/google/gemma-2b-it) |
-| gemma | 7b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/gemma-7b-it-awq) |
-| gemma | 7b-instruct-fp16 | [HF Link](https://huggingface.co/google/gemma-7b-it) |
+| llama3 | 70b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-70b-instruct-awq) |
+| llama3 | 70b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) |
+| llama3 | 8b-instruct-awq-4bit | [HF Link](https://huggingface.co/casperhansen/llama-3-8b-instruct-awq) |
+| llama3 | 8b-instruct-fp16 | [HF Link](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct) |
 
 ---
 
