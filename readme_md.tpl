@@ -11,23 +11,25 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 ```
 
 ## Supported Models
+<table style="width: 100%; border-collapse: collapse;">
+  <tr>
+    <td style="background-color: #D1D5DA; padding: 10px; border-radius: 8px 8px 0 0; width: 100%;">
+      <span style="color: red;">●</span>
+      <span style="color: yellow;">●</span>
+      <span style="color: green;">●</span>
+    </td>
+  </tr>
+<tr>
+<td>
+        
+```bash
+$ openllm repo update
+$ openllm model list
+{{ model_list }}
+```
 
-### Table of Contents
-{% for name, items in grouped_data %}
-- [{{ model_display_names[name] }}](#{{ name | lower | replace(" ", "-") }})
-{%- endfor %}
+</td>
+</tr>
+</table>
 
----
 
-{% for name, items in grouped_data %}
-### {{ model_display_names[name] }} <a id="{{ name | lower | replace(" ", "-") }}"></a>
-
-| Model | Version | Huggingface Link |
-| --- | --- | --- |
-{%- for item in items %}
-| {{ item.name }} | {{ item.version }} | [HF Link](https://huggingface.co/{{ item.model_name }}) |
-{%- endfor %}
-
----
-
-{% endfor %}
