@@ -993,3 +993,20 @@
       gpu_type: nvidia-tesla-a100
     traffic:
       timeout: 300
+'jamba1.5:mini-fp16':
+  project: vllm-chat
+  service_config:
+    name: jamba1.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 4
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: ai21labs/AI21-Jamba-1.5-Mini
+    max_model_len: 2048
+    dtype: half
+    tensor_parallel_size: 4
+  extra_labels:
+    openllm_alias: mini
+    model_name: ai21labs/AI21-Jamba-1.5-Mini
