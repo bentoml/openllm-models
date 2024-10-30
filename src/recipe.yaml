@@ -976,3 +976,37 @@
       memory: 60Gi
     traffic:
       timeout: 300
+'qwen2.5:32b-instruct-awq-4bit':
+  project: vllm-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-32B-Instruct-AWQ
+    openllm_alias: 32b-4bit
+    platforms: linux
+  engine_config:
+    max_model_len: 20480
+    model: Qwen/Qwen2.5-32B-Instruct-AWQ
+  project: vllm-chat
+  service_config:
+    name: qwen2.5
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-a100
+    traffic:
+      timeout: 300
+'jamba1.5:mini-fp16':
+  project: vllm-chat
+  service_config:
+    name: jamba1.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 4
+      gpu_type: nvidia-a100-80g
+  engine_config:
+    model: ai21labs/AI21-Jamba-1.5-Mini
+    max_model_len: 2048
+    dtype: half
+    tensor_parallel_size: 4
+  extra_labels:
+    openllm_alias: mini
+    model_name: ai21labs/AI21-Jamba-1.5-Mini
