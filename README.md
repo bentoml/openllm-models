@@ -33,6 +33,7 @@ gemma          gemma:2b-instruct-fp16-f738                 default  12G         
                gemma:7b-instruct-awq-4bit-b214             default  12G                 linux
 gemma2         gemma2:9b-instruct-fp16-e0c2                default  24G                 linux
                gemma2:27b-instruct-fp16-8ee8               default  80G                 linux
+jamba1.5       jamba1.5:mini-fp16-f103                     default  80Gx4               linux
 llama2         llama2:7b-chat-fp16-d7da                    default  16G                 linux
                llama2:7b-chat-awq-4bit-bad5                default  12G                 linux
                llama2:13b-chat-fp16-01e5                   default  40G                 linux
@@ -76,6 +77,7 @@ qwen2.5        qwen2.5:0.5b-instruct-fp16-5ae4             default  12G         
                qwen2.5:14b-instruct-ggml-q4-darwin-5997    default                      macos
                qwen2.5:14b-instruct-ggml-q8-darwin-d0e8    default                      macos
                qwen2.5:32b-instruct-fp16-7848              default  80G                 linux
+               qwen2.5:32b-instruct-awq-4bit-2438          default  40G                 linux
                qwen2.5:32b-instruct-ggml-fp16-darwin-00e1  default                      macos
                qwen2.5:72b-instruct-fp16-864f              default  80Gx2               linux
                qwen2.5:72b-instruct-ggml-q4-darwin-8b90    default                      macos
