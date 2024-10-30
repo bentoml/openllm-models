@@ -1,7 +1,0 @@
-vllm==0.6.2
-pyyaml
-# mistral_common[opencv]
-pillow
-openai
-mistral_common[opencv]
-bentoml==1.3.7
