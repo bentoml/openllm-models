@@ -115,8 +115,22 @@ class VLLM:
 
     @bentoml.api
     async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
-        async for text in self.generate_with_image(prompt):
-            yield text
+        from openai import AsyncOpenAI
+
+        client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
+        content = [TextContent(text=prompt)]
+        message = Message(role="user", content=content)
+
+        try:
+            completion = await client.chat.completions.create(  # type: ignore
+                model=ENGINE_CONFIG["model"],
+                messages=[message.model_dump()],  # type: ignore
+                stream=True,
+            )
+            async for chunk in completion:
+                yield chunk.choices[0].delta.content or ""
+        except Exception:
+            yield traceback.format_exc()
 
     @bentoml.api
     async def generate_with_image(
