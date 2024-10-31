@@ -83,7 +83,7 @@ async def catch_all(full_path: str):
 @bentoml.service(**SERVICE_CONFIG)
 class VLLM:
     model_id = ENGINE_CONFIG["model"]
-    model = bentoml.models.HuggingFaceModel(model_name)
+    model = bentoml.models.HuggingFaceModel(model_id)
 
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
