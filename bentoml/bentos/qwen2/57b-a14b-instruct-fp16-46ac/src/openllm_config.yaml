@@ -1,0 +1,16 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: Qwen/Qwen2-57B-A14B-Instruct
+  tensor_parallel_size: 2
+extra_labels:
+  model_name: Qwen/Qwen2-57B-A14B-Instruct
+  openllm_alias: 57b-a14b,57b-a14b-instruct
+project: vllm-chat
+service_config:
+  name: qwen2
+  resources:
+    gpu: 2
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

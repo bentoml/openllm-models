@@ -1,0 +1,15 @@
+engine_config:
+  max_model_len: 2048
+  model: Qwen/Qwen2-72B-Instruct-AWQ
+  quantization: awq
+extra_labels:
+  model_name: Qwen/Qwen2-72B-Instruct-AWQ
+  openllm_alias: 72b-4bit,72b-instruct-4bit
+project: vllm-chat
+service_config:
+  name: qwen2
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

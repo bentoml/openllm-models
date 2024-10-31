@@ -1,0 +1,19 @@
+chat_template: llama-2-chat
+engine_config:
+  dtype: half
+  max_model_len: 1024
+  model: meta-llama/Llama-2-70b-chat-hf
+  tensor_parallel_size: 2
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: meta-llama/Llama-2-70b-chat-hf
+  openllm_alias: 70b,70b-chat
+project: vllm-chat
+service_config:
+  name: llama2
+  resources:
+    gpu: 2
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

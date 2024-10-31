@@ -1,0 +1,19 @@
+chat_template: mistral-instruct
+engine_config:
+  dtype: half
+  enforce_eager: true
+  max_model_len: 2048
+  model: mistralai/Mistral-Nemo-Instruct-2407
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: mistralai/Mistral-Nemo-Instruct-2407
+  openllm_alias: nemo,nemo-instruct
+project: vllm-chat
+service_config:
+  name: mistral
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

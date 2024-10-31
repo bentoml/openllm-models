@@ -1,0 +1,16 @@
+chat_template: mistral-instruct
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: casperhansen/mistral-large-instruct-2407-awq
+extra_labels:
+  model_name: casperhansen/mistral-large-instruct-2407-awq
+  openllm_alias: 123b-4bit,123b-instruct-2407-4bit
+project: vllm-chat
+service_config:
+  name: mistral-large
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

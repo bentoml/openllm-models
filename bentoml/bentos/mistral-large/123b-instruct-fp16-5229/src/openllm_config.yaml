@@ -1,0 +1,19 @@
+chat_template: mistral-instruct
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: mistralai/Mistral-Large-Instruct-2407
+  tensor_parallel_size: 4
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: mistralai/Mistral-Large-Instruct-2407
+  openllm_alias: 123b, 123b-instruct-2407
+project: vllm-chat
+service_config:
+  name: mistral-large
+  resources:
+    gpu: 4
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
