@@ -1010,3 +1010,5 @@
   extra_labels:
     openllm_alias: mini
     model_name: ai21labs/AI21-Jamba-1.5-Mini
+  extra_envs:
+    - name: HF_TOKEN
