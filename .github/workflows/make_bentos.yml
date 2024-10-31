@@ -46,6 +46,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   generate-readme:
+    needs: make-bentos
     runs-on: ubuntu-latest
 
     steps:
