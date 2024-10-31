@@ -61,7 +61,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   extra_envs:
     - name: HF_TOKEN
   engine_config:
@@ -118,7 +118,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: mistralai/Mistral-7B-Instruct-v0.1
     max_model_len: 1024
@@ -138,7 +138,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: mistralai/Mistral-Nemo-Instruct-2407
     max_model_len: 2048
@@ -158,7 +158,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: mistralai/Codestral-22B-v0.1
     max_model_len: 8192
@@ -178,7 +178,7 @@
       timeout: 300
     resources:
       gpu: 4
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: mistralai/Mistral-Large-Instruct-2407
     max_model_len: 2048
@@ -198,7 +198,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: casperhansen/mistral-large-instruct-2407-awq
     max_model_len: 2048
@@ -231,7 +231,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: casperhansen/llama-3-70b-instruct-awq
     max_model_len: 2048
@@ -247,7 +247,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: meta-llama/Meta-Llama-3-8B-Instruct
     max_model_len: 2048
@@ -265,7 +265,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: meta-llama/Meta-Llama-3-70B-Instruct
     max_model_len: 2048
@@ -353,7 +353,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: meta-llama/Meta-Llama-3.1-70B-Instruct
     max_model_len: 2048
@@ -371,7 +371,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4
     max_model_len: 2048
@@ -387,7 +387,7 @@
       timeout: 300
     resources:
       gpu: 4
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: hugging-quants/Meta-Llama-3.1-405B-Instruct-AWQ-INT4
     max_model_len: 2048
@@ -404,7 +404,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: google/gemma-2-9b-it
     max_model_len: 2048
@@ -427,7 +427,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: google/gemma-2-27b-it
     max_model_len: 2048
@@ -468,7 +468,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: google/gemma-7b-it
     max_model_len: 2048
@@ -503,7 +503,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: mistralai/Mixtral-8x7B-Instruct-v0.1
     max_model_len: 2048
@@ -604,7 +604,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct
     max_model_len: 2048
@@ -620,7 +620,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-32B-Instruct
     max_model_len: 2048
@@ -636,7 +636,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-72B-Instruct
     max_model_len: 2048
@@ -700,7 +700,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: Qwen/Qwen2-7B-Instruct
     max_model_len: 2048
@@ -716,7 +716,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2-72B-Instruct-AWQ
     max_model_len: 2048
@@ -732,7 +732,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2-57B-A14B-Instruct
     max_model_len: 2048
@@ -749,7 +749,7 @@
       timeout: 300
     resources:
       gpu: 2
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2-72B-Instruct
     max_model_len: 2048
@@ -1001,7 +1001,7 @@
       timeout: 300
     resources:
       gpu: 4
-      gpu_type: nvidia-a100-80g
+      gpu_type: nvidia-a100-80gb
   engine_config:
     model: ai21labs/AI21-Jamba-1.5-Mini
     max_model_len: 2048
@@ -1010,3 +1010,22 @@
   extra_labels:
     openllm_alias: mini
     model_name: ai21labs/AI21-Jamba-1.5-Mini
+  extra_envs:
+    - name: HF_TOKEN
+'qwen2vl:7b-instruct-fp16':
+  project: vllm-chat
+  extra_labels:
+    model_name: Qwen/Qwen2-VL-7B-Instruct
+    openllm_alias: 7b
+    platforms: linux
+  engine_config:
+    max_model_len: 2048
+    model: Qwen/Qwen2-VL-7B-Instruct
+  project: vllm-chat
+  service_config:
+    name: qwen2vl
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    traffic:
+      timeout: 300

@@ -1,0 +1,15 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: Qwen/Qwen2.5-3B-Instruct
+extra_labels:
+  model_name: Qwen/Qwen2.5-3B-Instruct
+  openllm_alias: 3b,3b-instruct
+project: vllm-chat
+service_config:
+  name: qwen2.5
+  resources:
+    gpu: 1
+    gpu_type: nvidia-rtx-3060
+  traffic:
+    timeout: 300

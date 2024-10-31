@@ -1,0 +1,17 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: google/gemma-7b-it
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: google/gemma-7b-it
+  openllm_alias: 7b,7b-instruct
+project: vllm-chat
+service_config:
+  name: gemma
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300

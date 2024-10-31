@@ -1,0 +1,18 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: ai21labs/AI21-Jamba-1.5-Mini
+  tensor_parallel_size: 4
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: ai21labs/AI21-Jamba-1.5-Mini
+  openllm_alias: mini
+project: vllm-chat
+service_config:
+  name: jamba1.5
+  resources:
+    gpu: 4
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

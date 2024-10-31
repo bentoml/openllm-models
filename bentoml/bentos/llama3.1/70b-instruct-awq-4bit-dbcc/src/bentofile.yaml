@@ -1,0 +1,20 @@
+envs: []
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- ui/chunks/*
+- ui/css/*
+- ui/media/*
+- ui/chunks/pages/*
+- chat_templates/chat_templates/*
+labels:
+  model_name: hugging-quants/Meta-Llama-3.1-70B-Instruct-AWQ-INT4
+  openllm_alias: 70b-4bit,70b-instruct-4bit
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+python:
+  requirements_txt: ./requirements.txt
+service: service:VLLM

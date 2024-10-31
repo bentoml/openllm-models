@@ -1,0 +1,21 @@
+envs:
+- name: HF_TOKEN
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- ui/chunks/*
+- ui/css/*
+- ui/media/*
+- ui/chunks/pages/*
+- chat_templates/chat_templates/*
+labels:
+  model_name: mistralai/Codestral-22B-v0.1
+  openllm_alias: 22b,22b-v0.1
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+python:
+  requirements_txt: ./requirements.txt
+service: service:VLLM

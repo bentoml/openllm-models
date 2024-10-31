@@ -1,0 +1,17 @@
+envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- ui/*
+labels:
+  model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
+  openllm_alias: llama3.2,1b-instruct-ggml-fp16-darwin
+  platforms: macos
+  source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
+python:
+  lock_packages: true
+  requirements_txt: ./requirements.txt
+service: service:LlamaCppChat

@@ -5,6 +5,8 @@ labels:
 include:
 - "*.py"
 - "*.yaml"
+- "*.txt"
+- "*.md"
 - "ui/*"
 - "ui/chunks/*"
 - "ui/css/*"

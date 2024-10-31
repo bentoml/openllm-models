@@ -1,0 +1,19 @@
+chat_template: mistral-instruct
+engine_config:
+  dtype: half
+  enforce_eager: true
+  max_model_len: 8192
+  model: mistralai/Codestral-22B-v0.1
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: mistralai/Codestral-22B-v0.1
+  openllm_alias: 22b,22b-v0.1
+project: vllm-chat
+service_config:
+  name: codestral
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
