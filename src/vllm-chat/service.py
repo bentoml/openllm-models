@@ -82,18 +82,21 @@ async def catch_all(full_path: str):
 @bentoml.mount_asgi_app(ui_app, path="/chat")
 @bentoml.service(**SERVICE_CONFIG)
 class VLLM:
+    model_id = ENGINE_CONFIG["model"]
+    model = bentoml.models.HuggingFaceModel(model_name)
+
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         from vllm.entrypoints.openai.api_server import init_app_state
 
-        ENGINE_ARGS = AsyncEngineArgs(**ENGINE_CONFIG)
+        ENGINE_ARGS = AsyncEngineArgs(**ENGINE_CONFIG, model=self.model)
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
-        logger.info(f"VLLM service initialized with model: {ENGINE_CONFIG['model']}")
+        logger.info(f"VLLM service initialized with model: {self.model_id}")
 
         model_config = self.engine.engine.get_model_config()
 
         args = Namespace()
-        args.model = ENGINE_CONFIG["model"]
+        args.model = self.model
         args.disable_log_requests = True
         args.max_log_len = 1000
         args.response_role = "assistant"
@@ -123,7 +126,7 @@ class VLLM:
 
         try:
             completion = await client.chat.completions.create(  # type: ignore
-                model=ENGINE_CONFIG["model"],
+                model=self.model_id,
                 messages=[message.model_dump()],  # type: ignore
                 stream=True,
             )
@@ -157,7 +160,7 @@ class VLLM:
 
         try:
             completion = await client.chat.completions.create(  # type: ignore
-                model=ENGINE_CONFIG["model"],
+                model=self.model_id,
                 messages=[message.model_dump()],  # type: ignore
                 stream=True,
             )
