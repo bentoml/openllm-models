@@ -89,7 +89,8 @@ class VLLM:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         from vllm.entrypoints.openai.api_server import init_app_state
 
-        ENGINE_ARGS = AsyncEngineArgs(**ENGINE_CONFIG, model=self.model)
+
+        ENGINE_ARGS = AsyncEngineArgs(**dict(ENGINE_CONFIG, model=self.model))
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
         logger.info(f"VLLM service initialized with model: {self.model_id}")
 
