@@ -46,6 +46,7 @@ jobs:
       run: |
         if [[ -n $(git status -s) ]]; then
           git add bentoml/bentos/*
+          git add README.md
           git commit -m "chore: make bentos"
           git push origin nightly
         else
