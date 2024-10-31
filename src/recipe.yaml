@@ -1019,7 +1019,7 @@
     openllm_alias: 7b
     platforms: linux
   engine_config:
-    max_model_len: 20480
+    max_model_len: 2048
     model: Qwen/Qwen2-VL-7B-Instruct
     dtype: half
   project: vllm-chat
