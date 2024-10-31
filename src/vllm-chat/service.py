@@ -101,7 +101,7 @@ class VLLM:
         args.disable_log_requests = True
         args.max_log_len = 1000
         args.response_role = "assistant"
-        args.served_model_name = self.model_id
+        args.served_model_name = [self.model_id]
         if "chat_template" in PARAMETERS:
             args.chat_template = os.path.join(CHAT_TEMPLATE_DIR, f'{PARAMETERS["chat_template"]}.jinja')
         else:
