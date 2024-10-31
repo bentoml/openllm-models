@@ -1,8 +1,8 @@
 service: service:VLLM
 name: qwen2vl
-version: 7b-instruct-fp16-e046
+version: 7b-instruct-fp16-89a1
 bentoml_version: 1.3.10
-creation_time: '2024-10-31T07:07:28.117058+00:00'
+creation_time: '2024-10-31T07:15:41.082497+00:00'
 labels:
   model_name: Qwen/Qwen2-VL-7B-Instruct
   openllm_alias: 7b
@@ -16,7 +16,7 @@ services:
   models:
   - tag: qwen--qwen2-vl-7b-instruct:51c47430f97dd7c74aa1fa6825e68a813478097f
     module: null
-    creation_time: '2024-10-31T07:07:28.115343+00:00'
+    creation_time: '2024-10-31T07:15:41.080875+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2-vl-7b-instruct

@@ -1,4 +1,5 @@
 engine_config:
+  dtype: half
   max_model_len: 20480
   model: Qwen/Qwen2-VL-7B-Instruct
 extra_labels:
