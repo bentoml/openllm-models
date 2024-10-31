@@ -4,6 +4,7 @@ labels:
 include:
 - "*.py"
 - "*.yaml"
+- "*.txt"
 - "ui/*"
 python:
   requirements_txt: "./requirements.txt"
