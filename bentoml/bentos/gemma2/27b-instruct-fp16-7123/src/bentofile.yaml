@@ -1,0 +1,23 @@
+envs:
+- name: VLLM_ATTENTION_BACKEND
+  value: FLASHINFER
+- name: HF_TOKEN
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- ui/chunks/*
+- ui/css/*
+- ui/media/*
+- ui/chunks/pages/*
+- chat_templates/chat_templates/*
+labels:
+  model_name: google/gemma-2-27b-it
+  openllm_alias: 27b,27b-instruct
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+python:
+  requirements_txt: ./requirements.txt
+service: service:VLLM

@@ -1,0 +1,21 @@
+envs:
+- name: HF_TOKEN
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- ui/chunks/*
+- ui/css/*
+- ui/media/*
+- ui/chunks/pages/*
+- chat_templates/chat_templates/*
+labels:
+  model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
+  openllm_alias: 8x7b,8x7b-instruct
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+python:
+  requirements_txt: ./requirements.txt
+service: service:VLLM

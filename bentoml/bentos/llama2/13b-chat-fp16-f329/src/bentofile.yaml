@@ -1,0 +1,21 @@
+envs:
+- name: HF_TOKEN
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- ui/chunks/*
+- ui/css/*
+- ui/media/*
+- ui/chunks/pages/*
+- chat_templates/chat_templates/*
+labels:
+  model_name: meta-llama/Llama-2-13b-chat-hf
+  openllm_alias: 13b,13b-chat
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+python:
+  requirements_txt: ./requirements.txt
+service: service:VLLM
