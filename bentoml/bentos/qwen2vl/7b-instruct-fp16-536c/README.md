@@ -1,4 +1,4 @@
-# qwen2vl:7b-instruct-fp16-89a1
+# qwen2vl:7b-instruct-fp16-536c
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.10-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)
