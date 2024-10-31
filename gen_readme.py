@@ -3,8 +3,6 @@ import subprocess
 import sys
 
 
-subprocess.check_call([sys.executable, "-m", "openllm", "repo", "remove", "default"])
-subprocess.check_call([sys.executable, "-m", "openllm", "repo", "update"])
 model_list = subprocess.check_output(
     [sys.executable, "-m", "openllm", "model", "list"],
     env={"OPENLLM_TEST_REPO": "."},
