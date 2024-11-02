@@ -1,0 +1,17 @@
+engine_config:
+  max_model_len: 2048
+  model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+  tensor_parallel_size: 2
+extra_envs:
+- name: HF_TOKEN
+extra_labels:
+  model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+  openllm_alias: nemotron,70b-nemotron-instruct-hf
+project: vllm-chat
+service_config:
+  name: llama3.1
+  resources:
+    gpu: 1
+    gpu_type: nvidia-rtx-3060
+  traffic:
+    timeout: 300
