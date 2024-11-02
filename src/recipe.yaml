@@ -379,7 +379,7 @@
   extra_envs:
     - name: HF_TOKEN
   extra_labels:
-    openllm_alias: nemotron
+    openllm_alias: nemotron,70b-nemotron-instruct-hf
     model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
 'llama3.1:70b-instruct-awq-4bit':
   project: vllm-chat
