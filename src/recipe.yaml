@@ -363,10 +363,10 @@
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3.1-70B-Instruct
-'llama3.1:70b-nvidia-nemotron-instruct-hf':
+'llama3.1-nemotron:70b-instruct-fp16':
   project: vllm-chat
   service_config:
-    name: llama3.1
+    name: llama3.1-nemotron
     traffic:
       timeout: 300
     resources:
@@ -379,7 +379,7 @@
   extra_envs:
     - name: HF_TOKEN
   extra_labels:
-    openllm_alias: nemotron,70b-nemotron-instruct-hf
+    openllm_alias: 70b
     model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
 'llama3.1:70b-instruct-awq-4bit':
   project: vllm-chat
