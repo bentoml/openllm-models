@@ -363,6 +363,22 @@
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3.1-70B-Instruct
+'llama3.1-nemotron:70b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: llama3.1-nemotron
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+  engine_config:
+    model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+    max_model_len: 2048
+    tensor_parallel_size: 2
+  extra_labels:
+    openllm_alias: 70b
+    model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
 'llama3.1:70b-instruct-awq-4bit':
   project: vllm-chat
   service_config:
