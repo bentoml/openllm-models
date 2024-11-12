@@ -370,7 +370,7 @@
     traffic:
       timeout: 300
     resources:
-      gpu: 1
+      gpu: 2
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
