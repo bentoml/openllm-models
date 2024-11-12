@@ -47,7 +47,7 @@ llama3.1           llama3.1:8b-instruct-fp16-d75d              default  24G     
                    llama3.1:70b-instruct-fp16-b86d             default  80Gx2               linux
                    llama3.1:70b-instruct-awq-4bit-dbcc         default  80G                 linux
                    llama3.1:405b-instruct-awq-4bit-2358        default  80Gx4               linux
-llama3.1-nemotron  llama3.1-nemotron:70b-instruct-fp16-e498    default  80G                 linux
+llama3.1-nemotron  llama3.1-nemotron:70b-instruct-fp16-9352    default  80Gx2               linux
 llama3.2           llama3.2:1b-instruct-fp16-62c6              default  12G                 linux
                    llama3.2:1b-instruct-ggml-fp16-linux-60fa   default                      linux
                    llama3.2:1b-instruct-ggml-fp16-darwin-8d35  default                      macos

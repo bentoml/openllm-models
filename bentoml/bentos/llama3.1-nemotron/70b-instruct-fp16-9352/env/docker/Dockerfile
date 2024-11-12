@@ -27,7 +27,7 @@ RUN set -eux && \
         ca-certificates gnupg2 bash build-essential curl 
 ENV UV_SYSTEM_PYTHON=1
 RUN curl -LO https://astral.sh/uv/install.sh && \
-    sh install.sh && rm install.sh && mv $HOME/.cargo/bin/uv /usr/local/bin/
+    sh install.sh && rm install.sh && mv $HOME/.local/bin/uv /usr/local/bin/
 
 # Block SETUP_BENTO_USER
 ARG BENTO_USER=bentoml

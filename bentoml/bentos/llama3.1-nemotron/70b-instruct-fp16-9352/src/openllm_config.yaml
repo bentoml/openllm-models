@@ -9,7 +9,7 @@ project: vllm-chat
 service_config:
   name: llama3.1-nemotron
   resources:
-    gpu: 1
+    gpu: 2
     gpu_type: nvidia-a100-80gb
   traffic:
     timeout: 300

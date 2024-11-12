@@ -20,7 +20,7 @@ PIP_ARGS=()
 REQUIREMENTS_TXT="$BASEDIR/requirements.txt"
 REQUIREMENTS_LOCK="$BASEDIR/requirements.lock.txt"
 WHEELS_DIR="$BASEDIR/wheels"
-BENTOML_VERSION=${BENTOML_VERSION:-1.3.10}
+BENTOML_VERSION=${BENTOML_VERSION:-1.3.11}
 # Install python packages, prefer installing the requirements.lock.txt file if it exist
 pushd "$BASEDIR" &>/dev/null
 if [ -f "$REQUIREMENTS_LOCK" ]; then
