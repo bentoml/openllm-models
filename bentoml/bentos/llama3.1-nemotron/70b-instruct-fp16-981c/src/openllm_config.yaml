@@ -1,0 +1,15 @@
+engine_config:
+  max_model_len: 2048
+  model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+  tensor_parallel_size: 2
+extra_labels:
+  model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+  openllm_alias: 70b
+project: vllm-chat
+service_config:
+  name: llama3.1-nemotron
+  resources:
+    gpu: 2
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
