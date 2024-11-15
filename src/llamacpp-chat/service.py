@@ -82,7 +82,6 @@ class LlamaCppChat:
         from llama_cpp import Llama
         self.llm = Llama.from_pretrained(
             **ENGINE_CONFIG,
-            verbose=False,
         )
 
     @bentoml.api(route="/v1/chat/completions")
