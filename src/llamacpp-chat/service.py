@@ -77,12 +77,11 @@ if "prometheus_client" in sys.modules:
 @bentoml.mount_asgi_app(openai_api_app, path="/v1")
 @bentoml.service(**SERVICE_CONFIG)
 class LlamaCppChat:
-
+    model = bentoml.models.HuggingFaceModel(ENGINE_CONFIG["model"])
     def __init__(self) -> None:
         from llama_cpp import Llama
         self.llm = Llama.from_pretrained(
             **ENGINE_CONFIG,
-            verbose=False,
         )
 
     @bentoml.api(route="/v1/chat/completions")

@@ -1045,3 +1045,66 @@
       gpu_type: nvidia-l4
     traffic:
       timeout: 300
+'qwen2.5-coder:7b-instruct-ggml-fp16-darwin':
+  project: llamacpp-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+    openllm_alias: 7b-ggml-fp16-darwin
+    platforms: macos
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_METAL=on"
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00002-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00003-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00004-of-00004.gguf
+    filename: qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+    repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+  service_config:
+    name: qwen2.5-coder
+    resources:
+      memory: 16Gi
+    traffic:
+      timeout: 300
+'qwen2.5-coder:7b-instruct-ggml-fp16-linux':
+  project: llamacpp-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+    openllm_alias: 7b-ggml-fp16-linux
+    platforms: linux
+  extra_envs:
+    - name: CMAKE_ARGS
+      value: "-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
+  engine_config:
+    max_model_len: 2048
+    additional_files:
+      - qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00002-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00003-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-fp16-00004-of-00004.gguf
+    filename: qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+    repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+  service_config:
+    name: qwen2.5-coder
+    resources:
+      memory: 16Gi
+    traffic:
+      timeout: 300
+'qwen2.5-coder:7b-instruct':
+  project: vllm-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-Coder-7B-Instruct
+    openllm_alias: 7b-instruct
+  service_config:
+    name: qwen2.5-coder
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    traffic:
+      timeout: 300
+  engine_config:
+    model: Qwen/Qwen2.5-Coder-7B-Instruct
+    max_model_len: 20480
