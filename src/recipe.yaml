@@ -1045,7 +1045,7 @@
       gpu_type: nvidia-l4
     traffic:
       timeout: 300
-'qwen2.5-coder:7b-instruct-fp16-ggml-darwin':
+'qwen2.5-coder:7b-instruct-ggml-fp16-darwin':
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
@@ -1069,7 +1069,7 @@
       memory: 16Gi
     traffic:
       timeout: 300
-'qwen2.5-coder:7b-instruct-fp16-ggml-linux':
+'qwen2.5-coder:7b-instruct-ggml-fp16-linux':
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
