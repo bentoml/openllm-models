@@ -9,11 +9,11 @@ engine_config:
   repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
 extra_envs:
 - name: CMAKE_ARGS
-  value: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+  value: -DGGML_METAL=on
 extra_labels:
   model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-  openllm_alias: 7b-ggml-fp16
-  platforms: linux
+  openllm_alias: 7b-ggml-fp16-darwin
+  platforms: macos
 project: llamacpp-chat
 service_config:
   name: qwen2.5-coder

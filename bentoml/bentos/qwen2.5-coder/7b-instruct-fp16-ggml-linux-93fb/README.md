@@ -1,4 +1,4 @@
-# qwen2.5-coder:7b-instruct-fp16-ggml-linux-4e01
+# qwen2.5-coder:7b-instruct-fp16-ggml-linux-93fb
 
 [![pypi_status](https://img.shields.io/badge/BentoML-1.3.12-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)

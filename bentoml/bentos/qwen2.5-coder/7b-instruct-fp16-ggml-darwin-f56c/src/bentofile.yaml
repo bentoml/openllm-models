@@ -8,7 +8,7 @@ include:
 - ui/*
 labels:
   model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-  openllm_alias: 7b-ggml-fp16
+  openllm_alias: 7b-ggml-fp16-darwin
   platforms: macos
   source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
 python:

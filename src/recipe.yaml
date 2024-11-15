@@ -1049,7 +1049,7 @@
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-fp16
+    openllm_alias: 7b-ggml-fp16-darwin
     platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
@@ -1073,7 +1073,7 @@
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-fp16
+    openllm_alias: 7b-ggml-fp16-linux
     platforms: linux
   extra_envs:
     - name: CMAKE_ARGS
@@ -1093,3 +1093,18 @@
       memory: 16Gi
     traffic:
       timeout: 300
+'qwen2.5-coder:7b-instruct':
+  project: vllm-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-Coder-7B-Instruct
+    openllm_alias: 7b-instruct
+  service_config:
+    name: qwen2.5-coder
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    traffic:
+      timeout: 300
+  engine_config:
+    model: Qwen/Qwen2.5-Coder-7B-Instruct
+    max_model_len: 20480
