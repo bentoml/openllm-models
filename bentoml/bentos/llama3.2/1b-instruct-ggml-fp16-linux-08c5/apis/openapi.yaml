@@ -1,0 +1,359 @@
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    InternalServerError:
+      description: Internal Server Error
+      properties:
+        detail:
+          title: Error Detail
+          type: string
+        error:
+          title: Message
+          type: string
+      required:
+      - error
+      title: InternalServerError
+      type: object
+    InvalidArgument:
+      description: Bad Request
+      properties:
+        detail:
+          title: Error Detail
+          type: string
+        error:
+          title: Message
+          type: string
+      required:
+      - error
+      title: InvalidArgument
+      type: object
+    Message:
+      properties:
+        content:
+          title: Content
+          type: string
+        role:
+          enum:
+          - system
+          - user
+          - assistant
+          title: Role
+          type: string
+      required:
+      - role
+      - content
+      title: Message
+      type: object
+    NotFound:
+      description: Not Found
+      properties:
+        detail:
+          title: Error Detail
+          type: string
+        error:
+          title: Message
+          type: string
+      required:
+      - error
+      title: NotFound
+      type: object
+    TaskStatusResponse:
+      properties:
+        created_at:
+          title: Created At
+          type: string
+        executed_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Executed At
+        status:
+          enum:
+          - in_progress
+          - success
+          - failure
+          - cancelled
+          title: Status
+          type: string
+        task_id:
+          title: Task Id
+          type: string
+      required:
+      - task_id
+      - status
+      - created_at
+      - executed_at
+      title: TaskStatusResponse
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    chat_completions__Input:
+      properties:
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          default: 0.0
+          title: Frequency Penalty
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+        messages:
+          default:
+          - content: What is the meaning of life?
+            role: user
+          items:
+            $ref: '#/components/schemas/Message'
+          title: Messages
+          type: array
+        model:
+          default: unsloth/Llama-3.2-1B-Instruct-GGUF
+          title: Model
+          type: string
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          default: null
+          title: Stop
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: true
+          title: Stream
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          default: 0
+          title: Temperature
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          default: 1.0
+          title: Top P
+      title: chat_completions__Input
+      type: object
+info:
+  contact:
+    email: contact@bentoml.com
+    name: BentoML Team
+  description: "# llama3.2:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.3.12-informational)](https://pypi.org/project/BentoML)\n\
+    [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)\n\
+    [![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)\n\
+    [![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)\n\
+    [![Twitter Follow](https://img.shields.io/twitter/follow/bentomlai?label=Follow%20BentoML&style=social)](https://twitter.com/bentomlai)\n\
+    \nThis is a Machine Learning Service created with BentoML.\n\n## Help\n\n* [\U0001F4D6\
+    \ Documentation](https://docs.bentoml.com/en/latest/): Learn how to use BentoML.\n\
+    * [\U0001F4AC Community](https://l.bentoml.com/join-slack-swagger): Join the BentoML\
+    \ Slack community.\n* [\U0001F41B GitHub Issues](https://github.com/bentoml/BentoML/issues):\
+    \ Report bugs and feature requests.\n* Tip: you can also [customize this README](https://docs.bentoml.com/en/latest/concepts/bento.html#description).\n"
+  title: llama3.2
+  version: None
+openapi: 3.0.2
+paths:
+  /chat/:
+    get:
+      operationId: serve_chat_html__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Serve Chat Html
+  /chat/{full_path}:
+    get:
+      operationId: catch_all__full_path__get
+      parameters:
+      - in: path
+        name: full_path
+        required: true
+        schema:
+          title: Full Path
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Catch All
+  /healthz:
+    get:
+      description: Health check endpoint. Expecting an empty response with status
+        code <code>200</code> when the service is in health state. The <code>/healthz</code>
+        endpoint is <b>deprecated</b>. (since Kubernetes v1.16)
+      responses:
+        '200':
+          description: Successful Response
+      tags:
+      - Infrastructure
+  /livez:
+    get:
+      description: Health check endpoint for Kubernetes. Healthy endpoint responses
+        with a <code>200</code> OK status.
+      responses:
+        '200':
+          description: Successful Response
+      tags:
+      - Infrastructure
+  /metrics:
+    get:
+      description: Prometheus metrics endpoint. The <code>/metrics</code> responses
+        with a <code>200</code>. The output can then be used by a Prometheus sidecar
+        to scrape the metrics of the service.
+      responses:
+        '200':
+          description: Successful Response
+      tags:
+      - Infrastructure
+  /readyz:
+    get:
+      description: A <code>200</code> OK status from <code>/readyz</code> endpoint
+        indicated the service is ready to accept traffic. From that point and onward,
+        Kubernetes will use <code>/livez</code> endpoint to perform periodic health
+        checks.
+      responses:
+        '200':
+          description: Successful Response
+      tags:
+      - Infrastructure
+  /v1/chat/completions:
+    post:
+      description: "\n        Chat API that takes in a list of messages and returns\
+        \ a response\n        "
+      operationId: llama3.2__chat_completions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                frequency_penalty:
+                  default: 0.0
+                  title: Frequency Penalty
+                  type: number
+                max_tokens:
+                  default: 2048
+                  maximum: 2048
+                  minimum: 128
+                  title: Max Tokens
+                  type: integer
+                messages:
+                  default:
+                  - content: What is the meaning of life?
+                    role: user
+                  items:
+                    $ref: '#/components/schemas/Message'
+                  title: Messages
+                  type: array
+                model:
+                  default: unsloth/Llama-3.2-1B-Instruct-GGUF
+                  title: Model
+                  type: string
+                stop:
+                  default: null
+                  items:
+                    type: string
+                  title: Stop
+                  type: array
+                stream:
+                  default: true
+                  title: Stream
+                  type: boolean
+                temperature:
+                  default: 0
+                  title: Temperature
+                  type: number
+                top_p:
+                  default: 1.0
+                  title: Top P
+                  type: number
+              title: Input
+              type: object
+      responses:
+        200:
+          content:
+            text/event-stream:
+              schema:
+                title: IORootModel[str]
+                type: string
+          description: Successful Response
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgument'
+          description: Bad Request
+        404:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+          description: Not Found
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+          description: Internal Server Error
+      tags:
+      - Service APIs
+      x-bentoml-name: chat_completions
+  /v1/models:
+    get:
+      operationId: show_available_models_models_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Show Available Models
+servers:
+- url: .
+tags:
+- description: BentoML Service API endpoints for inference.
+  name: Service APIs
+- description: Common infrastructure endpoints for observability.
+  name: Infrastructure

@@ -1,0 +1,17 @@
+envs:
+- name: CMAKE_ARGS
+  value: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+include:
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- ui/*
+labels:
+  model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+  openllm_alias: 7b-ggml-fp16-linux
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
+python:
+  lock_packages: true
+  requirements_txt: ./requirements.txt
+service: service:LlamaCppChat
