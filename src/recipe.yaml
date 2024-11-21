@@ -1097,7 +1097,7 @@
   project: vllm-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct
-    openllm_alias: 7b-instruct
+    openllm_alias: 7b
   service_config:
     name: qwen2.5-coder
     resources:
@@ -1107,4 +1107,19 @@
       timeout: 300
   engine_config:
     model: Qwen/Qwen2.5-Coder-7B-Instruct
+    max_model_len: 20480
+'qwen2.5-coder:32b-instruct':
+  project: vllm-chat
+  extra_labels:
+    model_name: Qwen/Qwen2.5-Coder-32B-Instruct
+    openllm_alias: 32b
+  service_config:
+    name: qwen2.5-coder
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+  engine_config:
+    model: Qwen/Qwen2.5-Coder-32B-Instruct
     max_model_len: 20480
