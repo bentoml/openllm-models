@@ -1,0 +1,106 @@
+service: service:VLLM
+name: llama3.1-nemotron
+version: 70b-instruct-fp16-51b4
+bentoml_version: 1.3.14
+creation_time: '2024-11-21T09:06:17.273073+00:00'
+labels:
+  model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+  openllm_alias: 70b
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: llama3.1-nemotron
+services:
+- name: llama3.1-nemotron
+  service: ''
+  models:
+  - tag: nvidia--llama-3.1-nemotron-70b-instruct-hf:fac73d3507320ec1258620423469b4b38f88df6e
+    module: null
+    creation_time: '2024-11-21T09:06:17.271198+00:00'
+    registry: huggingface
+    metadata:
+      model_id: nvidia/llama-3.1-nemotron-70b-instruct-hf
+      revision: fac73d3507320ec1258620423469b4b38f88df6e
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: llama3.1-nemotron
+    resources:
+      gpu: 2
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: llama3.1-nemotron
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

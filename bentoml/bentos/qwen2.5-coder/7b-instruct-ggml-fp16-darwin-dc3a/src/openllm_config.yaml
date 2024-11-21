@@ -1,0 +1,23 @@
+engine_config:
+  additional_files:
+  - qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-fp16-00002-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-fp16-00003-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-fp16-00004-of-00004.gguf
+  filename: qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+  max_model_len: 2048
+  repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+extra_envs:
+- name: CMAKE_ARGS
+  value: -DGGML_METAL=on
+extra_labels:
+  model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+  openllm_alias: 7b-ggml-fp16-darwin
+  platforms: macos
+project: llamacpp-chat
+service_config:
+  name: qwen2.5-coder
+  resources:
+    memory: 16Gi
+  traffic:
+    timeout: 300

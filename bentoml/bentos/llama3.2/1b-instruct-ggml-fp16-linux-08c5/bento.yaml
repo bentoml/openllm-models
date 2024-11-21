@@ -1,0 +1,137 @@
+service: service:LlamaCppChat
+name: llama3.2
+version: 1b-instruct-ggml-fp16-linux-08c5
+bentoml_version: 1.3.12
+creation_time: '2024-11-18T08:57:30.839320+00:00'
+labels:
+  model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
+  openllm_alias: llama3.2,1b-instruct-ggml-fp16-linux
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/llamacpp-chat
+models: []
+entry_service: llama3.2
+services:
+- name: llama3.2
+  service: ''
+  models:
+  - tag: unsloth--llama-3.2-1b-instruct-gguf:952f952526368e61a6393b1a65684e0824fba86c
+    module: null
+    creation_time: '2024-11-18T08:57:30.836498+00:00'
+    registry: huggingface
+    metadata:
+      model_id: unsloth/llama-3.2-1b-instruct-gguf
+      revision: 952f952526368e61a6393b1a65684e0824fba86c
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: llama3.2
+    resources:
+      cpu: 1
+      memory: 3Gi
+    traffic:
+      timeout: 300
+envs:
+- name: CMAKE_ARGS
+  value: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+schema:
+  name: llama3.2
+  type: service
+  routes:
+  - name: chat_completions
+    route: /v1/chat/completions
+    batchable: false
+    input:
+      properties:
+        messages:
+          default:
+          - role: user
+            content: What is the meaning of life?
+          items:
+            properties:
+              role:
+                enum:
+                - system
+                - user
+                - assistant
+                title: Role
+                type: string
+              content:
+                title: Content
+                type: string
+            required:
+            - role
+            - content
+            title: Message
+            type: object
+          title: Messages
+          type: array
+        model:
+          default: unsloth/Llama-3.2-1B-Instruct-GGUF
+          title: Model
+          type: string
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+        stop:
+          default: null
+          title: Stop
+          items:
+            type: string
+          type: array
+        stream:
+          default: true
+          title: Stream
+          type: boolean
+        temperature:
+          default: 0
+          title: Temperature
+          type: number
+        top_p:
+          default: 1.0
+          title: Top P
+          type: number
+        frequency_penalty:
+          default: 0.0
+          title: Frequency Penalty
+          type: number
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env:
+    CMAKE_ARGS: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null
