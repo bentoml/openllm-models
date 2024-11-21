@@ -1,0 +1,109 @@
+service: service:VLLM
+name: gemma
+version: 2b-instruct-fp16-5eac
+bentoml_version: 1.3.14
+creation_time: '2024-11-21T09:07:08.468857+00:00'
+labels:
+  model_name: google/gemma-2b-it
+  openllm_alias: 2b,2b-instruct
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: gemma
+services:
+- name: gemma
+  service: ''
+  models:
+  - tag: google--gemma-2b-it:96988410cbdaeb8d5093d1ebdc5a8fb563e02bad
+    module: null
+    creation_time: '2024-11-21T09:07:08.466979+00:00'
+    registry: huggingface
+    metadata:
+      model_id: google/gemma-2b-it
+      revision: 96988410cbdaeb8d5093d1ebdc5a8fb563e02bad
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: gemma
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+    traffic:
+      timeout: 300
+envs:
+- name: HF_TOKEN
+  value: ''
+schema:
+  name: gemma
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env:
+    HF_TOKEN: ''
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

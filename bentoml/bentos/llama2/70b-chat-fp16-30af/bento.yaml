@@ -1,0 +1,109 @@
+service: service:VLLM
+name: llama2
+version: 70b-chat-fp16-30af
+bentoml_version: 1.3.14
+creation_time: '2024-11-21T09:04:32.174542+00:00'
+labels:
+  model_name: meta-llama/Llama-2-70b-chat-hf
+  openllm_alias: 70b,70b-chat
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: llama2
+services:
+- name: llama2
+  service: ''
+  models:
+  - tag: meta-llama--llama-2-70b-chat-hf:e9149a12809580e8602995856f8098ce973d1080
+    module: null
+    creation_time: '2024-11-21T09:04:32.172446+00:00'
+    registry: huggingface
+    metadata:
+      model_id: meta-llama/llama-2-70b-chat-hf
+      revision: e9149a12809580e8602995856f8098ce973d1080
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: llama2
+    resources:
+      gpu: 2
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs:
+- name: HF_TOKEN
+  value: ''
+schema:
+  name: llama2
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env:
+    HF_TOKEN: ''
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

@@ -1,0 +1,106 @@
+service: service:VLLM
+name: mistral
+version: 7b-instruct-awq-4bit-f24d
+bentoml_version: 1.3.14
+creation_time: '2024-11-21T09:04:44.633013+00:00'
+labels:
+  model_name: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
+  openllm_alias: 7b-4bit,7b-instruct-4bit
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: mistral
+services:
+- name: mistral
+  service: ''
+  models:
+  - tag: thebloke--mistral-7b-instruct-v0.1-awq:b2f7c152209c12057c3a0d77b2c01a1def7d594f
+    module: null
+    creation_time: '2024-11-21T09:04:44.631127+00:00'
+    registry: huggingface
+    metadata:
+      model_id: thebloke/mistral-7b-instruct-v0.1-awq
+      revision: b2f7c152209c12057c3a0d77b2c01a1def7d594f
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: mistral
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: mistral
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

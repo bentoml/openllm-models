@@ -1,0 +1,106 @@
+service: service:VLLM
+name: mixtral
+version: 8x7b-instruct-v0.1-awq-4bit-29b9
+bentoml_version: 1.3.14
+creation_time: '2024-11-21T09:07:33.632645+00:00'
+labels:
+  model_name: casperhansen/mixtral-instruct-awq
+  openllm_alias: 8x7b-4bit
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: mixtral
+services:
+- name: mixtral
+  service: ''
+  models:
+  - tag: casperhansen--mixtral-instruct-awq:0a898130957afe22021bbaf807f50f6bbce88201
+    module: null
+    creation_time: '2024-11-21T09:07:33.630735+00:00'
+    registry: huggingface
+    metadata:
+      model_id: casperhansen/mixtral-instruct-awq
+      revision: 0a898130957afe22021bbaf807f50f6bbce88201
+      endpoint: https://huggingface.co
+  dependencies: []
+  config:
+    name: mixtral
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-a100
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: mixtral
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      title: IORootModel[str]
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null
