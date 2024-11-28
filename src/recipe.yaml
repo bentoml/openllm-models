@@ -374,7 +374,7 @@
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
-    max_model_len: 2048
+    max_model_len: 128000
     tensor_parallel_size: 2
   extra_labels:
     openllm_alias: 70b
