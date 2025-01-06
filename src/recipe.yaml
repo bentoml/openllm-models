@@ -1141,3 +1141,19 @@
     model_name: meta-llama/Llama-3.3-70B-Instruct
   extra_envs:
     - name: HF_TOKEN
+"deepseek:v3":
+  project: vllm-chat
+  service_config:
+    name: deepseek-v3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 16
+      gpu_type: nvidia-a100-80gb
+  engine_config:
+    model: deepseek-ai/DeepSeek-V3
+    max_model_len: 2048
+    tensor_parallel_size: 16
+  extra_labels:
+    openllm_alias: deepseek-v3
+    model_name: deepseek-v3
