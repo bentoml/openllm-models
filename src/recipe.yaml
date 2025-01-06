@@ -1130,12 +1130,12 @@
     traffic:
       timeout: 300
     resources:
-      gpu: 2
-      gpu_type: nvidia-a100-80gb
+      gpu: 4
+      gpu_type: nvidia-tesla-a100
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
     max_model_len: 2048
-    tensor_parallel_size: 2
+    tensor_parallel_size: 4
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Llama-3.3-70B-Instruct
