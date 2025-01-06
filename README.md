@@ -53,7 +53,7 @@ llama3.2           llama3.2:1b-instruct-fp16-69ad                   default  12G
                    llama3.2:1b-instruct-ggml-fp16-darwin-12f1       default                      macos
                    llama3.2:3b-instruct-fp16-785f                   default  12G                 linux
                    llama3.2:11b-vision-instruct-1fbd                default  80G                 linux
-llama3.3           llama3.3:70b-instruct-fp16-a20b                  default  80Gx2               linux
+llama3.3           llama3.3:70b-instruct-fp16-5859                  default  40Gx4               linux
 mistral            mistral:7b-instruct-fp16-28ad                    default  24G                 linux
                    mistral:7b-instruct-awq-4bit-f24d                default  12G                 linux
                    mistral:24b-instruct-nemo-e080                   default  80G                 linux
