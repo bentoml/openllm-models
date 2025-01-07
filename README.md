@@ -28,6 +28,7 @@ $ openllm model list
 model              version                                          repo     required GPU RAM    platforms
 -----------------  -----------------------------------------------  -------  ------------------  -----------
 codestral          codestral:22b-v0.1-fp16-e452                     default  80G                 linux
+deepseek-v3        deepseek-v3:671b-instruct-fp8-2b9a               default  80Gx16              linux
 gemma              gemma:2b-instruct-fp16-5eac                      default  12G                 linux
                    gemma:7b-instruct-fp16-c20f                      default  24G                 linux
                    gemma:7b-instruct-awq-4bit-80de                  default  12G                 linux
