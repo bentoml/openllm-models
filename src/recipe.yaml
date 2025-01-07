@@ -1141,7 +1141,7 @@
     model_name: meta-llama/Llama-3.3-70B-Instruct
   extra_envs:
     - name: HF_TOKEN
-"deepseek:v3":
+"deepseek-v3:671b-instruct-fp8":
   project: vllm-chat
   service_config:
     name: deepseek-v3
@@ -1155,5 +1155,5 @@
     max_model_len: 2048
     tensor_parallel_size: 16
   extra_labels:
-    openllm_alias: deepseek-v3
+    openllm_alias: 671b
     model_name: deepseek-v3
