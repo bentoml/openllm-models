@@ -21,7 +21,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 </tr>
 <tr>
 <td>
-        
+
 ```bash
 $ openllm repo update
 $ openllm model list
