@@ -11,7 +11,6 @@ import fastapi
 import fastapi.staticfiles
 import PIL.Image
 import pydantic
-import vllm.entrypoints.openai.api_server as vllm_api_server
 import yaml
 from fastapi.responses import FileResponse
 
@@ -43,18 +42,6 @@ logger.setLevel(logging.INFO)
 
 # openai api app
 openai_api_app = fastapi.FastAPI()
-OPENAI_ENDPOINTS = [
-    ["/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
-    ["/completions", vllm_api_server.create_completion, ["POST"]],
-    ["/models", vllm_api_server.show_available_models, ["GET"]],
-]
-for route, endpoint, methods in OPENAI_ENDPOINTS:
-    openai_api_app.add_api_route(
-        path=route,
-        endpoint=endpoint,
-        methods=methods,
-        include_in_schema=True,
-    )
 
 # chat UI app
 ui_app = fastapi.FastAPI()
@@ -87,7 +74,20 @@ class VLLM:
 
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
-        from vllm.entrypoints.openai.api_server import init_app_state
+        import vllm.entrypoints.openai.api_server as vllm_api_server
+
+        OPENAI_ENDPOINTS = [
+            ["/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
+            ["/completions", vllm_api_server.create_completion, ["POST"]],
+            ["/models", vllm_api_server.show_available_models, ["GET"]],
+        ]
+        for route, endpoint, methods in OPENAI_ENDPOINTS:
+            openai_api_app.add_api_route(
+                path=route,
+                endpoint=endpoint,
+                methods=methods,
+                include_in_schema=True,
+            )
 
 
         ENGINE_ARGS = AsyncEngineArgs(**dict(ENGINE_CONFIG, model=self.model))
@@ -115,7 +115,7 @@ class VLLM:
         args.enable_auto_tool_choice = False
         args.tool_call_parser = None
 
-        init_app_state(self.engine, model_config, openai_api_app.state, args)
+        vllm_api_server.init_app_state(self.engine, model_config, openai_api_app.state, args)
 
     @bentoml.api
     async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
