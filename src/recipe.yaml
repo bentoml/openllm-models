@@ -15,6 +15,23 @@
   extra_labels:
     openllm_alias: 3.8b,3.8b-mini,3.8b-mini-instruct-4k-fp16
     model_name: microsoft/Phi-3-mini-4k-instruct
+'phi4:14b-fp16':
+  project: vllm-chat
+  service_config:
+    name: phi4
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+  engine_config:
+    model: microsoft/phi-4
+    max_model_len: 4096
+    dtype: half
+  chat_template: phi-3
+  extra_labels:
+    openllm_alias: 14b
+    model_name: microsoft/phi-4
 'llama2:7b-chat-fp16':
   project: vllm-chat
   service_config:
