@@ -21,7 +21,7 @@ openllm repo add nightly https://github.com/bentoml/openllm-models@nightly
 </tr>
 <tr>
 <td>
-        
+
 ```bash
 $ openllm repo update
 $ openllm model list
@@ -64,6 +64,7 @@ mixtral            mixtral:8x7b-instruct-v0.1-fp16-a0e4             default  80G
                    mixtral:8x7b-instruct-v0.1-awq-4bit-bdce         default  40G                 linux
 phi3               phi3:3.8b-instruct-fp16-a842                     default  12G                 linux
                    phi3:3.8b-instruct-ggml-q4-ccda                  default                      macos
+phi4               phi4:14b-fp16-9bdd                               default  80G                 linux
 pixtral            pixtral:12b-240910-9ad6                          default  80G                 linux
 qwen2              qwen2:0.5b-instruct-fp16-e49c                    default  12G                 linux
                    qwen2:1.5b-instruct-fp16-e104                    default  12G                 linux

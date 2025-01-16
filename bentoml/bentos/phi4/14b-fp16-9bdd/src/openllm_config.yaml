@@ -1,0 +1,16 @@
+chat_template: phi-3
+engine_config:
+  dtype: half
+  max_model_len: 4096
+  model: microsoft/phi-4
+extra_labels:
+  model_name: microsoft/phi-4
+  openllm_alias: 14b
+project: vllm-chat
+service_config:
+  name: phi4
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
