@@ -1242,7 +1242,7 @@
 'deepseek-r1-distill:qwen2.5-1.5b-math-fp16':
   project: vllm-chat
   service_config:
-    name: qwen2.5
+    name: deepseek-r1-distill
     traffic:
       timeout: 300
     resources:
