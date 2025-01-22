@@ -1,0 +1,15 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+extra_labels:
+  model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  openllm_alias: 7b,7b-math
+project: vllm-chat
+service_config:
+  name: deepseek-r1-distill
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300

@@ -1,0 +1,15 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+extra_labels:
+  model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  openllm_alias: 8b,8b-instruct
+project: vllm-chat
+service_config:
+  name: deepseek-r1-distill
+  resources:
+    gpu: 1
+    gpu_type: nvidia-tesla-l4
+  traffic:
+    timeout: 300

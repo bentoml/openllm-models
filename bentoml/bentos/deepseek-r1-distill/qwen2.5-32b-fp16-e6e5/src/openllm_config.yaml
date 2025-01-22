@@ -1,0 +1,15 @@
+engine_config:
+  dtype: half
+  max_model_len: 2048
+  model: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+extra_labels:
+  model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+  openllm_alias: 32b
+project: vllm-chat
+service_config:
+  name: deepseek-r1-distill
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
