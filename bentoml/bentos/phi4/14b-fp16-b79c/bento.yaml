@@ -1,0 +1,106 @@
+service: service:VLLM
+name: phi4
+version: 14b-fp16-b79c
+bentoml_version: 1.3.20
+creation_time: '2025-01-22T07:12:54.701293+00:00'
+labels:
+  model_name: microsoft/phi-4
+  openllm_alias: 14b
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: phi4
+services:
+- name: phi4
+  service: ''
+  models:
+  - tag: microsoft--phi-4:39f60dba57a74e84b754aa869256d52a
+    module: null
+    creation_time: '2025-01-22T07:12:54.699451+00:00'
+    registry: huggingface
+    metadata:
+      model_id: microsoft/phi-4
+      revision: f957856cd926f9d681b14153374d755dd97e45ed
+      endpoint: https://huggingface.co
+      include: null
+      exclude: null
+  dependencies: []
+  config:
+    name: phi4
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: phi4
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

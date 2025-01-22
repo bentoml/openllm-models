@@ -1,0 +1,106 @@
+service: service:VLLM
+name: deepseek-v3
+version: 671b-instruct-fp8-70d7
+bentoml_version: 1.3.20
+creation_time: '2025-01-22T07:15:41.501902+00:00'
+labels:
+  model_name: deepseek-v3
+  openllm_alias: 671b
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: deepseek-v3
+services:
+- name: deepseek-v3
+  service: ''
+  models:
+  - tag: deepseek-ai--deepseek-v3:212545f2ea17fd260bd42e877ab49d58
+    module: null
+    creation_time: '2025-01-22T07:15:41.500267+00:00'
+    registry: huggingface
+    metadata:
+      model_id: deepseek-ai/deepseek-v3
+      revision: 4c1f24cc10a2a1894304c7ab52edd9710c047571
+      endpoint: https://huggingface.co
+      include: null
+      exclude: null
+  dependencies: []
+  config:
+    name: deepseek-v3
+    resources:
+      gpu: 16
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: deepseek-v3
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null
