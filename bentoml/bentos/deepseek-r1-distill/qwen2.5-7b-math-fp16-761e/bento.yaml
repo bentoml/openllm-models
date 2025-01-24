@@ -1,0 +1,106 @@
+service: service:VLLM
+name: deepseek-r1-distill
+version: qwen2.5-7b-math-fp16-761e
+bentoml_version: 1.3.20
+creation_time: '2025-01-22T07:15:37.434915+00:00'
+labels:
+  model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  openllm_alias: 7b,7b-math
+  platforms: linux
+  source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
+models: []
+entry_service: deepseek-r1-distill
+services:
+- name: deepseek-r1-distill
+  service: ''
+  models:
+  - tag: deepseek-ai--deepseek-r1-distill-qwen-7b:43760d1040643d323495767c28227c7b
+    module: null
+    creation_time: '2025-01-22T07:15:37.433111+00:00'
+    registry: huggingface
+    metadata:
+      model_id: deepseek-ai/deepseek-r1-distill-qwen-7b
+      revision: b640c47fb9acbc6333ced6216252a17ed3abc4f6
+      endpoint: https://huggingface.co
+      include: null
+      exclude: null
+  dependencies: []
+  config:
+    name: deepseek-r1-distill
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    traffic:
+      timeout: 300
+envs: []
+schema:
+  name: deepseek-r1-distill
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: generate_with_image
+    route: /generate_with_image
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: what is this?
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 1
+runners: []
+apis: []
+docker:
+  distro: debian
+  python_version: '3.9'
+  cuda_version: null
+  env: null
+  system_packages: null
+  setup_script: null
+  base_image: null
+  dockerfile_template: null
+python:
+  requirements_txt: ./requirements.txt
+  packages: null
+  lock_packages: true
+  pack_git_packages: true
+  index_url: null
+  no_index: null
+  trusted_host: null
+  find_links: null
+  extra_index_url: null
+  pip_args: null
+  wheels: null
+conda:
+  environment_yml: null
+  channels: null
+  dependencies: null
+  pip: null

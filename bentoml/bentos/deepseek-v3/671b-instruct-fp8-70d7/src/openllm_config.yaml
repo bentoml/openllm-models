@@ -1,0 +1,15 @@
+engine_config:
+  max_model_len: 2048
+  model: deepseek-ai/DeepSeek-V3
+  tensor_parallel_size: 16
+extra_labels:
+  model_name: deepseek-v3
+  openllm_alias: 671b
+project: vllm-chat
+service_config:
+  name: deepseek-v3
+  resources:
+    gpu: 16
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

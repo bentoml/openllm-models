@@ -1,0 +1,57 @@
+{
+  "name": "llama3",
+  "type": "service",
+  "routes": [
+    {
+      "name": "generate",
+      "route": "/generate",
+      "batchable": false,
+      "input": {
+        "properties": {
+          "prompt": {
+            "default": "what is this?",
+            "title": "Prompt",
+            "type": "string"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "output": {
+        "type": "string",
+        "is_stream": true,
+        "media_type": "text/event-stream"
+      },
+      "is_task": false
+    },
+    {
+      "name": "generate_with_image",
+      "route": "/generate_with_image",
+      "batchable": false,
+      "input": {
+        "properties": {
+          "prompt": {
+            "default": "what is this?",
+            "title": "Prompt",
+            "type": "string"
+          },
+          "image": {
+            "default": null,
+            "title": "Image",
+            "format": "image",
+            "pil": true,
+            "type": "file"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "output": {
+        "type": "string",
+        "is_stream": true,
+        "media_type": "text/event-stream"
+      },
+      "is_task": false
+    }
+  ]
+}
