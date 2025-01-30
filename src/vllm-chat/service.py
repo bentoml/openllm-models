@@ -114,6 +114,8 @@ class VLLM:
         args.enable_tool_call_parser = False
         args.enable_auto_tool_choice = False
         args.tool_call_parser = None
+        args.chat_template_content_format = "auto"
+        args.enable_prompt_tokens_details = False
 
         vllm_api_server.init_app_state(self.engine, model_config, openai_api_app.state, args)
 
