@@ -1,0 +1,4 @@
+vllm>=0.7.0
+pyyaml
+pillow
+openai
