@@ -1,6 +1,0 @@
-vllm>=0.7.0
-pyyaml
-pillow
-openai
-mistral_common[opencv]
-bentoml==1.3.20
