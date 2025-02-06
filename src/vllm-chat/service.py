@@ -38,7 +38,11 @@ async def catch_all(full_path: str):
 @bentoml.service(
     **SERVICE_CONFIG,
     image=bentoml.images.PythonImage(python_version="3.11")
-    .python_packages("vllm==0.7.1", "pyyaml", "pillow", "openai", "bentoml>=1.3.20")
+    .python_packages("vllm==0.7.1")
+    .python_packages("pyyaml")
+    .python_packages("Pillow")
+    .python_packages("openai")
+    .python_packages("bentoml>=1.3.20")
     .python_packages(*REQUIREMENTS_TXT),
 )
 class VLLM:
