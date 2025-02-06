@@ -1,28 +1,12 @@
 from __future__ import annotations
 
 import base64, io, logging, os, traceback, typing, argparse
-import bentoml
+import bentoml, yaml, fastapi, pydantic, PIL.Image, fastapi.staticfiles
 
-with bentoml.importing():
-    from fastapi.responses import FileResponse
-    import fastapi, pydantic, yaml, PIL.Image, fastapi.staticfiles
+from fastapi.responses import FileResponse
 
-
-class URL(pydantic.BaseModel):
-    url: str
-
-class TextContent(pydantic.BaseModel):
-    type: typing.Literal["text"] = "text"
-    text: str
-
-class ImageContent(pydantic.BaseModel):
-    type: typing.Literal["image_url"] = "image_url"
-    image_url: URL
-
-class Message(pydantic.BaseModel):
-    role: typing.Literal["system", "user", "assistant"] = "user"
-    content: typing.Sequence[typing.Union[TextContent, ImageContent]]
-
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 PARAMETER_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
 with open(PARAMETER_YAML) as f:
@@ -31,8 +15,25 @@ ENGINE_CONFIG = PARAMETERS.get("engine_config", {})
 SERVICE_CONFIG = PARAMETERS.get("service_config", {})
 SERVER_CONFIG = PARAMETERS.get("server_config", {})
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+
+class URL(pydantic.BaseModel):
+    url: str
+
+
+class TextContent(pydantic.BaseModel):
+    type: typing.Literal["text"] = "text"
+    text: str
+
+
+class ImageContent(pydantic.BaseModel):
+    type: typing.Literal["image_url"] = "image_url"
+    image_url: URL
+
+
+class Message(pydantic.BaseModel):
+    role: typing.Literal["system", "user", "assistant"] = "user"
+    content: typing.Sequence[typing.Union[TextContent, ImageContent]]
+
 
 # openai api app
 openai_api_app = fastapi.FastAPI()
