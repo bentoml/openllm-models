@@ -3,15 +3,12 @@ labels:
   source: https://github.com/bentoml/openllm-models/tree/main/src/vllm-chat
   platforms: linux
 include:
-- "*.py"
-- "*.yaml"
-- "*.txt"
-- "*.md"
-- "ui/*"
-- "ui/chunks/*"
-- "ui/css/*"
-- "ui/media/*"
-- "ui/chunks/pages/*"
-- "chat_templates/chat_templates/*"
-python:
-  requirements_txt: "./requirements.txt"
+  - "*.py"
+  - "*.yaml"
+  - "*.txt"
+  - "*.md"
+  - "ui/*"
+  - "ui/chunks/*"
+  - "ui/css/*"
+  - "ui/media/*"
+  - "ui/chunks/pages/*"

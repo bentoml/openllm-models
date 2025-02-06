@@ -1,34 +1,27 @@
-import base64
-import io
-import logging
-import os
-import traceback
-from argparse import Namespace
-from typing import AsyncGenerator, Literal, Optional, Union, Sequence
+from __future__ import annotations
 
+import base64, io, logging, os, traceback, typing, argparse
 import bentoml
-import fastapi
-import fastapi.staticfiles
-import PIL.Image
-import pydantic
-import yaml
-from fastapi.responses import FileResponse
+
+with bentoml.importing():
+    from fastapi.responses import FileResponse
+    import fastapi, pydantic, yaml, PIL.Image, fastapi.staticfiles
 
 
 class URL(pydantic.BaseModel):
     url: str
 
 class TextContent(pydantic.BaseModel):
-    type: Literal["text"] = "text"
+    type: typing.Literal["text"] = "text"
     text: str
 
 class ImageContent(pydantic.BaseModel):
-    type: Literal["image_url"] = "image_url"
+    type: typing.Literal["image_url"] = "image_url"
     image_url: URL
 
 class Message(pydantic.BaseModel):
-    role: Literal["system", "user", "assistant"] = "user"
-    content: Sequence[Union[TextContent, ImageContent]]
+    role: typing.Literal["system", "user", "assistant"] = "user"
+    content: typing.Sequence[typing.Union[TextContent, ImageContent]]
 
 
 PARAMETER_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
@@ -36,6 +29,7 @@ with open(PARAMETER_YAML) as f:
     PARAMETERS = yaml.safe_load(f)
 ENGINE_CONFIG = PARAMETERS.get("engine_config", {})
 SERVICE_CONFIG = PARAMETERS.get("service_config", {})
+SERVER_CONFIG = PARAMETERS.get("server_config", {})
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -46,10 +40,7 @@ openai_api_app = fastapi.FastAPI()
 # chat UI app
 ui_app = fastapi.FastAPI()
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "ui")
-CHAT_TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "chat_templates", "chat_templates")
-ui_app.mount(
-    "/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static"
-)
+ui_app.mount("/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @ui_app.get("/")
@@ -65,9 +56,17 @@ async def catch_all(full_path: str):
     return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
 
 
-@bentoml.mount_asgi_app(openai_api_app, path="/v1")
-@bentoml.mount_asgi_app(ui_app, path="/chat")
-@bentoml.service(**SERVICE_CONFIG)
+@bentoml.asgi_app(openai_api_app, path="/v1")
+@bentoml.asgi_app(ui_app, path="/chat")
+@bentoml.service(
+    **SERVICE_CONFIG,
+    image=bentoml.images.PythonImage(python_version="3.11")
+    .python_packages("vllm==0.7.1")
+    .python_packages("pyyaml")
+    .python_packages("pillow")
+    .python_packages("openai")
+    .python_packages("bentoml>=1.3.20"),
+)
 class VLLM:
     model_id = ENGINE_CONFIG["model"]
     model = bentoml.models.HuggingFaceModel(model_id)
@@ -75,10 +74,11 @@ class VLLM:
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         import vllm.entrypoints.openai.api_server as vllm_api_server
+        from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
+        from vllm.entrypoints.openai.serving_models import BaseModelPath, OpenAIServingModels
 
         OPENAI_ENDPOINTS = [
             ["/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
-            ["/completions", vllm_api_server.create_completion, ["POST"]],
             ["/models", vllm_api_server.show_available_models, ["GET"]],
         ]
         for route, endpoint, methods in OPENAI_ENDPOINTS:
@@ -89,23 +89,21 @@ class VLLM:
                 include_in_schema=True,
             )
 
-
+        model_config = self.engine.engine.get_model_config()
         ENGINE_ARGS = AsyncEngineArgs(**dict(ENGINE_CONFIG, model=self.model))
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
         logger.info(f"VLLM service initialized with model: {self.model_id}")
 
         model_config = self.engine.engine.get_model_config()
 
-        args = Namespace()
+        args = argparse.Namespace()
         args.model = self.model
         args.disable_log_requests = True
         args.max_log_len = 1000
         args.response_role = "assistant"
         args.served_model_name = [self.model_id]
-        if "chat_template" in PARAMETERS:
-            args.chat_template = os.path.join(CHAT_TEMPLATE_DIR, f'{PARAMETERS["chat_template"]}.jinja')
-        else:
-            args.chat_template = None
+        args.chat_template = None
+        args.chat_template_content_format = "auto"
         args.lora_modules = None
         args.prompt_adapters = None
         args.request_logger = None
@@ -114,36 +112,44 @@ class VLLM:
         args.enable_tool_call_parser = False
         args.enable_auto_tool_choice = False
         args.tool_call_parser = None
-        args.chat_template_content_format = "auto"
         args.enable_prompt_tokens_details = False
 
-        vllm_api_server.init_app_state(self.engine, model_config, openai_api_app.state, args)
+        for key, value in SERVICE_CONFIG.items():
+            setattr(args, key, value)
+
+        request_logger = None
+        base_model_paths = [BaseModelPath(name=name, model_path=args.model) for name in args.served_model_name]
+
+        openai_api_app.state.engine_client = self.engine
+        openai_api_app.state.log_stats = False
+        openai_api_app.state.openai_serving_models = OpenAIServingModels(
+            engine_client=self.engine,
+            model_config=model_config,
+            base_model_paths=base_model_paths,
+            lora_modules=args.lora_modules,
+            prompt_adapters=args.prompt_adapters,
+        )
+        openai_api_app.state.openai_serving_chat = OpenAIServingChat(
+            self.engine,
+            model_config,
+            openai_api_app.state.openai_serving_models,
+            args.response_role,
+            request_logger=request_logger,
+            chat_template=args.chat_template,
+            chat_template_content_format=args.chat_template_content_format,
+            return_tokens_as_token_ids=args.return_tokens_as_token_ids,
+            enable_auto_tools=args.enable_auto_tool_choice,
+            tool_parser=args.tool_call_parser,
+            enable_reasoning=args.enable_reasoning,
+            reasoning_parser=args.reasoning_parser,
+            enable_prompt_tokens_details=args.enable_prompt_tokens_details,
+        )
+        openai_api_app.state.task = model_config.task
 
     @bentoml.api
-    async def generate(self, prompt: str = "what is this?") -> AsyncGenerator[str, None]:
-        from openai import AsyncOpenAI
-
-        client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
-        content = [TextContent(text=prompt)]
-        message = Message(role="user", content=content)
-
-        try:
-            completion = await client.chat.completions.create(  # type: ignore
-                model=self.model_id,
-                messages=[message.model_dump()],  # type: ignore
-                stream=True,
-            )
-            async for chunk in completion:
-                yield chunk.choices[0].delta.content or ""
-        except Exception:
-            yield traceback.format_exc()
-
-    @bentoml.api
-    async def generate_with_image(
-        self,
-        prompt: str = "what is this?",
-        image: Optional[PIL.Image.Image] = None,
-    ) -> AsyncGenerator[str, None]:
+    async def generate(
+        self, prompt: str = "what is this?", image: typing.Optional[PIL.Image.Image] = None
+    ) -> typing.AsyncGenerator[str, None]:
         from openai import AsyncOpenAI
 
         client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
@@ -153,7 +159,7 @@ class VLLM:
             img_str = base64.b64encode(buffered.getvalue()).decode()
             buffered.close()
             image_url = f"data:image/png;base64,{img_str}"
-            content: list[Union[ImageContent, TextContent]] = [
+            content = [
                 ImageContent(image_url=URL(url=image_url)),
                 TextContent(text=prompt),
             ]
@@ -162,9 +168,9 @@ class VLLM:
         message = Message(role="user", content=content)
 
         try:
-            completion = await client.chat.completions.create(  # type: ignore
+            completion = await client.chat.completions.create(
                 model=self.model_id,
-                messages=[message.model_dump()],  # type: ignore
+                messages=[message.model_dump()],
                 stream=True,
             )
             async for chunk in completion:
