@@ -1,12 +1,11 @@
-import hashlib
-import os
-import pathlib
-import shutil
-import subprocess
-import sys
-import tempfile
+import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata
 
-import yaml
+import yaml, tomli_w
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 with open("recipe.yaml") as f:
     RECIPE = yaml.safe_load(f)
@@ -35,7 +34,7 @@ def hash_directory(directory_path):
     return hasher.hexdigest()
 
 
-def ensure_venv(req_txt_file, venv_dir):
+def ensure_venv(pyproject_toml, venv_dir):
     if not venv_dir.exists():
         subprocess.run(
             [
@@ -58,7 +57,7 @@ def ensure_venv(req_txt_file, venv_dir):
                 "install",
                 "bentoml",
                 "-p",
-                venv_dir/"bin"/"python",
+                venv_dir / "bin" / "python",
             ],
             check=True,
         )
@@ -70,9 +69,9 @@ def ensure_venv(req_txt_file, venv_dir):
                 "pip",
                 "install",
                 "-r",
-                req_txt_file,
+                pyproject_toml,
                 "-p",
-                venv_dir/"bin"/"python",
+                venv_dir / "bin" / "python",
             ],
             check=True,
         )
@@ -105,18 +104,19 @@ if __name__ == "__main__":
 
             labels = config.get("extra_labels", {})
             envs = config.get("extra_envs", [])
-            yaml_content = yaml.load(
-                (tempdir / "bentofile.yaml").read_text(), Loader=yaml.SafeLoader
-            )
-            with open(tempdir / "bentofile.yaml", "w") as f:
-                yaml_content["labels"] = dict(yaml_content.get("labels", {}), **labels)
-                yaml_content["envs"] = yaml_content.get("envs", []) + envs
-                f.write(yaml.dump(yaml_content))
-
             requirements = config.get("extra_requirements", [])
-            with open(tempdir / "requirements.txt", "a") as f:
-                for req in requirements:
-                    f.write(req + "\n")
+            with (tempdir / "pyproject.toml").open("rb") as s:
+                data = tomllib.load(s)
+                bento_yaml = data.get("tool", {}).get("bentoml", {}).get("build", {})
+
+            with (tempdir / "pyproject.toml").open("wb") as f:
+                bento_yaml["labels"] = dict(data.get("labels", {}), **labels)
+                bento_yaml["envs"] = data.get("envs", []) + envs
+                data["project"]["version"] = importlib.metadata.version("bentoml")
+                data["project"]["name"] = model_repo
+                data["project"]["dependencies"] = data.get("project", {}).get("dependencies", []) + requirements
+                data["tool"]["bentoml"]["build"] = bento_yaml
+                tomli_w.dump(data, f, indent=2)
 
             directory_hash = hash_directory(tempdir)
             model_version = f"{model_version}-{directory_hash[:4]}"
@@ -125,13 +125,11 @@ if __name__ == "__main__":
             built_bentos.add((model_repo, model_version))
 
             if bento_path.exists():
-                print(
-                    f"Model {model_name} with version {model_version} already exists, skipping"
-                )
+                print(f"Model {model_name} with version {model_version} already exists, skipping")
                 continue
 
             # prepare venv
-            req_txt_file = tempdir / "requirements.txt"
+            req_txt_file = tempdir / "pyproject.toml"
             venv_dir = pathlib.Path("venv").absolute() / f"{project}-{hash_file(req_txt_file)[:7]}"
             version_path = ensure_venv(req_txt_file, venv_dir)
 
