@@ -1,4 +1,4 @@
-'phi4:14b-fp16':
+'phi4:14b':
   project: vllm-chat
   service_config:
     name: phi4
@@ -15,26 +15,7 @@
   extra_labels:
     openllm_alias: 14b
     model_name: microsoft/phi-4
-'mistral:7b-instruct-awq-4bit':
-  project: vllm-chat
-  service_config:
-    name: mistral
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
-    max_model_len: 1024
-    quantization: awq
-    enforce_eager: true
-    dtype: half
-  chat_template: mistral-instruct
-  extra_labels:
-    openllm_alias: 7b-4bit,7b-instruct-4bit
-    model_name: TheBloke/Mistral-7B-Instruct-v0.1-AWQ
-'mistral:7b-instruct-fp16':
+'mistral:7b-instruct':
   project: vllm-chat
   service_config:
     name: mistral
@@ -74,7 +55,7 @@
   extra_labels:
     openllm_alias: nemo,nemo-instruct
     model_name: mistralai/Mistral-Nemo-Instruct-2407
-'mistral-large:123b-instruct-fp16':
+'mistral-large:123b-instruct':
   project: vllm-chat
   service_config:
     name: mistral-large
@@ -111,43 +92,7 @@
   extra_labels:
     openllm_alias: 123b-4bit,123b-instruct-2407-4bit
     model_name: casperhansen/mistral-large-instruct-2407-awq
-'llama3.2:1b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: llama3.2
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: meta-llama/Llama-3.2-1B-Instruct
-    max_model_len: 2048
-    dtype: half
-  extra_envs:
-    - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 1b,1b-instruct
-    model_name: meta-llama/Llama-3.2-1B-Instruct
-'llama3.2:3b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: llama3.2
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: meta-llama/Llama-3.2-3B-Instruct
-    max_model_len: 2048
-    dtype: half
-  extra_envs:
-    - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 3b,3b-instruct
-    model_name: meta-llama/Llama-3.2-3B-Instruct
-'llama3.1:8b-instruct-fp16':
+'llama3.1:8b-instruct':
   project: vllm-chat
   service_config:
     name: llama3.1
@@ -165,23 +110,7 @@
   extra_labels:
     openllm_alias: 8b,8b-instruct
     model_name: meta-llama/Meta-Llama-3.1-8B-Instruct
-'llama3.1:8b-instruct-awq-4bit':
-  project: vllm-chat
-  service_config:
-    name: llama3.1
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
-    max_model_len: 2048
-    quantization: awq
-  extra_labels:
-    openllm_alias: 8b-4bit,8b-instruct-4bit
-    model_name: hugging-quants/Meta-Llama-3.1-8B-Instruct-AWQ-INT4
-'llama3.1:70b-instruct-fp16':
+'llama3.1:70b-instruct':
   project: vllm-chat
   service_config:
     name: llama3.1
@@ -199,23 +128,7 @@
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: meta-llama/Meta-Llama-3.1-70B-Instruct
-'llama3.1-nemotron:70b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: llama3.1-nemotron
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 2
-      gpu_type: nvidia-a100-80gb
-  engine_config:
-    model: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
-    max_model_len: 2048
-    tensor_parallel_size: 2
-  extra_labels:
-    openllm_alias: 70b
-    model_name: nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
-'gemma2:9b-instruct-fp16':
+'gemma2:9b-instruct':
   project: vllm-chat
   service_config:
     name: gemma2
@@ -235,7 +148,7 @@
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
     - name: HF_TOKEN
-'gemma2:27b-instruct-fp16':
+'gemma2:27b-instruct':
   project: vllm-chat
   service_config:
     name: gemma2
@@ -255,7 +168,7 @@
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
     - name: HF_TOKEN
-'mixtral:8x7b-instruct-v0.1-fp16':
+'mixtral:8x7b-instruct-v0.1':
   project: vllm-chat
   service_config:
     name: mixtral
@@ -274,73 +187,7 @@
   extra_labels:
     openllm_alias: 8x7b,8x7b-instruct
     model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
-'mixtral:8x7b-instruct-v0.1-awq-4bit':
-  project: vllm-chat
-  service_config:
-    name: mixtral
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-tesla-a100
-  engine_config:
-    model: casperhansen/mixtral-instruct-awq
-    max_model_len: 2048
-    quantization: awq
-    gpu_memory_utilization: 0.8
-  chat_template: mistral-instruct
-  extra_labels:
-    openllm_alias: 8x7b-4bit
-    model_name: casperhansen/mixtral-instruct-awq
-'qwen2.5:0.5b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: qwen2.5
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: Qwen/Qwen2.5-0.5B-Instruct
-    max_model_len: 2048
-    dtype: half
-  extra_labels:
-    openllm_alias: 0.5b,0.5b-instruct
-    model_name: Qwen/Qwen2.5-0.5B-Instruct
-'qwen2.5:1.5b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: qwen2.5
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: Qwen/Qwen2.5-1.5B-Instruct
-    max_model_len: 2048
-    dtype: half
-  extra_labels:
-    openllm_alias: 1.5b,1.5b-instruct
-    model_name: Qwen/Qwen2.5-1.5B-Instruct
-'qwen2.5:3b-instruct-fp16':
-  project: vllm-chat
-  service_config:
-    name: qwen2.5
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: Qwen/Qwen2.5-3B-Instruct
-    max_model_len: 2048
-    dtype: half
-  extra_labels:
-    openllm_alias: 3b,3b-instruct
-    model_name: Qwen/Qwen2.5-3B-Instruct
-'qwen2.5:7b-instruct-fp16':
+'qwen2.5:7b-instruct':
   project: vllm-chat
   service_config:
     name: qwen2.5
@@ -356,7 +203,7 @@
   extra_labels:
     openllm_alias: 7b,7b-instruct
     model_name: Qwen/Qwen2.5-7B-Instruct
-'qwen2.5:14b-instruct-fp16':
+'qwen2.5:14b-instruct':
   project: vllm-chat
   service_config:
     name: qwen2.5
@@ -372,7 +219,7 @@
   extra_labels:
     openllm_alias: 14b,14b-instruct
     model_name: Qwen/Qwen2.5-14B-Instruct
-'qwen2.5:32b-instruct-fp16':
+'qwen2.5:32b-instruct':
   project: vllm-chat
   service_config:
     name: qwen2.5
@@ -388,7 +235,7 @@
   extra_labels:
     openllm_alias: 32b,32b-instruct
     model_name: Qwen/Qwen2.5-32B-Instruct
-'qwen2.5:72b-instruct-fp16':
+'qwen2.5:72b-instruct':
   project: vllm-chat
   service_config:
     name: qwen2.5
@@ -447,46 +294,6 @@
     model_name: mistral-community/pixtral-12b-240910
   extra_requirements:
     - mistral_common[opencv]
-'llama3.2:1b-instruct-ggml-fp16-darwin':
-  project: llamacpp-chat
-  service_config:
-    name: llama3.2
-    traffic:
-      timeout: 300
-    resources:
-      cpu: 1
-      memory: 3Gi
-  engine_config:
-    repo_id: unsloth/Llama-3.2-1B-Instruct-GGUF
-    max_model_len: 2048
-    filename: "Llama-3.2-1B-Instruct-F16.gguf"
-  extra_labels:
-    openllm_alias: llama3.2,1b-instruct-ggml-fp16-darwin
-    model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
-    platforms: macos
-  extra_envs:
-    - name: CMAKE_ARGS
-      value: "-DGGML_METAL=on"
-'llama3.2:1b-instruct-ggml-fp16-linux':
-  project: llamacpp-chat
-  service_config:
-    name: llama3.2
-    traffic:
-      timeout: 300
-    resources:
-      cpu: 1
-      memory: 3Gi
-  engine_config:
-    repo_id: unsloth/Llama-3.2-1B-Instruct-GGUF
-    max_model_len: 2048
-    filename: "Llama-3.2-1B-Instruct-F16.gguf"
-  extra_labels:
-    openllm_alias: llama3.2,1b-instruct-ggml-fp16-linux
-    model_name: unsloth/Llama-3.2-1B-Instruct-GGUF
-    platforms: linux
-  extra_envs:
-    - name: CMAKE_ARGS
-      value: "-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
 'qwen2.5:72b-instruct-ggml-q4-darwin':
   project: llamacpp-chat
   engine_config:
@@ -519,11 +326,11 @@
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
-'qwen2.5:32b-instruct-ggml-fp16-darwin':
+'qwen2.5:32b-instruct-ggml-darwin':
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-32B-Instruct-GGUF
-    openllm_alias: 32b-ggml-fp16
+    openllm_alias: 32b-ggml
     platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
@@ -531,24 +338,24 @@
   engine_config:
     max_model_len: 2048
     additional_files:
-      - qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00002-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00003-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00004-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00005-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00006-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00007-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00008-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00009-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00010-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00011-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00012-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00013-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00014-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00015-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00016-of-00017.gguf
-      - qwen2.5-32b-instruct-fp16-00017-of-00017.gguf
-    filename: qwen2.5-32b-instruct-fp16-00001-of-00017.gguf
+      - qwen2.5-32b-instruct-00001-of-00017.gguf
+      - qwen2.5-32b-instruct-00002-of-00017.gguf
+      - qwen2.5-32b-instruct-00003-of-00017.gguf
+      - qwen2.5-32b-instruct-00004-of-00017.gguf
+      - qwen2.5-32b-instruct-00005-of-00017.gguf
+      - qwen2.5-32b-instruct-00006-of-00017.gguf
+      - qwen2.5-32b-instruct-00007-of-00017.gguf
+      - qwen2.5-32b-instruct-00008-of-00017.gguf
+      - qwen2.5-32b-instruct-00009-of-00017.gguf
+      - qwen2.5-32b-instruct-00010-of-00017.gguf
+      - qwen2.5-32b-instruct-00011-of-00017.gguf
+      - qwen2.5-32b-instruct-00012-of-00017.gguf
+      - qwen2.5-32b-instruct-00013-of-00017.gguf
+      - qwen2.5-32b-instruct-00014-of-00017.gguf
+      - qwen2.5-32b-instruct-00015-of-00017.gguf
+      - qwen2.5-32b-instruct-00016-of-00017.gguf
+      - qwen2.5-32b-instruct-00017-of-00017.gguf
+    filename: qwen2.5-32b-instruct-00001-of-00017.gguf
     repo_id: Qwen/Qwen2.5-32B-Instruct-GGUF
   service_config:
     name: qwen2.5
@@ -620,7 +427,7 @@
       gpu_type: nvidia-tesla-a100
     traffic:
       timeout: 300
-'jamba1.5:mini-fp16':
+'jamba1.5:mini':
   project: vllm-chat
   service_config:
     name: jamba1.5
@@ -639,7 +446,7 @@
     model_name: ai21labs/AI21-Jamba-1.5-Mini
   extra_envs:
     - name: HF_TOKEN
-'qwen2vl:7b-instruct-fp16':
+'qwen2vl:7b-instruct':
   project: vllm-chat
   extra_labels:
     model_name: Qwen/Qwen2-VL-7B-Instruct
@@ -656,11 +463,11 @@
       gpu_type: nvidia-l4
     traffic:
       timeout: 300
-'qwen2.5-coder:7b-instruct-ggml-fp16-darwin':
+'qwen2.5-coder:7b-instruct-ggml-darwin':
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-fp16-darwin
+    openllm_alias: 7b-ggml-darwin
     platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
@@ -668,11 +475,11 @@
   engine_config:
     max_model_len: 2048
     additional_files:
-      - qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00002-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00003-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00004-of-00004.gguf
-    filename: qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00002-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00003-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00004-of-00004.gguf
+    filename: qwen2.5-coder-7b-instruct-00001-of-00004.gguf
     repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
   service_config:
     name: qwen2.5-coder
@@ -680,11 +487,11 @@
       memory: 16Gi
     traffic:
       timeout: 300
-'qwen2.5-coder:7b-instruct-ggml-fp16-linux':
+'qwen2.5-coder:7b-instruct-ggml-linux':
   project: llamacpp-chat
   extra_labels:
     model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-fp16-linux
+    openllm_alias: 7b-ggml-linux
     platforms: linux
   extra_envs:
     - name: CMAKE_ARGS
@@ -692,11 +499,11 @@
   engine_config:
     max_model_len: 2048
     additional_files:
-      - qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00002-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00003-of-00004.gguf
-      - qwen2.5-coder-7b-instruct-fp16-00004-of-00004.gguf
-    filename: qwen2.5-coder-7b-instruct-fp16-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00001-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00002-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00003-of-00004.gguf
+      - qwen2.5-coder-7b-instruct-00004-of-00004.gguf
+    filename: qwen2.5-coder-7b-instruct-00001-of-00004.gguf
     repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
   service_config:
     name: qwen2.5-coder
@@ -734,7 +541,7 @@
   engine_config:
     model: Qwen/Qwen2.5-Coder-32B-Instruct
     max_model_len: 20480
-"llama3.3:70b-instruct-fp16":
+"llama3.3:70b-instruct":
   project: vllm-chat
   service_config:
     name: llama3.3
@@ -752,7 +559,7 @@
     model_name: meta-llama/Llama-3.3-70B-Instruct
   extra_envs:
     - name: HF_TOKEN
-"deepseek-r1-distill:llama3.3-70b-instruct-fp16":
+"deepseek-r1-distill:llama3.3-70b-instruct":
   project: vllm-chat
   service_config:
     name: deepseek-r1-distill
@@ -769,7 +576,7 @@
     model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
   extra_envs:
     - name: HF_TOKEN
-"deepseek-r1-distill:qwen2.5-32b-fp16":
+"deepseek-r1-distill:qwen2.5-32b":
   project: vllm-chat
   extra_labels:
     model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
@@ -785,7 +592,7 @@
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
   extra_envs:
     - name: HF_TOKEN
-'deepseek-r1-distill:qwen2.5-14b-fp16':
+'deepseek-r1-distill:qwen2.5-14b':
   project: vllm-chat
   service_config:
     name: deepseek-r1-distill
@@ -801,7 +608,7 @@
     model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
   extra_envs:
     - name: HF_TOKEN
-'deepseek-r1-distill:llama3.1-8b-fp16':
+'deepseek-r1-distill:llama3.1-8b':
   project: vllm-chat
   service_config:
     name: deepseek-r1-distill
@@ -817,7 +624,7 @@
     model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
   extra_envs:
     - name: HF_TOKEN
-'deepseek-r1-distill:qwen2.5-7b-math-fp16':
+'deepseek-r1-distill:qwen2.5-7b-math':
   project: vllm-chat
   service_config:
     name: deepseek-r1-distill
@@ -833,23 +640,7 @@
     model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
   extra_envs:
     - name: HF_TOKEN
-'deepseek-r1-distill:qwen2.5-1.5b-math-fp16':
-  project: vllm-chat
-  service_config:
-    name: deepseek-r1-distill
-    traffic:
-      timeout: 300
-    resources:
-      gpu: 1
-      gpu_type: nvidia-rtx-3060
-  engine_config:
-    model: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
-  extra_labels:
-    openllm_alias: 1.5b,1.5b-math
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
-  extra_envs:
-    - name: HF_TOKEN
-"deepseek-r1:671b-bfloat16":
+"deepseek-r1:671b":
   project: vllm-chat
   service_config:
     name: deepseek-v3
@@ -870,7 +661,7 @@
     reasoning_parser: deepseek_r1
   extra_envs:
     - name: HF_TOKEN
-"deepseek-v3:671b-instruct-bfloat16":
+"deepseek-v3:671b-instruct":
   project: vllm-chat
   service_config:
     name: deepseek-v3

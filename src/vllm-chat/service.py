@@ -13,7 +13,7 @@ with open(os.path.join(os.path.dirname(__file__), "openllm_config.yaml")) as f:
 ENGINE_CONFIG = PARAMETERS.get("engine_config", {})
 SERVICE_CONFIG = PARAMETERS.get("service_config", {})
 SERVER_CONFIG = PARAMETERS.get("server_config", {})
-REQUIREMENTS_TXT = PARAMETERS.get("extra_requirements", [])
+REQUIREMENTS_TXT = [f"{i}\n" for i in PARAMETERS.get("extra_requirements", [])]
 
 openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
@@ -38,11 +38,11 @@ async def catch_all(full_path: str):
 @bentoml.service(
     **SERVICE_CONFIG,
     image=bentoml.images.PythonImage(python_version="3.11")
-    .python_packages("vllm==0.7.1")
-    .python_packages("pyyaml")
-    .python_packages("Pillow")
-    .python_packages("openai")
-    .python_packages("bentoml>=1.3.20")
+    .python_packages("vllm==0.7.1\n")
+    .python_packages("pyyaml\n")
+    .python_packages("Pillow\n")
+    .python_packages("openai\n")
+    .python_packages("bentoml>=1.3.20\n")
     .python_packages(*REQUIREMENTS_TXT),
 )
 class VLLM:

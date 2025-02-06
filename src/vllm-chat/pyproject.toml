@@ -24,15 +24,4 @@ Tracker = "https://github.com/bentoml/OpenLLM/issues"
 
 [tool.bentoml.build]
 service = "service:VLLM"
-include = [
-  "LICENCE",
-  "*.py",
-  "*.yaml",
-  "*.txt",
-  "*.md",
-  "ui/*",
-  "ui/chunks/*",
-  "ui/css/*",
-  "ui/media/*",
-  "ui/chunks/pages/*",
-]
+include = ["LICENCE", "*.py", "*.yaml", "*.txt", "*.md", "ui/*"]
