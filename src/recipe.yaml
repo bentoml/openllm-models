@@ -100,6 +100,42 @@
   extra_labels:
     openllm_alias: 8b,8b-instruct
     model_name: meta-llama/Meta-Llama-3.1-8B-Instruct
+'gemma:2b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: gemma
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+  engine_config:
+    model: google/gemma-2b-it
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 2b,2b-instruct
+    model_name: google/gemma-2b-it
+  extra_envs:
+    - name: HF_TOKEN
+'gemma:7b-instruct-fp16':
+  project: vllm-chat
+  service_config:
+    name: gemma
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+  engine_config:
+    model: google/gemma-7b-it
+    max_model_len: 2048
+    dtype: half
+  extra_labels:
+    openllm_alias: 7b,7b-instruct
+    model_name: google/gemma-7b-it
+  extra_envs:
+    - name: HF_TOKEN
 'gemma2:9b-instruct':
   project: vllm-chat
   service_config:
