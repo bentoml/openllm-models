@@ -39,7 +39,10 @@ gemma2               gemma2:2b-instruct-f239                         default  12
                      gemma2:27b-instruct-d1f5                        default  80G                 linux
 jamba1.5             jamba1.5:mini-4ece                              default  80Gx4               linux
 llama3.1             llama3.1:8b-instruct-c522                       default  24G                 linux
-llama3.2             llama3.2:11b-vision-instruct-6136               default  80G                 linux
+llama3.2             llama3.2:1b-instruct-f30e                       default  24G                 linux
+                     llama3.2:3b-instruct-5ef6                       default  24G                 linux
+                     llama3.2:11b-vision-instruct-6136               default  80G                 linux
+                     llama3.2:90b-vision-instruct-9f15               default  80Gx2               linux
 llama3.3             llama3.3:70b-instruct-cbbe                      default  80Gx2               linux
 mistral              mistral:8b-instruct-7621                        default  24G                 linux
 mistral-large        mistral-large:123b-instruct-ba06                default  80Gx4               linux
