@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import base64, io, logging, os, traceback, typing, argparse
-import bentoml, yaml, fastapi, PIL.Image, fastapi.staticfiles as staticfiles, fastapi.responses as responses
+import base64, io, logging, os, traceback, typing, argparse, asyncio
+import bentoml, yaml, fastapi, PIL.Image
+
+import fastapi.staticfiles as staticfiles, fastapi.responses as responses
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -52,11 +54,11 @@ class VLLM:
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
         import vllm.entrypoints.openai.api_server as vllm_api_server
-        from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
-        from vllm.entrypoints.openai.serving_models import BaseModelPath, OpenAIServingModels
 
         OPENAI_ENDPOINTS = [
             ["/chat/completions", vllm_api_server.create_chat_completion, ["POST"]],
+            ["/completions", vllm_api_server.create_completion, ["POST"]],
+            ["/embeddings", vllm_api_server.create_embedding, ["POST"]],
             ["/models", vllm_api_server.show_available_models, ["GET"]],
         ]
         for route, endpoint, methods in OPENAI_ENDPOINTS:
@@ -72,7 +74,6 @@ class VLLM:
         logger.info(f"VLLM service initialized with model: {self.model_id}")
 
         model_config = self.engine.engine.get_model_config()
-
         args = argparse.Namespace()
         args.model = self.model
         args.disable_log_requests = True
@@ -93,37 +94,10 @@ class VLLM:
         args.enable_reasoning = False
         args.reasoning_parser = None
 
-        for key, value in SERVICE_CONFIG.items():
-            setattr(args, key, value)
+        for key, value in SERVICE_CONFIG.items(): setattr(args, key, value)
 
-        request_logger = None
-        base_model_paths = [BaseModelPath(name=name, model_path=args.model) for name in args.served_model_name]
-
-        openai_api_app.state.engine_client = self.engine
-        openai_api_app.state.log_stats = False
-        openai_api_app.state.openai_serving_models = OpenAIServingModels(
-            engine_client=self.engine,
-            model_config=model_config,
-            base_model_paths=base_model_paths,
-            lora_modules=args.lora_modules,
-            prompt_adapters=args.prompt_adapters,
-        )
-        openai_api_app.state.openai_serving_chat = OpenAIServingChat(
-            self.engine,
-            model_config,
-            openai_api_app.state.openai_serving_models,
-            args.response_role,
-            request_logger=request_logger,
-            chat_template=args.chat_template,
-            chat_template_content_format=args.chat_template_content_format,
-            return_tokens_as_token_ids=args.return_tokens_as_token_ids,
-            enable_auto_tools=args.enable_auto_tool_choice,
-            tool_parser=args.tool_call_parser,
-            enable_reasoning=args.enable_reasoning,
-            reasoning_parser=args.reasoning_parser,
-            enable_prompt_tokens_details=args.enable_prompt_tokens_details,
-        )
-        openai_api_app.state.task = model_config.task
+        coro = vllm_api_server.init_app_state(self.engine, model_config, openai_api_app.state, args)
+        asyncio.create_task(coro)
 
     @bentoml.api
     async def generate(self, prompt: str = "what is this?") -> typing.AsyncGenerator[str, None]:
