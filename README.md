@@ -38,15 +38,14 @@ gemma2               gemma2:9b-instruct-9223                         default  24
                      gemma2:27b-instruct-bfcb                        default  80G                 linux
 jamba1.5             jamba1.5:mini-6d5d                              default  80Gx4               linux
 llama3.1             llama3.1:8b-instruct-e11a                       default  24G                 linux
-                     llama3.1:70b-instruct-1369                      default  80Gx2               linux
 llama3.2             llama3.2:11b-vision-instruct-30a6               default  80G                 linux
 llama3.3             llama3.3:70b-instruct-8722                      default  80Gx2               linux
-mistral              mistral:7b-instruct-6204                        default  24G                 linux
-                     mistral:24b-instruct-nemo-7269                  default  80G                 linux
-mistral-large        mistral-large:123b-instruct-5ca3                default  80Gx4               linux
-                     mistral-large:123b-instruct-awq-4bit-fa49       default  80G                 linux
-mixtral              mixtral:8x7b-instruct-v0.1-1f41                 default  80Gx2               linux
-phi4                 phi4:14b-305e                                   default  80G                 linux
+mistral              mistral:8b-instruct-2892                        default  24G                 linux
+mistral-large        mistral-large:123b-instruct-1073                default  80Gx4               linux
+                     mistral-large:123b-instruct-awq-4bit-63c0       default  80G                 linux
+mistralai            mistralai:24b-small-instruct-2501-a04a          default  80G                 linux
+mixtral              mixtral:8x7b-instruct-v0.1-3998                 default  80Gx2               linux
+phi4                 phi4:14b-240d                                   default  80G                 linux
 pixtral              pixtral:12b-240910-c0c3                         default  80G                 linux
 qwen2.5              qwen2.5:7b-instruct-1512                        default  24G                 linux
                      qwen2.5:14b-instruct-72a9                       default  80G                 linux
