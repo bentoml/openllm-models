@@ -34,9 +34,9 @@ deepseek-r1-distill  deepseek-r1-distill:qwen2.5-14b-13b6            default  80
                      deepseek-r1-distill:llama3.1-8b-3ab0            default  24G                 linux
                      deepseek-r1-distill:llama3.3-70b-instruct-1fc9  default  80Gx2               linux
 deepseek-v3          deepseek-v3:671b-instruct-a3ae                  default  80Gx16              linux
-gemma2               gemma2:2b-instruct-f239                         default  12G                 linux
-                     gemma2:9b-instruct-42a7                         default  24G                 linux
-                     gemma2:27b-instruct-d1f5                        default  80G                 linux
+gemma2               gemma2:2b-instruct-44c5                         default  12G                 linux
+                     gemma2:9b-instruct-c068                         default  24G                 linux
+                     gemma2:27b-instruct-3fb7                        default  80G                 linux
 jamba1.5             jamba1.5:mini-4ece                              default  80Gx4               linux
 llama3.1             llama3.1:8b-instruct-c522                       default  24G                 linux
 llama3.2             llama3.2:1b-instruct-f30e                       default  24G                 linux
@@ -44,12 +44,12 @@ llama3.2             llama3.2:1b-instruct-f30e                       default  24
                      llama3.2:11b-vision-instruct-6136               default  80G                 linux
                      llama3.2:90b-vision-instruct-9f15               default  80Gx2               linux
 llama3.3             llama3.3:70b-instruct-cbbe                      default  80Gx2               linux
-mistral              mistral:8b-instruct-7621                        default  24G                 linux
-mistral-large        mistral-large:123b-instruct-ba06                default  80Gx4               linux
-                     mistral-large:123b-instruct-awq-4bit-11c2       default  80G                 linux
-mistralai            mistralai:24b-small-instruct-2501-b455          default  80G                 linux
+mistral              mistral:8b-instruct-7eee                        default  24G                 linux
+mistral-large        mistral-large:123b-instruct-0003                default  80Gx4               linux
+                     mistral-large:123b-instruct-awq-4bit-029d       default  80G                 linux
+mistralai            mistralai:24b-small-instruct-2501-b87b          default  80G                 linux
 mixtral              mixtral:8x7b-instruct-v0.1-8be5                 default  80Gx2               linux
-phi4                 phi4:14b-2eeb                                   default  80G                 linux
+phi4                 phi4:14b-194e                                   default  80G                 linux
 pixtral              pixtral:12b-240910-1b33                         default  80G                 linux
 qwen2.5              qwen2.5:7b-instruct-d248                        default  24G                 linux
                      qwen2.5:14b-instruct-566a                       default  80G                 linux
