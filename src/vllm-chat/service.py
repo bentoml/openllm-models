@@ -94,7 +94,7 @@ class VLLM:
         args.enable_reasoning = False
         args.reasoning_parser = None
 
-        for key, value in SERVICE_CONFIG.items(): setattr(args, key, value)
+        for key, value in SERVER_CONFIG.items(): setattr(args, key, value)
 
         coro = vllm_api_server.init_app_state(self.engine, model_config, openai_api_app.state, args)
         asyncio.create_task(coro)
