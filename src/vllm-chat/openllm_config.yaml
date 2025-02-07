@@ -11,4 +11,3 @@ engine_config:
   max_model_len: 1024
   quantization: awq
   enforce_eager: true
-chat_template: llama-2-chat
