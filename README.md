@@ -27,7 +27,7 @@ $ openllm repo update
 $ openllm model list
 model                version                                         repo     required GPU RAM    platforms
 -------------------  ----------------------------------------------  -------  ------------------  -----------
-deepseek-r1          deepseek-r1:671b-94e3                           default  80Gx16              linux
+deepseek-r1          deepseek-r1:671b-088b                           default  80Gx16              linux
 deepseek-r1-distill  deepseek-r1-distill:qwen2.5-14b-c378            default  80G                 linux
                      deepseek-r1-distill:qwen2.5-32b-ebe6            default  80G                 linux
                      deepseek-r1-distill:qwen2.5-7b-math-867a        default  24G                 linux
@@ -64,7 +64,8 @@ qwen2.5-coder        qwen2.5-coder:7b-instruct-b419                  default  24
                      qwen2.5-coder:7b-instruct-ggml-linux-c347       default                      linux
                      qwen2.5-coder:7b-instruct-ggml-darwin-ba13      default                      macos
                      qwen2.5-coder:32b-instruct-f557                 default  80G                 linux
-qwen2vl              qwen2vl:7b-instruct-8d74                        default  24G                 linux
+qwen2.5vl            qwen2.5vl:3b-instruct-038c                      default  24G                 linux
+                     qwen2.5vl:7b-instruct-db27                      default  24G                 linux
 
 ```
 
