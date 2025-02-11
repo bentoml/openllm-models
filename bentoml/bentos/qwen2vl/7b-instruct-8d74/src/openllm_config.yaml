@@ -1,0 +1,15 @@
+engine_config:
+  max_model_len: 2048
+  model: Qwen/Qwen2-VL-7B-Instruct
+extra_labels:
+  model_name: Qwen/Qwen2-VL-7B-Instruct
+  openllm_alias: 7b
+  platforms: linux
+project: vllm-chat
+service_config:
+  name: qwen2vl
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300
