@@ -27,12 +27,12 @@ $ openllm repo update
 $ openllm model list
 model                version                                         repo     required GPU RAM    platforms
 -------------------  ----------------------------------------------  -------  ------------------  -----------
-deepseek-r1          deepseek-r1:671b-94e3                           default  80Gx16              linux
-deepseek-r1-distill  deepseek-r1-distill:qwen2.5-14b-c378            default  80G                 linux
-                     deepseek-r1-distill:qwen2.5-32b-ebe6            default  80G                 linux
-                     deepseek-r1-distill:qwen2.5-7b-math-867a        default  24G                 linux
-                     deepseek-r1-distill:llama3.1-8b-10f5            default  24G                 linux
-                     deepseek-r1-distill:llama3.3-70b-instruct-4cc4  default  80Gx2               linux
+deepseek-r1          deepseek-r1:671b-6b8a                           default  80Gx16              linux
+deepseek-r1-distill  deepseek-r1-distill:qwen2.5-14b-4a0f            default  80G                 linux
+                     deepseek-r1-distill:qwen2.5-32b-14d5            default  80G                 linux
+                     deepseek-r1-distill:qwen2.5-7b-math-a310        default  24G                 linux
+                     deepseek-r1-distill:llama3.1-8b-780b            default  24G                 linux
+                     deepseek-r1-distill:llama3.3-70b-instruct-8300  default  80Gx2               linux
 deepseek-v3          deepseek-v3:671b-instruct-f864                  default  80Gx16              linux
 gemma2               gemma2:2b-instruct-c097                         default  12G                 linux
                      gemma2:9b-instruct-dcca                         default  24G                 linux
@@ -60,11 +60,12 @@ qwen2.5              qwen2.5:7b-instruct-e221                        default  24
                      qwen2.5:32b-instruct-ggml-darwin-e457           default                      macos
                      qwen2.5:72b-instruct-986a                       default  80Gx2               linux
                      qwen2.5:72b-instruct-ggml-q4-darwin-ec8e        default                      macos
-qwen2.5-coder        qwen2.5-coder:7b-instruct-b419                  default  24G                 linux
+qwen2.5-coder        qwen2.5-coder:7b-instruct-1624                  default  24G                 linux
                      qwen2.5-coder:7b-instruct-ggml-linux-c347       default                      linux
                      qwen2.5-coder:7b-instruct-ggml-darwin-ba13      default                      macos
-                     qwen2.5-coder:32b-instruct-f557                 default  80G                 linux
-qwen2vl              qwen2vl:7b-instruct-8d74                        default  24G                 linux
+                     qwen2.5-coder:32b-instruct-8ac0                 default  80G                 linux
+qwen2.5vl            qwen2.5vl:3b-instruct-038c                      default  24G                 linux
+                     qwen2.5vl:7b-instruct-db27                      default  24G                 linux
 
 ```
 
