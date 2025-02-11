@@ -604,7 +604,7 @@
       timeout: 300
   engine_config:
     model: Qwen/Qwen2.5-Coder-7B-Instruct
-    max_model_len: 20480
+    max_model_len: 8192
 'qwen2.5-coder:32b-instruct':
   project: vllm-chat
   extra_labels:
@@ -619,7 +619,7 @@
       timeout: 300
   engine_config:
     model: Qwen/Qwen2.5-Coder-32B-Instruct
-    max_model_len: 20480
+    max_model_len: 8192
 "llama3.3:70b-instruct":
   project: vllm-chat
   service_config:
@@ -650,6 +650,7 @@
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
     tensor_parallel_size: 2
+    max_model_len: 4096
   extra_labels:
     openllm_alias: 70b,70b-instruct
     model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
@@ -672,6 +673,7 @@
       timeout: 300
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+    max_model_len: 4096
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -688,6 +690,7 @@
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
+    max_model_len: 4096
   extra_labels:
     openllm_alias: 14b,14b-instruct
     model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
@@ -707,6 +710,7 @@
       gpu_type: nvidia-tesla-l4
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+    max_model_len: 4096
   extra_labels:
     openllm_alias: 8b,8b-instruct
     model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
@@ -726,6 +730,7 @@
       gpu_type: nvidia-l4
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+    max_model_len: 4096
   extra_labels:
     openllm_alias: 7b,7b-math
     model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
@@ -747,6 +752,7 @@
     model: deepseek-ai/DeepSeek-R1
     tensor_parallel_size: 16
     trust_remote_code: True
+    max_model_len: 4096
   extra_labels:
     openllm_alias: 671b
     model_name: deepseek-ai/DeepSeek-R1
