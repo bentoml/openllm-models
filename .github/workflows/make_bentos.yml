@@ -32,13 +32,8 @@ jobs:
           make
           cd ..
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install jinja2 openllm
-
       - name: Run gen_readme.py
-        run: python gen_readme.py
+        run: uv run gen_readme.py
 
       - name: Configure git
         run: |
