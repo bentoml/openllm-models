@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3.1
-version: 8b-instruct-3c0c
+version: 8b-instruct-6fd9
 bentoml_version: 1.4.0a2
-creation_time: '2025-02-15T06:35:15.618985+00:00'
+creation_time: '2025-02-15T10:17:50.458317+00:00'
 labels:
   generator: openllm
 models: []
@@ -13,7 +13,7 @@ services:
   models:
   - tag: meta-llama--meta-llama-3.1-8b-instruct:043e0e57a8f71b51401779a046e891cc
     module: null
-    creation_time: '2025-02-15T06:35:15.513737+00:00'
+    creation_time: '2025-02-15T10:17:50.308755+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/meta-llama-3.1-8b-instruct
@@ -26,7 +26,7 @@ services:
     name: llama3.1
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
     traffic:
       timeout: 300
 envs:

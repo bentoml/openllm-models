@@ -31,14 +31,14 @@ deepseek-r1          deepseek-r1:671b-fc3d                           default  80
 deepseek-r1-distill  deepseek-r1-distill:qwen2.5-14b-98a9            default  80G                 linux
                      deepseek-r1-distill:qwen2.5-32b-9c8f            default  80G                 linux
                      deepseek-r1-distill:qwen2.5-7b-math-fb74        default  24G                 linux
-                     deepseek-r1-distill:llama3.1-8b-8c09            default  24G                 linux
+                     deepseek-r1-distill:llama3.1-8b-6d88            default  24G                 linux
                      deepseek-r1-distill:llama3.3-70b-instruct-31b8  default  80Gx2               linux
 deepseek-v3          deepseek-v3:671b-instruct-d7ec                  default  80Gx16              linux
 gemma2               gemma2:2b-instruct-747d                         default  12G                 linux
                      gemma2:9b-instruct-d9ad                         default  24G                 linux
                      gemma2:27b-instruct-8756                        default  80G                 linux
 jamba1.5             jamba1.5:mini-d710                              default  80Gx4               linux
-llama3.1             llama3.1:8b-instruct-3c0c                       default  24G                 linux
+llama3.1             llama3.1:8b-instruct-6fd9                       default  24G                 linux
 llama3.2             llama3.2:1b-instruct-f041                       default  24G                 linux
                      llama3.2:3b-instruct-3093                       default  24G                 linux
                      llama3.2:11b-vision-instruct-7bba               default  80G                 linux

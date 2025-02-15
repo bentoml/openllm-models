@@ -1,8 +1,8 @@
 service: service:VLLM
 name: deepseek-r1-distill
-version: llama3.1-8b-8c09
+version: llama3.1-8b-6d88
 bentoml_version: 1.4.0a2
-creation_time: '2025-02-15T06:37:22.803695+00:00'
+creation_time: '2025-02-15T10:17:54.697318+00:00'
 labels:
   generator: openllm
 models: []
@@ -13,7 +13,7 @@ services:
   models:
   - tag: deepseek-ai--deepseek-r1-distill-llama-8b:af40ef1f32e2eb7532bce0a89799117d
     module: null
-    creation_time: '2025-02-15T06:37:22.713454+00:00'
+    creation_time: '2025-02-15T10:17:54.592898+00:00'
     registry: huggingface
     metadata:
       model_id: deepseek-ai/deepseek-r1-distill-llama-8b
@@ -26,7 +26,7 @@ services:
     name: deepseek-r1-distill
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
     traffic:
       timeout: 300
 envs:
