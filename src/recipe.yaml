@@ -85,7 +85,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   extra_envs:
     - name: HF_TOKEN
   engine_config:
@@ -600,7 +600,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-l4
+      gpu_type: nvidia-l4
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
     max_model_len: 4096
