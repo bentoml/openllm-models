@@ -1,0 +1,11 @@
+engine_config:
+  max_model_len: 8192
+  model: Qwen/Qwen2.5-Coder-7B-Instruct
+project: vllm-chat
+service_config:
+  name: qwen2.5-coder
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300
