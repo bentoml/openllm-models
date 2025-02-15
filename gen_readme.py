@@ -1,3 +1,10 @@
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "jinja2",
+#     "openllm",
+# ]
+# ///
 from jinja2 import Environment, FileSystemLoader
 import subprocess
 import sys

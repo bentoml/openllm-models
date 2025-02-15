@@ -1,3 +1,12 @@
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "bentoml",
+#     "pyyaml",
+#     "tomli",
+#     "tomli-w",
+# ]
+# ///
 import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata
 
 import yaml, tomli_w
@@ -55,7 +64,7 @@ def ensure_venv(pyproject_toml, venv_dir):
                 "uv",
                 "pip",
                 "install",
-                "bentoml",
+                "bentoml==1.4.0a2",
                 "-p",
                 venv_dir / "bin" / "python",
             ],
