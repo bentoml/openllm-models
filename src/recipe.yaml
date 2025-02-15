@@ -11,9 +11,6 @@
     model: microsoft/phi-4
     max_model_len: 4096
     dtype: half
-  extra_labels:
-    openllm_alias: 14b
-    model_name: microsoft/phi-4
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set offset = 1 %}\n{% else %}\n    {% set offset = 0 %}\n{% endif %}\n\n{% for message in messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == offset) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {{ '<|' + message['role'] + '|>\\n' + message['content'].strip() + '<|end|>' + '\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{ '<|assistant|>\\n' }}\n    {% endif %}\n{% endfor %}\n"
 'mistral:8b-instruct':
@@ -30,9 +27,6 @@
     dtype: half
   extra_envs:
     - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 7b,7b-instruct
-    model_name: mistralai/Ministral-8B-Instruct-2410
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{{ bos_token }}\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if message['role'] == 'user' %}\n        {{ '[INST] ' + content.strip() + ' [/INST]' }}\n    {% elif message['role'] == 'assistant' %}\n        {{ ' ' + content.strip() + eos_token }}\n    {% endif %}\n{% endfor %}\n"
 'mistralai:24b-small-instruct-2501':
@@ -48,9 +42,6 @@
     model: mistralai/Mistral-Small-24B-Instruct-2501
   extra_envs:
     - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 24b, 24b-instruct-2501
-    model_name: mistralai/Mistral-Small-24B-Instruct-2501
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{{ bos_token }}\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if message['role'] == 'user' %}\n        {{ '[INST] ' + content.strip() + ' [/INST]' }}\n    {% elif message['role'] == 'assistant' %}\n        {{ ' ' + content.strip() + eos_token }}\n    {% endif %}\n{% endfor %}\n"
 'mistral-large:123b-instruct':
@@ -69,9 +60,6 @@
     tensor_parallel_size: 4
   extra_envs:
     - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 123b, 123b-instruct-2407
-    model_name: mistralai/Mistral-Large-Instruct-2407
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{{ bos_token }}\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if message['role'] == 'user' %}\n        {{ '[INST] ' + content.strip() + ' [/INST]' }}\n    {% elif message['role'] == 'assistant' %}\n        {{ ' ' + content.strip() + eos_token }}\n    {% endif %}\n{% endfor %}\n"
 'mistral-large:123b-instruct-awq-4bit':
@@ -87,9 +75,6 @@
     model: casperhansen/mistral-large-instruct-2407-awq
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 123b-4bit,123b-instruct-2407-4bit
-    model_name: casperhansen/mistral-large-instruct-2407-awq
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{{ bos_token }}\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if message['role'] == 'user' %}\n        {{ '[INST] ' + content.strip() + ' [/INST]' }}\n    {% elif message['role'] == 'assistant' %}\n        {{ ' ' + content.strip() + eos_token }}\n    {% endif %}\n{% endfor %}\n"
 'llama3.1:8b-instruct':
@@ -107,9 +92,6 @@
     model: meta-llama/Meta-Llama-3.1-8B-Instruct
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 8b,8b-instruct
-    model_name: meta-llama/Meta-Llama-3.1-8B-Instruct
 'gemma2:2b-instruct':
   project: vllm-chat
   service_config:
@@ -123,9 +105,6 @@
     model: google/gemma-2-2b-it
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 2b,2b-instruct
-    model_name: google/gemma-2-2b-it
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -143,9 +122,6 @@
     model: google/gemma-2-9b-it
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 9b,9b-instruct
-    model_name: google/gemma-2-9b-it
   extra_envs:
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
@@ -165,9 +141,6 @@
     model: google/gemma-2-27b-it
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 27b,27b-instruct
-    model_name: google/gemma-2-27b-it
   extra_envs:
     - name: VLLM_ATTENTION_BACKEND
       value: FLASHINFER
@@ -189,9 +162,6 @@
     tensor_parallel_size: 2
   extra_envs:
     - name: HF_TOKEN
-  extra_labels:
-    openllm_alias: 8x7b,8x7b-instruct
-    model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
 'qwen2.5:7b-instruct':
   project: vllm-chat
   service_config:
@@ -205,9 +175,6 @@
     model: Qwen/Qwen2.5-7B-Instruct
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 7b,7b-instruct
-    model_name: Qwen/Qwen2.5-7B-Instruct
 'qwen2.5:14b-instruct':
   project: vllm-chat
   service_config:
@@ -221,9 +188,6 @@
     model: Qwen/Qwen2.5-14B-Instruct
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 14b,14b-instruct
-    model_name: Qwen/Qwen2.5-14B-Instruct
 'qwen2.5:32b-instruct':
   project: vllm-chat
   service_config:
@@ -237,9 +201,6 @@
     model: Qwen/Qwen2.5-32B-Instruct
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 32b,32b-instruct
-    model_name: Qwen/Qwen2.5-32B-Instruct
 'qwen2.5:72b-instruct':
   project: vllm-chat
   service_config:
@@ -253,9 +214,6 @@
     model: Qwen/Qwen2.5-72B-Instruct
     max_model_len: 2048
     dtype: half
-  extra_labels:
-    openllm_alias: 72b,72b-instruct
-    model_name: Qwen/Qwen2.5-72B-Instruct
 'llama3.2:1b-instruct':
   project: vllm-chat
   service_config:
@@ -268,9 +226,6 @@
   engine_config:
     model: meta-llama/Llama-3.2-1B-Instruct
     max_model_len: 16384
-  extra_labels:
-    openllm_alias: 1b,1b-instruct
-    model_name: meta-llama/Llama-3.2-1B-Instruct
   extra_envs:
     - name: HF_TOKEN
 'llama3.2:3b-instruct':
@@ -285,9 +240,6 @@
   engine_config:
     model: meta-llama/Llama-3.2-3B-Instruct
     max_model_len: 16384
-  extra_labels:
-    openllm_alias: 3b,3b-instruct
-    model_name: meta-llama/Llama-3.2-3b-Instruct
   extra_envs:
     - name: HF_TOKEN
 'llama3.2:11b-vision-instruct':
@@ -307,9 +259,6 @@
     max_model_len: 16384
     max_num_seqs: 16
   vision: true
-  extra_labels:
-    openllm_alias: 11b-vision
-    model_name: meta-llama/Llama-3.2-11B-Vision-Instruct
   extra_envs:
     - name: HF_TOKEN
 'llama3.2:90b-vision-instruct':
@@ -329,9 +278,6 @@
       image: 1
     max_model_len: 16384
     max_num_seqs: 16
-  extra_labels:
-    openllm_alias: 90b-vision
-    model_name: meta-llama/Llama-3.2-90B-Vision-Instruct
   extra_envs:
     - name: HF_TOKEN
 'pixtral:12b-240910':
@@ -354,9 +300,6 @@
     max_model_len: 16384
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{{ bos_token }}\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if message['role'] == 'user' %}\n        {{ '[INST] ' + content.strip() + ' [/INST]' }}\n    {% elif message['role'] == 'assistant' %}\n        {{ ' ' + content.strip() + eos_token }}\n    {% endif %}\n{% endfor %}\n"
-  extra_labels:
-    openllm_alias: 12b, 12b-vision
-    model_name: mistral-community/pixtral-12b-240910
   extra_requirements:
     - mistral_common[opencv]
 'qwen2.5:72b-instruct-ggml-q4-darwin':
@@ -378,10 +321,6 @@
       - qwen2.5-72b-instruct-q4_k_m-00012-of-00012.gguf
     filename: qwen2.5-72b-instruct-q4_k_m-00001-of-00012.gguf
     repo_id: Qwen/Qwen2.5-72B-Instruct-GGUF
-  extra_labels:
-    model_name: Qwen/Qwen2.5-72B-Instruct-GGUF
-    openllm_alias: 72b-ggml-q4
-    platforms: macos
   service_config:
     name: qwen2.5
     resources:
@@ -393,10 +332,6 @@
       value: "-DGGML_METAL=on"
 'qwen2.5:32b-instruct-ggml-darwin':
   project: llamacpp-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-32B-Instruct-GGUF
-    openllm_alias: 32b-ggml
-    platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
@@ -430,10 +365,6 @@
       timeout: 300
 'qwen2.5:14b-instruct-ggml-q4-darwin':
   project: llamacpp-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-14B-Instruct-GGUF
-    openllm_alias: 14b-ggml-q4
-    platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
@@ -453,10 +384,6 @@
       timeout: 300
 'qwen2.5:14b-instruct-ggml-q8-darwin':
   project: llamacpp-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-14B-Instruct-GGUF
-    openllm_alias: 14b-ggml-q8
-    platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
@@ -477,10 +404,6 @@
       timeout: 300
 'qwen2.5:32b-instruct-awq-4bit':
   project: vllm-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-32B-Instruct-AWQ
-    openllm_alias: 32b-4bit
-    platforms: linux
   engine_config:
     max_model_len: 20480
     model: Qwen/Qwen2.5-32B-Instruct-AWQ
@@ -506,18 +429,11 @@
     max_model_len: 2048
     dtype: half
     tensor_parallel_size: 4
-  extra_labels:
-    openllm_alias: mini
-    model_name: ai21labs/AI21-Jamba-1.5-Mini
   extra_envs:
     - name: HF_TOKEN
 'qwen2.5vl:3b-instruct':
   project: vllm-chat
   vision: true
-  extra_labels:
-    model_name: Qwen/Qwen2.5-VL-3B-Instruct
-    openllm_alias: 7b
-    platforms: linux
   engine_config:
     max_model_len: 2048
     model: Qwen/Qwen2.5-VL-3B-Instruct
@@ -533,10 +449,6 @@
 'qwen2.5vl:7b-instruct':
   project: vllm-chat
   vision: true
-  extra_labels:
-    model_name: Qwen/Qwen2.5-VL-7B-Instruct
-    openllm_alias: 7b
-    platforms: linux
   engine_config:
     max_model_len: 2048
     model: Qwen/Qwen2.5-VL-7B-Instruct
@@ -551,10 +463,6 @@
     - qwen-vl-utils[decord]==0.0.8
 'qwen2.5-coder:7b-instruct-ggml-darwin':
   project: llamacpp-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-darwin
-    platforms: macos
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_METAL=on"
@@ -575,10 +483,6 @@
       timeout: 300
 'qwen2.5-coder:7b-instruct-ggml-linux':
   project: llamacpp-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
-    openllm_alias: 7b-ggml-linux
-    platforms: linux
   extra_envs:
     - name: CMAKE_ARGS
       value: "-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
@@ -599,9 +503,6 @@
       timeout: 300
 'qwen2.5-coder:7b-instruct':
   project: vllm-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-Coder-7B-Instruct
-    openllm_alias: 7b
   service_config:
     name: qwen2.5-coder
     resources:
@@ -614,9 +515,6 @@
     max_model_len: 8192
 'qwen2.5-coder:32b-instruct':
   project: vllm-chat
-  extra_labels:
-    model_name: Qwen/Qwen2.5-Coder-32B-Instruct
-    openllm_alias: 32b
   service_config:
     name: qwen2.5-coder
     resources:
@@ -640,9 +538,6 @@
     model: meta-llama/Llama-3.3-70B-Instruct
     max_model_len: 2048
     tensor_parallel_size: 2
-  extra_labels:
-    openllm_alias: 70b,70b-instruct
-    model_name: meta-llama/Llama-3.3-70B-Instruct
   extra_envs:
     - name: HF_TOKEN
 "deepseek-r1-distill:llama3.3-70b-instruct":
@@ -658,9 +553,6 @@
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
     tensor_parallel_size: 2
     max_model_len: 4096
-  extra_labels:
-    openllm_alias: 70b,70b-instruct
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -668,9 +560,6 @@
     reasoning_parser: deepseek_r1
 "deepseek-r1-distill:qwen2.5-32b":
   project: vllm-chat
-  extra_labels:
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
-    openllm_alias: 32b
   service_config:
     name: deepseek-r1-distill
     resources:
@@ -698,9 +587,6 @@
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
     max_model_len: 4096
-  extra_labels:
-    openllm_alias: 14b,14b-instruct
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -718,9 +604,6 @@
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
     max_model_len: 4096
-  extra_labels:
-    openllm_alias: 8b,8b-instruct
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -738,9 +621,6 @@
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
     max_model_len: 4096
-  extra_labels:
-    openllm_alias: 7b,7b-math
-    model_name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
   extra_envs:
     - name: HF_TOKEN
   server_config:
@@ -760,9 +640,6 @@
     tensor_parallel_size: 16
     trust_remote_code: True
     max_model_len: 4096
-  extra_labels:
-    openllm_alias: 671b
-    model_name: deepseek-ai/DeepSeek-R1
   server_config:
     enable_reasoning: true
     reasoning_parser: deepseek_r1
@@ -781,8 +658,5 @@
     model: deepseek-ai/DeepSeek-V3
     max_model_len: 2048
     tensor_parallel_size: 16
-  extra_labels:
-    openllm_alias: 671b,671b-bfloat16
-    model_name: deepseek-ai/DeepSeek-V3
   extra_envs:
     - name: HF_TOKEN
