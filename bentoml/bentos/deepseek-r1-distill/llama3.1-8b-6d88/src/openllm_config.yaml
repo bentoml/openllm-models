@@ -1,0 +1,16 @@
+engine_config:
+  max_model_len: 4096
+  model: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+extra_envs:
+- name: HF_TOKEN
+project: vllm-chat
+server_config:
+  enable_reasoning: true
+  reasoning_parser: deepseek_r1
+service_config:
+  name: deepseek-r1-distill
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300
