@@ -16,6 +16,7 @@ ENGINE_CONFIG = PARAMETERS.get("engine_config", {})
 SERVICE_CONFIG = PARAMETERS.get("service_config", {})
 SERVER_CONFIG = PARAMETERS.get("server_config", {})
 REQUIREMENTS_TXT = [f"{i}\n" for i in PARAMETERS.get("extra_requirements", [])]
+SUPPORTS_VISION = PARAMETERS.get("vision", False)
 
 openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
@@ -34,19 +35,13 @@ async def catch_all(full_path: str):
         return responses.FileResponse(file_path)
     return responses.FileResponse(os.path.join(STATIC_DIR, "chat.html"))
 
+IMAGE = bentoml.images.PythonImage(python_version="3.11").python_packages("vllm==0.7.2").python_packages("pyyaml").python_packages("Pillow").python_packages("openai>=1.61.0").python_packages("bentoml==1.4.0a2").python_packages("flashinfer-python")
+
+if len(REQUIREMENTS_TXT) > 0: IMAGE = IMAGE.python_packages(*REQUIREMENTS_TXT)
 
 @bentoml.asgi_app(openai_api_app, path="/v1")
 @bentoml.asgi_app(ui_app, path="/chat")
-@bentoml.service(
-    **SERVICE_CONFIG,
-    image=bentoml.images.PythonImage(python_version="3.11")
-    .python_packages("vllm==0.7.1\n")
-    .python_packages("pyyaml\n")
-    .python_packages("Pillow\n")
-    .python_packages("openai\n")
-    .python_packages("bentoml>=1.3.20\n")
-    .python_packages(*REQUIREMENTS_TXT),
-)
+@bentoml.service(**SERVICE_CONFIG, image=IMAGE, labels=dict(generator="openllm"), envs=[dict(name="UV_COMPILE_BYTECODE", value=1)])
 class VLLM:
     model_id = ENGINE_CONFIG["model"]
     model = bentoml.models.HuggingFaceModel(model_id)
@@ -116,33 +111,35 @@ class VLLM:
         except Exception:
             yield traceback.format_exc()
 
-    @bentoml.api
-    async def sights(
-        self, prompt: str = "what is this?", image: typing.Optional[PIL.Image.Image] = None
-    ) -> typing.AsyncGenerator[str, None]:
-        from openai import AsyncOpenAI
+    if SUPPORTS_VISION:
 
-        client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
-        if image:
-            buffered = io.BytesIO()
-            image.save(buffered, format="PNG")
-            img_str = base64.b64encode(buffered.getvalue()).decode()
-            buffered.close()
-            image_url = f"data:image/png;base64,{img_str}"
-            content = [
-                dict(type="image_url", image_url=dict(url=image_url)),
-                dict(type="text", text=prompt),
-            ]
-        else:
-            content = [dict(type="text", text=prompt)]
+        @bentoml.api
+        async def sights(
+            self, prompt: str = "what is this?", image: typing.Optional[PIL.Image.Image] = None
+        ) -> typing.AsyncGenerator[str, None]:
+            from openai import AsyncOpenAI
 
-        try:
-            completion = await client.chat.completions.create(
-                model=self.model_id,
-                messages=[dict(role="user", content=content)],
-                stream=True,
-            )
-            async for chunk in completion:
-                yield chunk.choices[0].delta.content or ""
-        except Exception:
-            yield traceback.format_exc()
+            client = AsyncOpenAI(base_url="http://127.0.0.1:3000/v1", api_key="dummy")
+            if image:
+                buffered = io.BytesIO()
+                image.save(buffered, format="PNG")
+                img_str = base64.b64encode(buffered.getvalue()).decode()
+                buffered.close()
+                image_url = f"data:image/png;base64,{img_str}"
+                content = [
+                    dict(type="image_url", image_url=dict(url=image_url)),
+                    dict(type="text", text=prompt),
+                ]
+            else:
+                content = [dict(type="text", text=prompt)]
+
+            try:
+                completion = await client.chat.completions.create(
+                    model=self.model_id,
+                    messages=[dict(role="user", content=content)],
+                    stream=True,
+                )
+                async for chunk in completion:
+                    yield chunk.choices[0].delta.content or ""
+            except Exception:
+                yield traceback.format_exc()

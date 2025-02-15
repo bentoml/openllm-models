@@ -1,4 +1,5 @@
 project: vllm-chat
+vision: false
 service_config:
   name: llama2
   traffic:
