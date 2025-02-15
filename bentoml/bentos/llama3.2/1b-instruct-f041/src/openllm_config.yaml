@@ -1,0 +1,13 @@
+engine_config:
+  max_model_len: 16384
+  model: meta-llama/Llama-3.2-1B-Instruct
+extra_envs:
+- name: HF_TOKEN
+project: vllm-chat
+service_config:
+  name: llama3.2
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300
