@@ -1,0 +1,24 @@
+build:
+  post:
+  - uv pip install --compile-bytecode --no-build-isolation torch
+  - uv pip install --compile-bytecode --no-build-isolation torch mamba-ssm[causal-conv1d]
+engine_config:
+  enable_prefix_caching: false
+  max_model_len: 225280
+  model: ai21labs/AI21-Jamba-1.5-Large
+  quantization: experts_int8
+  tensor_parallel_size: 8
+project: vllm-chat
+server_config:
+  tool_call_parser: jamba
+service_config:
+  envs:
+  - name: HF_TOKEN
+  - name: UV_NO_BUILD_ISOLATION
+    value: 1
+  name: jamba1.5
+  resources:
+    gpu: 8
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
