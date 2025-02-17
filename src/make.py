@@ -141,6 +141,7 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
                     'tag',
                 ],
                 check=True,
+                capture_output=True,
                 cwd=tempdir,
                 env=os.environ,
             )
