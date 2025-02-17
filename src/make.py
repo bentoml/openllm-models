@@ -100,10 +100,8 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
 
             requirements = config.get('requirements', [])
             if requirements:
-                with req_txt_file.open('a') as f:
-                    f.writelines(requirements)
-            with (pathlib.Path(project) / 'requirements.txt').open('r') as f:
-                requirements.extend(f.readlines())
+                with req_txt_file.open('a+') as f:
+                    for r in requirements: f.write(f'{r}\n')
 
             with (tempdir / 'pyproject.toml').open('rb') as s:
                 data = tomllib.load(s)
@@ -112,7 +110,6 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
             with (tempdir / 'pyproject.toml').open('wb') as f:
                 data['project']['version'] = importlib.metadata.version('bentoml')
                 data['project']['name'] = model_repo
-                data['project']['dependencies'] = requirements
                 data['tool']['bentoml']['build'] = bento_yaml
                 tomli_w.dump(data, f, indent=2)
 
@@ -164,7 +161,6 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
 
             return BuildResult(model_name, model_version, True)
     except Exception as e:
-        print(e)
         return BuildResult(model_name, '', False, str(e))
 
 
