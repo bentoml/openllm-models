@@ -515,6 +515,8 @@
     envs:
       - name: CMAKE_ARGS
         value: "-DGGML_METAL=on"
+  labels:
+    platforms: darwin
 "qwen2.5:32b-instruct-ggml-darwin":
   project: llamacpp-chat
   engine_config:
@@ -548,6 +550,8 @@
     envs:
       - name: CMAKE_ARGS
         value: "-DGGML_METAL=on"
+  labels:
+    platforms: darwin
 "qwen2.5:14b-instruct-ggml-q4-darwin":
   project: llamacpp-chat
   engine_config:
@@ -567,6 +571,8 @@
     envs:
       - name: CMAKE_ARGS
         value: "-DGGML_METAL=on"
+  labels:
+    platforms: darwin
 "qwen2.5:14b-instruct-ggml-q8-darwin":
   project: llamacpp-chat
   engine_config:
@@ -587,6 +593,8 @@
     envs:
       - name: CMAKE_ARGS
         value: "-DGGML_METAL=on"
+  labels:
+    platforms: darwin
 "qwen2.5-coder:7b-instruct-ggml-darwin":
   project: llamacpp-chat
   engine_config:
@@ -607,6 +615,8 @@
     envs:
       - name: CMAKE_ARGS
         value: "-DGGML_METAL=on"
+  labels:
+    platforms: darwin
 "qwen2.5-coder:7b-instruct-ggml-linux":
   project: llamacpp-chat
   engine_config:

@@ -92,6 +92,7 @@ if __name__ == '__main__':
             with open(tempdir / 'openllm_config.yaml', 'w') as f:
                 f.write(yaml.dump(config))
 
+            labels = config.get('labels', {})
             req_txt_file = tempdir / 'requirements.txt'
             requirements = config.get('requirements', [])
             if requirements:
@@ -103,6 +104,8 @@ if __name__ == '__main__':
                 bento_yaml = data.get('tool', {}).get('bentoml', {}).get('build', {})
 
             with (tempdir / 'pyproject.toml').open('wb') as f:
+                bento_yaml['labels'] = dict(data.get('labels', {}), **labels)
+                bento_yaml['envs'] = data.get('envs', []) + envs
                 data['project']['version'] = importlib.metadata.version('bentoml')
                 data['project']['name'] = model_repo
                 data['tool']['bentoml']['build'] = bento_yaml
