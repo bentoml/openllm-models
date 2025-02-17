@@ -1,19 +1,11 @@
 [project]
-name = "openllm-service"
+name = "openllm-inference-service"
 description = "OpenLLM Inference Service"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "Apache-2.0" }
 authors = [{ name = "BentoML Team", email = "contact@bentoml.com" }]
-dependencies = [
-  "bentoml==1.4.0a2",
-  "vllm==0.7.1",
-  "kantoku>=0.18.1",
-  "openai>=1.61.0",
-  "pyyaml",
-  "Pillow",
-  "flashinfer-python",
-]
+dependencies = []
 version = "0.0.0"
 [project.urls]
 Website = "https://bentoml.com"
@@ -21,7 +13,6 @@ Documentation = "https://docs.bentoml.com"
 GitHub = "https://github.com/bentoml/OpenLLM"
 Twitter = "https://twitter.com/bentomlai"
 Tracker = "https://github.com/bentoml/OpenLLM/issues"
-
 [tool.bentoml.build]
-service = "service:VLLM"
+service = "service.py:VLLM"
 include = ["LICENCE", "*.py", "*.yaml", "*.txt", "*.md", "ui/*"]

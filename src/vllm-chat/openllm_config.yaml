@@ -1,5 +1,9 @@
 project: vllm-chat
 vision: false
+embeddings: false
+build:
+  exclude:
+    - "consolidated*"
 service_config:
   name: llama2
   traffic:
