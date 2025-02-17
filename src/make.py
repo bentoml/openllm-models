@@ -68,7 +68,6 @@ def ensure_venv(requirements_txt, venv_dir):
                 'uv',
                 'pip',
                 'install',
-                '--prerelease=allow',
                 'bentoml==1.4.0a2',
                 '-p',
                 venv_dir / 'bin' / 'python',
@@ -102,8 +101,7 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
             requirements = config.get('requirements', [])
             if requirements:
                 with req_txt_file.open('a') as f:
-                    for req in requirements:
-                        f.write(f'{req}\n')
+                    f.writelines(requirements)
             with (pathlib.Path(project) / 'requirements.txt').open('r') as f:
                 requirements.extend(f.readlines())
 
