@@ -105,7 +105,6 @@ if __name__ == '__main__':
 
             with (tempdir / 'pyproject.toml').open('wb') as f:
                 bento_yaml['labels'] = dict(data.get('labels', {}), **labels)
-                bento_yaml['envs'] = data.get('envs', []) + envs
                 data['project']['version'] = importlib.metadata.version('bentoml')
                 data['project']['name'] = model_repo
                 data['tool']['bentoml']['build'] = bento_yaml
