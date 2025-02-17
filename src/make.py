@@ -5,31 +5,16 @@
 #     "pyyaml",
 #     "tomli",
 #     "tomli-w",
-#     "rich",
 # ]
 # ///
-import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata, argparse, multiprocessing
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
-from typing import List
+import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata
 
 import yaml, tomli_w
-from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
 
 if sys.version_info >= (3, 11):
     import tomllib
 else:
     import tomli as tomllib
-
-
-@dataclass
-class BuildResult:
-    model_name: str
-    model_version: str
-    success: bool
-    error: str = ''
-
 
 with open('recipe.yaml') as f:
     RECIPE = yaml.safe_load(f)
@@ -83,21 +68,31 @@ def ensure_venv(requirements_txt, venv_dir):
     return venv_dir
 
 
-def build_model(model_name: str, config: dict, progress: Progress, task_id: int) -> BuildResult:
-    """Build a single model's bento."""
-    try:
-        with tempfile.TemporaryDirectory() as tempdir:
-            progress.update(task_id, description=f'[blue]Building {model_name}...[/]')
-            tempdir = pathlib.Path(tempdir)
-            project = config['project']
-            model_repo, model_version = model_name.split(':')
-            req_txt_file = tempdir / 'requirements.txt'
+if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        specified_model = sys.argv[1]
+        if specified_model not in RECIPE:
+            raise ValueError(f'Model {specified_model} not found in recipe')
+    else:
+        specified_model = None
 
+    built_bentos = set()
+
+    for model_name, config in RECIPE.items():
+        if specified_model and model_name != specified_model:
+            continue
+
+        project = config['project']
+        model_repo, model_version = model_name.split(':')
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            tempdir = pathlib.Path(tempdir)
             shutil.copytree(project, tempdir, dirs_exist_ok=True)
 
             with open(tempdir / 'openllm_config.yaml', 'w') as f:
                 f.write(yaml.dump(config))
 
+            req_txt_file = tempdir / 'requirements.txt'
             requirements = config.get('requirements', [])
             if requirements:
                 with req_txt_file.open('a+') as f:
@@ -117,25 +112,18 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
             model_version = f'{model_version}-{directory_hash[:4]}'
 
             bento_path = BENTOML_HOME / 'bentos' / model_repo / model_version
+            built_bentos.add((model_repo, model_version))
 
             if bento_path.exists():
-                return BuildResult(model_name, model_version, True)
+                print(f'Model {model_name} with version {model_version} already exists, skipping')
+                continue
 
             # prepare venv
             venv_dir = pathlib.Path('venv').absolute() / f'{project}-{hash_file(req_txt_file)[:7]}'
             version_path = ensure_venv(req_txt_file, venv_dir)
 
-            proc = subprocess.run(
-                [
-                    version_path / 'bin' / 'python',
-                    '-m',
-                    'bentoml',
-                    'build',
-                    '--version',
-                    model_version,
-                    '--output',
-                    'tag',
-                ],
+            subprocess.run(
+                [version_path / 'bin' / 'python', '-m', 'bentoml', 'build', str(tempdir), '--version', model_version],
                 check=True,
                 capture_output=True,
                 cwd=tempdir,
@@ -159,86 +147,12 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
                         BENTOML_HOME / 'bentos' / model_repo / alias,
                     )
 
-            return BuildResult(model_name, model_version, True)
-    except Exception as e:
-        return BuildResult(model_name, '', False, str(e))
-
-
-def build_all_models(recipe: dict, workers: int) -> List[BuildResult]:
-    """Build all models in parallel using a thread pool."""
-    console = Console()
-    results = []
-
-    with Progress(
-        SpinnerColumn(), TextColumn('[progress.description]{task.description}'), console=console
-    ) as progress:
-        overall_task = progress.add_task('[yellow]Building bentos...[/]', total=len(recipe))
-        build_tasks = {model: progress.add_task(f'[cyan]Waiting to build {model}...[/]', total=1) for model in recipe}
-
-        with ThreadPoolExecutor(max_workers=workers) as executor:
-            future_to_model = {
-                executor.submit(build_model, model, cfg, progress, build_tasks[model]): model
-                for model, cfg in recipe.items()
-            }
-
-            for future in as_completed(future_to_model):
-                result = future.result()
-                results.append(result)
-                progress.advance(overall_task)
-                model_task = build_tasks[result.model_name]
-
-                if result.success:
-                    progress.update(model_task, description=f'[green]✓: {result.model_version}[/]', completed=1)
-                else:
-                    progress.update(model_task, description=f'[red]✗: {result.error}[/]', completed=1)
-
-    return results
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Build all model bentos in parallel')
-    parser.add_argument(
-        'model_names', nargs='*', help='Specific model names to build. If not provided, builds all models.'
-    )
-    parser.add_argument(
-        '--workers',
-        type=int,
-        default=multiprocessing.cpu_count(),
-        help=f'Number of parallel workers (default: {multiprocessing.cpu_count()})',
-    )
-    args = parser.parse_args()
-
-    if args.model_names:
-        invalid_models = [model for model in args.model_names if model not in RECIPE]
-        if invalid_models:
-            print(f'Error: Models not found in recipe.yaml: {", ".join(invalid_models)}')
-            sys.exit(1)
-        filtered_recipe = {model: RECIPE[model] for model in args.model_names}
-    else:
-        filtered_recipe = RECIPE
-
-    print(f'Building {len(filtered_recipe)} bentos with {args.workers} workers')
-
-    results = build_all_models(filtered_recipe, args.workers)
-    successful_builds = [r for r in results if r.success]
-
-    # Print summary
-    print('\nBuild Summary:')
-    print(f'Total bentos: {len(filtered_recipe)}')
-    print(f'Successful builds: {len(successful_builds)}')
-    print(f'Failed builds: {len(results) - len(successful_builds)}')
-
-    if not args.model_names:
+    if not specified_model:
         for bento_path in BENTOML_HOME.glob('bentos/*/*'):
             if (
                 bento_path.exists()
                 and bento_path.is_dir()
-                and not any(
-                    r.model_name == bento_path.parent.name and r.model_version == bento_path.name
-                    for r in successful_builds
-                )
+                and (bento_path.parent.name, bento_path.name) not in built_bentos
             ):
                 print(f'Deleting unused bento {bento_path}')
                 shutil.rmtree(bento_path)
-
-    raise (SystemExit(0 if len(successful_builds) == len(filtered_recipe) else 1))
