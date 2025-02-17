@@ -102,7 +102,8 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
             requirements = config.get('requirements', [])
             if requirements:
                 with req_txt_file.open('a') as f:
-                    for req in requirements: f.write(f'{req}\n')
+                    for req in requirements:
+                        f.write(f'{req}\n')
             with (pathlib.Path(project) / 'requirements.txt').open('r') as f:
                 requirements.extend(f.readlines())
 
