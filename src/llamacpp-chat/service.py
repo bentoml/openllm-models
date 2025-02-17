@@ -19,85 +19,72 @@ Please ensure that your responses are socially unbiased and positive in nature. 
 """
 
 # Load the constants from the yaml file
-CONSTANT_YAML = os.path.join(os.path.dirname(__file__), "openllm_config.yaml")
+CONSTANT_YAML = os.path.join(os.path.dirname(__file__), 'openllm_config.yaml')
 with open(CONSTANT_YAML) as f:
     CONSTANTS = yaml.safe_load(f)
 
-ENGINE_CONFIG = CONSTANTS["engine_config"]
-SERVICE_CONFIG = CONSTANTS["service_config"]
+ENGINE_CONFIG = CONSTANTS['engine_config']
+SERVICE_CONFIG = CONSTANTS['service_config']
 
 
 class Message(pydantic.BaseModel):
-    role: Literal["system", "user", "assistant"]
+    role: Literal['system', 'user', 'assistant']
     content: str
 
 
-STATIC_DIR = os.path.join(os.path.dirname(__file__), "ui")
+STATIC_DIR = os.path.join(os.path.dirname(__file__), 'ui')
 
 static_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
 openai_api_app = fastapi.FastAPI()
 
 
-@openai_api_app.get("/models")
+@openai_api_app.get('/models')
 async def show_available_models():
     # Return the available models
     return {
-        "data": [
-            {
-                "id": ENGINE_CONFIG["repo_id"],
-                "object": "model",
-                "created": 1686935002,
-                "owned_by": "bentoml",
-            }
-        ]
+        'data': [{'id': ENGINE_CONFIG['repo_id'], 'object': 'model', 'created': 1686935002, 'owned_by': 'bentoml'}]
     }
 
 
-ui_app.mount("/static", fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name="static")
+ui_app.mount('/static', fastapi.staticfiles.StaticFiles(directory=STATIC_DIR), name='static')
 
 
-@ui_app.get("/")
+@ui_app.get('/')
 async def serve_chat_html():
-    return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
+    return FileResponse(os.path.join(STATIC_DIR, 'chat.html'))
 
 
-@ui_app.get("/{full_path:path}")
+@ui_app.get('/{full_path:path}')
 async def catch_all(full_path: str):
     file_path = os.path.join(STATIC_DIR, full_path)
     if os.path.exists(file_path):
         return FileResponse(file_path)
-    return FileResponse(os.path.join(STATIC_DIR, "chat.html"))
+    return FileResponse(os.path.join(STATIC_DIR, 'chat.html'))
 
 
 # special handling for prometheus_client of bentoml
-if "prometheus_client" in sys.modules:
-    sys.modules.pop("prometheus_client")
+if 'prometheus_client' in sys.modules:
+    sys.modules.pop('prometheus_client')
 
 
-@bentoml.mount_asgi_app(ui_app, path="/chat")
-@bentoml.mount_asgi_app(openai_api_app, path="/v1")
+@bentoml.mount_asgi_app(ui_app, path='/chat')
+@bentoml.mount_asgi_app(openai_api_app, path='/v1')
 @bentoml.service(**SERVICE_CONFIG)
 class LlamaCppChat:
-    model = bentoml.models.HuggingFaceModel(ENGINE_CONFIG["repo_id"])
+    model = bentoml.models.HuggingFaceModel(ENGINE_CONFIG['repo_id'])
 
     def __init__(self) -> None:
         from llama_cpp import Llama
 
-        self.llm = Llama.from_pretrained(
-            **ENGINE_CONFIG,
-        )
+        self.llm = Llama.from_pretrained(**ENGINE_CONFIG)
 
-    @bentoml.api(route="/v1/chat/completions")
+    @bentoml.api(route='/v1/chat/completions')
     async def chat_completions(
         self,
-        messages: list[Message] = [{"role": "user", "content": "What is the meaning of life?"}],
-        model: str = ENGINE_CONFIG["repo_id"],
-        max_tokens: Annotated[
-            int,
-            Ge(128),
-            Le(ENGINE_CONFIG["max_model_len"]),
-        ] = ENGINE_CONFIG["max_model_len"],
+        messages: list[Message] = [{'role': 'user', 'content': 'What is the meaning of life?'}],
+        model: str = ENGINE_CONFIG['repo_id'],
+        max_tokens: Annotated[int, Ge(128), Le(ENGINE_CONFIG['max_model_len'])] = ENGINE_CONFIG['max_model_len'],
         stop: Optional[list[str]] = None,
         stream: Optional[bool] = True,
         temperature: Optional[float] = 0,
@@ -131,7 +118,7 @@ class LlamaCppChat:
                     print(e)
                     yield SSE(data=str(e)).marshal()
 
-            yield SSE(data="[DONE]").marshal()
+            yield SSE(data='[DONE]').marshal()
         except Exception as e:
             yield SSE(data=str(e)).marshal()
-            yield SSE(data="[DONE]").marshal()
+            yield SSE(data='[DONE]').marshal()
