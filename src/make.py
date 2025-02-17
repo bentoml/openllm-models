@@ -162,8 +162,9 @@ def build_model(model_name: str, config: dict, progress: Progress, task_id: int)
                         BENTOML_HOME / 'bentos' / model_repo / alias,
                     )
 
-            return BuildResult(model_name, model_version, True, proc.stdout)
+            return BuildResult(model_name, model_version, True)
     except Exception as e:
+        print(e)
         return BuildResult(model_name, '', False, str(e))
 
 
