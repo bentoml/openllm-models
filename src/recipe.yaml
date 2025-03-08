@@ -807,6 +807,7 @@
     tool_call_parser: "pythonic"
 "jamba1.5:mini":
   project: vllm-chat
+  reasoning: true
   service_config:
     name: jamba1.5
     traffic:
@@ -962,6 +963,8 @@
     resources:
       gpu: 1
       gpu_type: nvidia-a100-80gb
+    envs:
+      - name: HF_TOKEN
   engine_config:
     model: neuralmagic/DeepSeek-R1-Distill-Qwen-32B-quantized.w8a8
     max_model_len: 4096
