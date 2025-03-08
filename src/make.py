@@ -53,7 +53,7 @@ def ensure_venv(requirements_txt, venv_dir):
                 'uv',
                 'pip',
                 'install',
-                'bentoml==1.4.0a2',
+                'bentoml>=1.4.3',
                 '-p',
                 venv_dir / 'bin' / 'python',
             ],

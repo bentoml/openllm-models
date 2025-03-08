@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import base64, io, os, traceback, typing, argparse, asyncio, logging
+import base64, io, os, traceback, typing, logging
 import bentoml, yaml, fastapi, PIL.Image, typing_extensions, annotated_types
 
 import fastapi.staticfiles as staticfiles, fastapi.responses as responses
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), 'ui')
 
@@ -40,16 +39,20 @@ async def catch_all(full_path: str):
     return responses.FileResponse(os.path.join(STATIC_DIR, 'chat.html'))
 
 
-IMAGE = bentoml.images.PythonImage(python_version='3.11')
+IMAGE = bentoml.images.PythonImage(python_version='3.11', lock_python_packages=False)
 if len((PRE_COMMANDS := IMAGE_CONFIG.get('pre', []))) > 0:
     for cmd in PRE_COMMANDS:
         IMAGE = IMAGE.run(cmd)
+if len((SYSTEM_PACKAGES := IMAGE_CONFIG.get('system_packages', []))) > 0:
+    for pkgs in SYSTEM_PACKAGES:
+        IMAGE = IMAGE.system_packages(pkgs)
 IMAGE = IMAGE.requirements_file('requirements.txt')
 if len((REQUIREMENTS_TXT := PARAMETERS.get('requirements', []))) > 0:
     IMAGE = IMAGE.python_packages(*REQUIREMENTS_TXT)
 if len((POST_COMMANDS := IMAGE_CONFIG.get('post', []))) > 0:
     for cmd in POST_COMMANDS:
         IMAGE = IMAGE.run(cmd)
+IMAGE = IMAGE.run('uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.5')
 
 
 @bentoml.asgi_app(openai_api_app, path='/v1')
@@ -61,11 +64,30 @@ class VLLM:
     model_id = ENGINE_CONFIG['model']
     model = bentoml.models.HuggingFaceModel(model_id, exclude=[*IMAGE_CONFIG.get('exclude', []), '*.pth', '*.pt'])
 
-    def __init__(self) -> None:
+    def __init__(self):
         from openai import AsyncOpenAI
-        from vllm import AsyncEngineArgs, AsyncLLMEngine
+
+        self.client = AsyncOpenAI(base_url='http://127.0.0.1:3000/v1', api_key='dummy')
+
+    @bentoml.on_startup
+    async def init_engine(self) -> None:
         import vllm.entrypoints.openai.api_server as vllm_api_server
 
+        from vllm.utils import FlexibleArgumentParser
+        from vllm.entrypoints.openai.cli_args import make_arg_parser
+
+        args = make_arg_parser(FlexibleArgumentParser()).parse_args([])
+        args.model = self.model
+        args.disable_log_requests = True
+        args.max_log_len = 1000
+        args.served_model_name = [self.model_id]
+        args.request_logger = None
+        args.disable_log_stats = True
+        args.use_tqdm_on_load = False
+        for key, value in ENGINE_CONFIG.items():
+            setattr(args, key, value)
+
+        router = fastapi.APIRouter(lifespan=vllm_api_server.lifespan)
         OPENAI_ENDPOINTS = [
             ['/models', vllm_api_server.show_available_models, ['GET']],
             ['/chat/completions', vllm_api_server.create_chat_completion, ['POST']],
@@ -74,36 +96,21 @@ class VLLM:
             OPENAI_ENDPOINTS.append(['/embeddings', vllm_api_server.create_embedding, ['POST']])
 
         for route, endpoint, methods in OPENAI_ENDPOINTS:
-            openai_api_app.add_api_route(path=route, endpoint=endpoint, methods=methods, include_in_schema=True)
+            router.add_api_route(path=route, endpoint=endpoint, methods=methods, include_in_schema=True)
+        openai_api_app.include_router(router)
 
-        ENGINE_ARGS = AsyncEngineArgs(**dict(ENGINE_CONFIG, model=self.model))
-        engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
-
-        model_config = engine.engine.get_model_config()
-        args = argparse.Namespace()
-        args.model = self.model
-        args.disable_log_requests = True
-        args.max_log_len = 1000
-        args.response_role = 'assistant'
-        args.served_model_name = [self.model_id]
-        args.chat_template = None
-        args.chat_template_content_format = 'auto'
-        args.lora_modules = None
-        args.prompt_adapters = None
-        args.request_logger = None
-        args.disable_log_stats = True
-        args.return_tokens_as_token_ids = False
-        args.enable_tool_call_parser = False
-        args.enable_auto_tool_choice = False
-        args.tool_call_parser = None
-        args.enable_prompt_tokens_details = False
-        args.enable_reasoning = False
-        args.reasoning_parser = None
+        self.engine_context = vllm_api_server.build_async_engine_client(args)
+        self.engine = await self.engine_context.__aenter__()
+        self.model_config = await self.engine.get_model_config()
+        self.tokenizer = await self.engine.get_tokenizer()
         for key, value in SERVER_CONFIG.items():
             setattr(args, key, value)
 
-        asyncio.create_task(vllm_api_server.init_app_state(engine, model_config, openai_api_app.state, args))
-        self.client = AsyncOpenAI(base_url='http://127.0.0.1:3000/v1', api_key='dummy')
+        await vllm_api_server.init_app_state(self.engine, self.model_config, openai_api_app.state, args)
+
+    @bentoml.on_shutdown
+    async def teardown_engine(self):
+        await self.engine_context.__aexit__(GeneratorExit, None, None)
 
     if not SUPPORTS_EMBEDDINGS:
 
