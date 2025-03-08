@@ -45,15 +45,13 @@ def hash_directory(directory_path):
 
 def ensure_venv(requirements_txt, venv_dir):
     if not venv_dir.exists():
-        subprocess.run([sys.executable, '-m', 'uv', 'venv', venv_dir, '-p', '3.9'], check=True, capture_output=True)
+        subprocess.run(['uv', 'venv', venv_dir, '-p', '3.9'], check=True, capture_output=True)
         subprocess.run(
             [
-                sys.executable,
-                '-m',
                 'uv',
                 'pip',
                 'install',
-                'bentoml==1.4.0a2',
+                'bentoml>=1.4.3',
                 '-p',
                 venv_dir / 'bin' / 'python',
             ],
@@ -61,7 +59,7 @@ def ensure_venv(requirements_txt, venv_dir):
             capture_output=True,
         )
         subprocess.run(
-            [sys.executable, '-m', 'uv', 'pip', 'install', '-r', requirements_txt, '-p', venv_dir / 'bin' / 'python'],
+            ['uv', 'pip', 'install', '-r', requirements_txt, '-p', venv_dir / 'bin' / 'python'],
             check=True,
             capture_output=True,
         )
