@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import annotated_types
-import os, json, typing, typing_extensions
+import os, json, typing, typing_extensions, annotated_types
 import yaml, bentoml, pydantic, fastapi, fastapi.staticfiles, fastapi.responses
 
 SYS_PROMPT = """
