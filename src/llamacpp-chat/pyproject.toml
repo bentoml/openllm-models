@@ -6,7 +6,7 @@ requires-python = ">=3.9"
 license = { text = "Apache-2.0" }
 authors = [{ name = "BentoML Team", email = "contact@bentoml.com" }]
 dependencies = [
-  "bentoml==1.4.0a2",
+  "bentoml>=1.4.3",
   "kantoku>=0.18.1",
   "huggingface-hub",
   "llama_cpp_python==0.3.1",
