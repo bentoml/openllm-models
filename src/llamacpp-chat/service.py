@@ -9,7 +9,7 @@ Please ensure that your responses are socially unbiased and positive in nature. 
 """
 
 # Load the constants from the yaml file
-CONSTANT_YAML = os.path.join(os.path.dirname(__file__), 'openllm_config.yaml')
+CONSTANT_YAML = os.path.join(os.path.dirname(__file__), 'openllm-config.yaml')
 with open(CONSTANT_YAML) as f:
     CONSTANTS = yaml.safe_load(f)
 
