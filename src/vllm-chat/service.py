@@ -22,19 +22,17 @@ openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
 ui_app.mount('/static', staticfiles.StaticFiles(directory=STATIC_DIR), name='static')
 if "envs" not in SERVICE_CONFIG: SERVICE_CONFIG['envs'] = []
-SERVICE_CONFIG["envs"] = [{k: str(v)} for i in SERVICE_CONFIG["envs"] for k,v in i.items()]
 SERVICE_CONFIG['envs'].extend([{"name": "UV_NO_PROGRESS", "value": 1}, {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": 1}, {"name": "VLLM_LOGGING_CONFIG_PATH", "value": "logging-config.json"}])
+SERVICE_CONFIG["envs"] = [{k: str(v) for k,v in i.items()} for i in SERVICE_CONFIG["envs"]]
 
 @ui_app.get('/')
 async def serve_chat_html(): return responses.FileResponse(os.path.join(STATIC_DIR, 'chat.html'))
-
 
 @ui_app.get('/{full_path:path}')
 async def catch_all(full_path: str):
   file_path = os.path.join(STATIC_DIR, full_path)
   if os.path.exists(file_path): return responses.FileResponse(file_path)
   return responses.FileResponse(os.path.join(STATIC_DIR, 'chat.html'))
-
 
 IMAGE = bentoml.images.PythonImage(python_version='3.11', lock_python_packages=False)
 if len((PRE_COMMANDS := IMAGE_CONFIG.get('pre', []))) > 0:
@@ -47,7 +45,6 @@ if len((REQUIREMENTS_TXT := PARAMETERS.get('requirements', []))) > 0:
 if len((POST_COMMANDS := IMAGE_CONFIG.get('post', []))) > 0:
   for cmd in POST_COMMANDS: IMAGE = IMAGE.run(cmd)
 IMAGE = IMAGE.run('uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.5')
-
 
 @bentoml.asgi_app(openai_api_app, path='/v1')
 @bentoml.asgi_app(ui_app, path='/chat')

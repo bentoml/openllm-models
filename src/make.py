@@ -8,17 +8,14 @@
 #     "tomli-w",
 # ]
 # ///
-import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata
-
-import yaml, tomli_w
+import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata, yaml, tomli_w
 
 if sys.version_info >= (3, 11):
     import tomllib
 else:
     import tomli as tomllib
 
-with open('recipe.yaml') as f:
-    RECIPE = yaml.safe_load(f)
+with open('recipe.yaml') as f: RECIPE = yaml.safe_load(f)
 
 
 BENTOML_HOME = pathlib.Path(os.environ['BENTOML_HOME'])
@@ -42,29 +39,6 @@ def hash_directory(directory_path):
             hasher.update(file_hash.encode())
 
     return hasher.hexdigest()
-
-
-def ensure_venv(requirements_txt, venv_dir):
-    if not venv_dir.exists():
-        subprocess.run(['uv', 'venv', venv_dir, '-p', '3.9'], check=True, capture_output=True)
-        subprocess.run(
-            [
-                'uv',
-                'pip',
-                'install',
-                'bentoml>=1.4.3',
-                '-p',
-                venv_dir / 'bin' / 'python',
-            ],
-            check=True,
-            capture_output=True,
-        )
-        subprocess.run(
-            ['uv', 'pip', 'install', '-r', requirements_txt, '-p', venv_dir / 'bin' / 'python'],
-            check=True,
-            capture_output=True,
-        )
-    return venv_dir
 
 
 if __name__ == '__main__':
@@ -119,17 +93,39 @@ if __name__ == '__main__':
                 print(f'Model {model_name} with version {model_version} already exists, skipping')
                 continue
 
-            # prepare venv
-            venv_dir = pathlib.Path('venv').absolute() / f'{project}-{hash_file(req_txt_file)[:7]}'
-            version_path = ensure_venv(req_txt_file, venv_dir)
+            try:
+                result = subprocess.run(
+                    ['uv', 'pip', 'install', '-r', req_txt_file],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+                print(f"Successfully installed requirements for {model_name}")
+            except subprocess.CalledProcessError as e:
+                print(f"Error installing requirements for {model_name}:")
+                print(f"Command: {e.cmd}")
+                print(f"Return code: {e.returncode}")
+                print(f"Output: {e.stdout}")
+                print(f"Error: {e.stderr}")
+                raise
 
-            subprocess.run(
-                [version_path / 'bin' / 'python', '-m', 'bentoml', 'build', str(tempdir), '--version', model_version],
-                check=True,
-                capture_output=True,
-                cwd=tempdir,
-                env=os.environ,
-            )
+            try:
+                result = subprocess.run(
+                    ['bentoml', 'build', str(tempdir), '--version', model_version],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                    cwd=tempdir,
+                    env=os.environ,
+                )
+                print(f"Successfully built {model_repo}:{model_version}")
+            except subprocess.CalledProcessError as e:
+                print(f"Error building {model_repo}:{model_version}:")
+                print(f"Command: {e.cmd}")
+                print(f"Return code: {e.returncode}")
+                print(f"Output: {e.stdout}")
+                print(f"Error: {e.stderr}")
+                raise
 
             # delete latest
             (BENTOML_HOME / 'bentos' / model_repo / 'latest').unlink(missing_ok=True)
@@ -159,8 +155,19 @@ if __name__ == '__main__':
                 shutil.rmtree(bento_path)
 
     # run ruff format with 4 spaces against /bentos folder
-    subprocess.run(
-        ['ruff', 'format', '--isolated', '--config', 'indent-width=4', '--config', 'line-length=119', '--config', 'preview=true', str(BENTOML_HOME / 'bentos')],
-        check=True,
-    )
+    try:
+        result = subprocess.run(
+            ['ruff', 'format', '--isolated', '--config', 'indent-width=4', '--config', 'line-length=119', '--config', 'preview=true', str(BENTOML_HOME / 'bentos')],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        print(f"Successfully formatted Python files in {BENTOML_HOME / 'bentos'} with ruff")
+    except subprocess.CalledProcessError as e:
+        print(f"Error formatting Python files with ruff:")
+        print(f"Command: {e.cmd}")
+        print(f"Return code: {e.returncode}")
+        print(f"Output: {e.stdout}")
+        print(f"Error: {e.stderr}")
+        raise
     print(f"Formatted Python files in {BENTOML_HOME / 'bentos'} with ruff")
