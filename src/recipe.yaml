@@ -659,6 +659,7 @@
     enable_auto_tool_choice: true
     tool_call_parser: "llama3_json"
 "llama3.1:8b-instruct":
+  embedding: true
   project: vllm-chat
   service_config:
     name: llama3.1
@@ -691,7 +692,7 @@
   server_config:
     tool_call_parser: "pythonic"
 "llama3.2:3b-instruct":
-  embeddin
+  embedding: true
   project: vllm-chat
   service_config:
     name: llama3.2
