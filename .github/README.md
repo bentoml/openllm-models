@@ -103,4 +103,4 @@ Open PRs to the `nightly` branch to add new models or update existing models.
 
 You can also fork this repo and add your own models.
 
-Use `openllm repo add` to use your own model repository.
+Use `openllm repo add` to use your own model repository. See [DEVELOPMENT.md](./.github/DEVELOPMENT.md) for more information.
