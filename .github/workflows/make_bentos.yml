@@ -33,7 +33,7 @@ jobs:
           cd ..
 
       - name: Run gen_readme.py
-        run: uv run gen_readme.py
+        run: uv run tools/gen_readme.py
 
       - name: Configure git
         run: |
