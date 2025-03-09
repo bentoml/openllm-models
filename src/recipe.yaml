@@ -691,6 +691,7 @@
   server_config:
     tool_call_parser: "pythonic"
 "llama3.2:3b-instruct":
+  embeddin
   project: vllm-chat
   service_config:
     name: llama3.2

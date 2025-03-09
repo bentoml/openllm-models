@@ -3,6 +3,7 @@
 # dependencies = [
 #     "bentoml",
 #     "pyyaml",
+#     "ruff",
 #     "tomli",
 #     "tomli-w",
 # ]
@@ -87,7 +88,7 @@ if __name__ == '__main__':
             tempdir = pathlib.Path(tempdir)
             shutil.copytree(project, tempdir, dirs_exist_ok=True)
 
-            with open(tempdir / 'openllm_config.yaml', 'w') as f:
+            with open(tempdir / 'openllm-config.yaml', 'w') as f:
                 f.write(yaml.dump(config))
 
             labels = config.get('labels', {})
@@ -156,3 +157,10 @@ if __name__ == '__main__':
             ):
                 print(f'Deleting unused bento {bento_path}')
                 shutil.rmtree(bento_path)
+
+    # run ruff format with 4 spaces against /bentos folder
+    subprocess.run(
+        ['ruff', 'format', '--isolated', '--config', 'indent-width=4', '--config', 'line-length=119', '--config', 'preview=true', str(BENTOML_HOME / 'bentos')],
+        check=True,
+    )
+    print(f"Formatted Python files in {BENTOML_HOME / 'bentos'} with ruff")
