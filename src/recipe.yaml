@@ -1197,3 +1197,67 @@
     reasoning_parser: "deepseek_r1"
   alias:
     - r1-qwen2.5-math
+"gemma3:1b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-1b-it
+    max_model_len: 4096
+  alias:
+    - 1b
+"gemma3:4b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-4b-it
+    max_model_len: 8192
+  alias:
+    - 4b
+"gemma3:12b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-a100
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-12b-it
+    max_model_len: 16384
+  alias:
+    - 12b
+"gemma3:27b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-27b-it
+    max_model_len: 16384
+  alias:
+    - 27b
