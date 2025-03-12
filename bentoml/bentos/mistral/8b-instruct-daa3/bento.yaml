@@ -2,7 +2,7 @@ service: service:VLLM
 name: mistral
 version: 8b-instruct-daa3
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:23.258849+00:00'
+creation_time: '2025-03-12T13:43:55.620406+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: mistralai--ministral-8b-instruct-2410:eb6fe97e706a8f5559654fb29e98a05e
     module: null
-    creation_time: '2025-03-12T12:24:23.246791+00:00'
+    creation_time: '2025-03-12T13:43:55.495015+00:00'
     registry: huggingface
     metadata:
       model_id: mistralai/ministral-8b-instruct-2410

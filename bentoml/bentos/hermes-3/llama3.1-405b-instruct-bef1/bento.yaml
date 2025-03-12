@@ -2,7 +2,7 @@ service: service:VLLM
 name: hermes-3
 version: llama3.1-405b-instruct-bef1
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:54.155805+00:00'
+creation_time: '2025-03-12T13:45:18.533806+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: nousresearch--hermes-3-llama-3.1-405b-fp8:8fb9dfda0ca46d2ea2047f80cf73f37b
     module: null
-    creation_time: '2025-03-12T12:25:54.143634+00:00'
+    creation_time: '2025-03-12T13:45:18.517572+00:00'
     registry: huggingface
     metadata:
       model_id: nousresearch/hermes-3-llama-3.1-405b-fp8

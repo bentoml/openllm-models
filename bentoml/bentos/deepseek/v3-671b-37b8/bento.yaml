@@ -2,7 +2,7 @@ service: service:VLLM
 name: deepseek
 version: v3-671b-37b8
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:26:00.817017+00:00'
+creation_time: '2025-03-12T13:45:26.189737+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: deepseek-ai--deepseek-v3:383524f402c158287cd5491b6e38dd5d
     module: null
-    creation_time: '2025-03-12T12:26:00.804813+00:00'
+    creation_time: '2025-03-12T13:45:26.173856+00:00'
     registry: huggingface
     metadata:
       model_id: deepseek-ai/deepseek-v3

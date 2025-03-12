@@ -2,7 +2,7 @@ service: service:VLLM
 name: jamba1.5
 version: mini-5e51
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:57.477631+00:00'
+creation_time: '2025-03-12T13:45:22.342904+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: ai21labs--ai21-jamba-1.5-mini:de46510eb33c2bf6b33c4c4905a2ebf5
     module: null
-    creation_time: '2025-03-12T12:25:57.465413+00:00'
+    creation_time: '2025-03-12T13:45:22.329277+00:00'
     registry: huggingface
     metadata:
       model_id: ai21labs/ai21-jamba-1.5-mini

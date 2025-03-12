@@ -2,7 +2,7 @@ service: service:LlamaCppChat
 name: qwen2.5-coder
 version: 7b-instruct-ggml-linux-d6c4
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:40.818804+00:00'
+creation_time: '2025-03-12T13:45:02.335593+00:00'
 labels: {}
 models: []
 entry_service: qwen2.5-coder
@@ -12,7 +12,7 @@ services:
   models:
   - tag: qwen--qwen2.5-coder-7b-instruct-gguf:0dadf70134a11454b2add9fe7465c836
     module: null
-    creation_time: '2025-03-12T12:25:40.766157+00:00'
+    creation_time: '2025-03-12T13:45:02.260485+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2.5-coder-7b-instruct-gguf

@@ -2,7 +2,7 @@ service: service:VLLM
 name: mistral
 version: 24b-small-instruct-2501-e5bb
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:24.872492+00:00'
+creation_time: '2025-03-12T13:43:57.398339+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: mistralai--mistral-small-24b-instruct-2501:9d12729e38248981e61f53979b279d8c
     module: null
-    creation_time: '2025-03-12T12:24:24.860541+00:00'
+    creation_time: '2025-03-12T13:43:57.384260+00:00'
     registry: huggingface
     metadata:
       model_id: mistralai/mistral-small-24b-instruct-2501

@@ -108,8 +108,6 @@ if __name__ == '__main__':
         print(f'Error: {e.stderr}')
         raise
 
-      aliases = config.get('alias', [])
-
       try:
         result = subprocess.run(
           ['bentoml', 'build', str(tempdir), '--version', model_version],
@@ -131,20 +129,18 @@ if __name__ == '__main__':
       # delete latest
       (BENTOML_HOME / 'bentos' / model_repo / 'latest').unlink(missing_ok=True)
 
-      if len(aliases) > 0:
-        # link alias
-        for alias in aliases:
-          if alias == 'latest':
-            ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias
-            if ALIAS_PATH.exists():
-              continue
-            with open(ALIAS_PATH, 'w') as f:
-              f.write(model_version)
-          else:  # bentoml currently only support latest alias, copy to other alias
-            shutil.copytree(
-              BENTOML_HOME / 'bentos' / model_repo / model_version, BENTOML_HOME / 'bentos' / model_repo / alias
-            )
-            built_bentos.add((model_repo, alias))
+      # link alias
+      for alias in config.get('alias', []):
+        if alias == 'latest':
+          ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias
+          if ALIAS_PATH.exists():
+            continue
+          with open(ALIAS_PATH, 'w') as f:
+            f.write(model_version)
+        else:  # bentoml currently only support latest alias, copy to other alias
+          shutil.copytree(
+            BENTOML_HOME / 'bentos' / model_repo / model_version, BENTOML_HOME / 'bentos' / model_repo / alias
+          )
 
   if not specified_model:
     for bento_path in BENTOML_HOME.glob('bentos/*/*'):

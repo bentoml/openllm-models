@@ -2,7 +2,7 @@ service: service:VLLM
 name: phi4
 version: 14b-9128
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:18.195294+00:00'
+creation_time: '2025-03-12T13:43:49.524970+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: microsoft--phi-4:e9103c2b785b951c33bb2c90331a50c0
     module: null
-    creation_time: '2025-03-12T12:24:18.171151+00:00'
+    creation_time: '2025-03-12T13:43:49.497440+00:00'
     registry: huggingface
     metadata:
       model_id: microsoft/phi-4

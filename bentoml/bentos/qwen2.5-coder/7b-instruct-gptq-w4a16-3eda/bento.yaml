@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2.5-coder
 version: 7b-instruct-gptq-w4a16-3eda
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:01.788979+00:00'
+creation_time: '2025-03-12T13:44:38.472574+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: qwen--qwen2.5-coder-7b-instruct-gptq-int4:2f4cb65eff64e26ec5dc747f539917e0
     module: null
-    creation_time: '2025-03-12T12:25:01.776923+00:00'
+    creation_time: '2025-03-12T13:44:38.457598+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2.5-coder-7b-instruct-gptq-int4

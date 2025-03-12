@@ -2,7 +2,7 @@ service: service:VLLM
 name: gemma2
 version: 2b-instruct-db9e
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:28.128722+00:00'
+creation_time: '2025-03-12T13:44:01.149817+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: google--gemma-2-2b-it:81a728a80cf158894ed759e8a7e7b7b4
     module: null
-    creation_time: '2025-03-12T12:24:28.116732+00:00'
+    creation_time: '2025-03-12T13:44:01.135499+00:00'
     registry: huggingface
     metadata:
       model_id: google/gemma-2-2b-it

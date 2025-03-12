@@ -2,7 +2,7 @@ service: service:VLLM
 name: pixtral
 version: 124b-2411-c091
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:21.655390+00:00'
+creation_time: '2025-03-12T13:43:53.719965+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: mistralai--pixtral-large-instruct-2411:f51b86a149f873b8af7368f3865584b0
     module: null
-    creation_time: '2025-03-12T12:24:21.642545+00:00'
+    creation_time: '2025-03-12T13:43:53.703162+00:00'
     registry: huggingface
     metadata:
       model_id: mistralai/pixtral-large-instruct-2411

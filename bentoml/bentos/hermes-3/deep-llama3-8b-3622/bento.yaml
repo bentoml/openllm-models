@@ -2,7 +2,7 @@ service: service:VLLM
 name: hermes-3
 version: deep-llama3-8b-3622
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:55.807809+00:00'
+creation_time: '2025-03-12T13:45:20.468430+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: nousresearch--deephermes-3-llama-3-8b-preview:32d53fc25bb28ff12e44815aa7631247
     module: null
-    creation_time: '2025-03-12T12:25:55.795832+00:00'
+    creation_time: '2025-03-12T13:45:20.452478+00:00'
     registry: huggingface
     metadata:
       model_id: nousresearch/deephermes-3-llama-3-8b-preview

@@ -2,7 +2,7 @@ service: service:VLLM
 name: deepseek
 version: r1-distill-qwen2.5-32b-w8a8-82f6
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:26:10.631846+00:00'
+creation_time: '2025-03-12T13:45:37.738974+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: neuralmagic--deepseek-r1-distill-qwen-32b-quantized.w8a8:883d700497583f5971e16ce60b34da38
     module: null
-    creation_time: '2025-03-12T12:26:10.619890+00:00'
+    creation_time: '2025-03-12T13:45:37.725193+00:00'
     registry: huggingface
     metadata:
       model_id: neuralmagic/deepseek-r1-distill-qwen-32b-quantized.w8a8

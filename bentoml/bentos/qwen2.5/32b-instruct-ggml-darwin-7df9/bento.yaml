@@ -2,7 +2,7 @@ service: service:LlamaCppChat
 name: qwen2.5
 version: 32b-instruct-ggml-darwin-7df9
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:16.146098+00:00'
+creation_time: '2025-03-12T13:44:54.640739+00:00'
 labels:
   platforms: darwin
 models: []
@@ -13,7 +13,7 @@ services:
   models:
   - tag: qwen--qwen2.5-32b-instruct-gguf:41c2b66786fab9dd82c0c5d2115cb87a
     module: null
-    creation_time: '2025-03-12T12:25:16.093750+00:00'
+    creation_time: '2025-03-12T13:44:54.566697+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2.5-32b-instruct-gguf

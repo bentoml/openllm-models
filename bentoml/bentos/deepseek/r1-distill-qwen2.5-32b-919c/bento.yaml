@@ -2,7 +2,7 @@ service: service:VLLM
 name: deepseek
 version: r1-distill-qwen2.5-32b-919c
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:26:09.047738+00:00'
+creation_time: '2025-03-12T13:45:35.856484+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: deepseek-ai--deepseek-r1-distill-qwen-32b:f92b7fee5f02e8eb8e25700830fb5c02
     module: null
-    creation_time: '2025-03-12T12:26:09.035648+00:00'
+    creation_time: '2025-03-12T13:45:35.843030+00:00'
     registry: huggingface
     metadata:
       model_id: deepseek-ai/deepseek-r1-distill-qwen-32b

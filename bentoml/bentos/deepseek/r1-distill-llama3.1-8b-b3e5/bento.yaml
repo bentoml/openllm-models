@@ -2,7 +2,7 @@ service: service:VLLM
 name: deepseek
 version: r1-distill-llama3.1-8b-b3e5
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:26:19.215765+00:00'
+creation_time: '2025-03-12T13:45:47.270457+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: deepseek-ai--deepseek-r1-distill-llama-8b:10dec54e08b6f641272a5e4b85932527
     module: null
-    creation_time: '2025-03-12T12:26:19.203993+00:00'
+    creation_time: '2025-03-12T13:45:47.256148+00:00'
     registry: huggingface
     metadata:
       model_id: deepseek-ai/deepseek-r1-distill-llama-8b

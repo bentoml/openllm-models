@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwen2.5-coder
 version: 7b-instruct-283f
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:24:56.381130+00:00'
+creation_time: '2025-03-12T13:44:34.751104+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: qwen--qwen2.5-coder-7b-instruct:9b2c8b8a0613a739a709a1d026267293
     module: null
-    creation_time: '2025-03-12T12:24:56.369150+00:00'
+    creation_time: '2025-03-12T13:44:34.736681+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2.5-coder-7b-instruct

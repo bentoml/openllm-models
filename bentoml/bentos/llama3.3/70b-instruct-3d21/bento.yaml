@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama3.3
 version: 70b-instruct-3d21
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:52.558561+00:00'
+creation_time: '2025-03-12T13:45:16.606862+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: meta-llama--llama-3.3-70b-instruct:b9bc0a200fcd4d22fa7292c622c25ea6
     module: null
-    creation_time: '2025-03-12T12:25:52.546469+00:00'
+    creation_time: '2025-03-12T13:45:16.593253+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/llama-3.3-70b-instruct

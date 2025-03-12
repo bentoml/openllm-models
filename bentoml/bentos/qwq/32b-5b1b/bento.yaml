@@ -2,7 +2,7 @@ service: service:VLLM
 name: qwq
 version: 32b-5b1b
 bentoml_version: 1.4.3
-creation_time: '2025-03-12T12:25:42.499295+00:00'
+creation_time: '2025-03-12T13:45:04.331139+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: qwen--qwq-32b:cfce351ad44cdb5e38d05bfce0ae8ea2
     module: null
-    creation_time: '2025-03-12T12:25:42.487304+00:00'
+    creation_time: '2025-03-12T13:45:04.311364+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwq-32b
