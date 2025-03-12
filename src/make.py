@@ -133,6 +133,7 @@ if __name__ == '__main__':
 
       if len(aliases) > 0:
         # link alias
+        built_bentos.union(aliases)
         for alias in aliases:
           if alias == 'latest':
             ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias

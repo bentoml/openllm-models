@@ -49,7 +49,18 @@ jobs:
             git add bentoml/bentos/*
             git add .github
             git commit -m "chore: make bentos [generated]"
-            git push origin nightly
+
+            # Determine the target branch based on the event type
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              # For pull requests, push to the head branch that triggered the PR
+              TARGET_BRANCH="${{ github.head_ref }}"
+            else
+              # For direct pushes to nightly, push to nightly
+              TARGET_BRANCH="nightly"
+            fi
+
+            echo "Pushing changes to branch: $TARGET_BRANCH"
+            git push origin "$TARGET_BRANCH"
           else
             echo "No changes to commit"
           fi
