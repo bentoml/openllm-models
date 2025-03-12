@@ -133,7 +133,6 @@ if __name__ == '__main__':
 
       if len(aliases) > 0:
         # link alias
-        built_bentos.union(aliases)
         for alias in aliases:
           if alias == 'latest':
             ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias
@@ -145,6 +144,7 @@ if __name__ == '__main__':
             shutil.copytree(
               BENTOML_HOME / 'bentos' / model_repo / model_version, BENTOML_HOME / 'bentos' / model_repo / alias
             )
+            built_bentos.add((model_repo, alias))
 
   if not specified_model:
     for bento_path in BENTOML_HOME.glob('bentos/*/*'):
