@@ -1,0 +1,13 @@
+alias:
+- 14b-awq
+engine_config:
+  max_model_len: 4096
+  model: Qwen/Qwen2.5-14B-Instruct-AWQ
+project: vllm-chat
+service_config:
+  name: qwen2.5
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300

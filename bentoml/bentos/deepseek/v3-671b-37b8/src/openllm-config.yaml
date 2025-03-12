@@ -1,0 +1,17 @@
+alias:
+- v3-671b
+- v3
+engine_config:
+  max_model_len: 2048
+  model: deepseek-ai/DeepSeek-V3
+  tensor_parallel_size: 16
+project: vllm-chat
+service_config:
+  envs:
+  - name: HF_TOKEN
+  name: deepseek
+  resources:
+    gpu: 16
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
