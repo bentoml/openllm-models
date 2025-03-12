@@ -13,6 +13,7 @@ ENGINE_CONFIG = PARAMETERS.get('engine_config', {})
 SERVICE_CONFIG = PARAMETERS.get('service_config', {})
 SERVER_CONFIG = PARAMETERS.get('server_config', {})
 IMAGE_CONFIG = PARAMETERS.get('build', {})
+ALIASES = PARAMETERS.get("alias", [])
 
 SUPPORTS_VISION = PARAMETERS.get('vision', False)
 SUPPORTS_EMBEDDINGS = PARAMETERS.get('embeddings', False)
@@ -48,7 +49,7 @@ IMAGE = IMAGE.run('uv pip install --compile-bytecode flashinfer-python --find-li
 
 @bentoml.asgi_app(openai_api_app, path='/v1')
 @bentoml.asgi_app(ui_app, path='/chat')
-@bentoml.service(**SERVICE_CONFIG, image=IMAGE, labels=dict(generator='openllm', owner='bentoml-team'))
+@bentoml.service(**SERVICE_CONFIG, image=IMAGE, labels=dict(generator='openllm', owner='bentoml-team', aliases=",".join(ALIASES)))
 class VLLM:
   model_id = ENGINE_CONFIG['model']
   model = bentoml.models.HuggingFaceModel(model_id, exclude=[*IMAGE_CONFIG.get('exclude', []), '*.pth', '*.pt'])
