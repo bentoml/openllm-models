@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - nightly
+  pull_request:
+    branches:
+      - nightly
 
 permissions:
   contents: write
