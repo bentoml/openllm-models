@@ -1,0 +1,19 @@
+engine_config:
+  additional_files:
+  - qwen2.5-coder-7b-instruct-00001-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-00002-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-00003-of-00004.gguf
+  - qwen2.5-coder-7b-instruct-00004-of-00004.gguf
+  filename: qwen2.5-coder-7b-instruct-00001-of-00004.gguf
+  max_model_len: 2048
+  repo_id: Qwen/Qwen2.5-Coder-7B-Instruct-GGUF
+project: llamacpp-chat
+service_config:
+  envs:
+  - name: CMAKE_ARGS
+    value: -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS
+  name: qwen2.5-coder
+  resources:
+    memory: 16Gi
+  traffic:
+    timeout: 300

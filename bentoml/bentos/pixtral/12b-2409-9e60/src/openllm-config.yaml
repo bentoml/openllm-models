@@ -1,0 +1,23 @@
+alias:
+- 12b-2409
+engine_config:
+  enable_chunked_prefill: false
+  enable_prefix_caching: false
+  limit_mm_per_prompt:
+    image: 5
+  max_model_len: 32768
+  model: mistralai/Pixtral-12B-2409
+  tokenizer_mode: mistral
+project: vllm-chat
+requirements:
+- mistral_common[opencv]
+service_config:
+  envs:
+  - name: HF_TOKEN
+  name: pixtral
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
+vision: true
