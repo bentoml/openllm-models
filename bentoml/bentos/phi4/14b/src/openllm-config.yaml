@@ -1,0 +1,22 @@
+alias:
+- 14b
+engine_config:
+  max_model_len: 8192
+  model: microsoft/phi-4
+project: vllm-chat
+server_config:
+  chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set offset = 1\
+    \ %}\n{% else %}\n    {% set offset = 0 %}\n{% endif %}\n\n{% for message in messages\
+    \ %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == offset) %}\n\
+    \        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...')\
+    \ }}\n    {% endif %}\n\n    {{ '<|' + message['role'] + '|>\\n' + message['content'].strip()\
+    \ + '<|end|>' + '\\n' }}\n\n    {% if loop.last and message['role'] == 'user'\
+    \ and add_generation_prompt %}\n        {{ '<|assistant|>\\n' }}\n    {% endif\
+    \ %}\n{% endfor %}\n"
+service_config:
+  name: phi4
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

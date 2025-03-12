@@ -1,0 +1,17 @@
+alias:
+- 3b
+engine_config:
+  max_model_len: 8192
+  model: Qwen/Qwen2.5-Coder-3B-Instruct
+project: vllm-chat
+server_config:
+  enable_auto_tool_choice: true
+  enable_tool_call_parser: true
+  tool_call_parser: llama3_json
+service_config:
+  name: qwen2.5-coder
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300

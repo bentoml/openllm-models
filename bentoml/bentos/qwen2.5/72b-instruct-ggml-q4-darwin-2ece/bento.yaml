@@ -2,7 +2,7 @@ service: service:LlamaCppChat
 name: qwen2.5
 version: 72b-instruct-ggml-q4-darwin-2ece
 bentoml_version: 1.4.3
-creation_time: '2025-03-09T00:27:20.129632+00:00'
+creation_time: '2025-03-12T12:25:14.462990+00:00'
 labels:
   platforms: darwin
 models: []
@@ -13,7 +13,7 @@ services:
   models:
   - tag: qwen--qwen2.5-72b-instruct-gguf:9212ed678a7092e8ff1de8f20f597db7
     module: null
-    creation_time: '2025-03-09T00:27:20.078881+00:00'
+    creation_time: '2025-03-12T12:25:14.412576+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwen2.5-72b-instruct-gguf
@@ -115,7 +115,7 @@ image:
 
     a2wsgi==1.10.8
 
-    aiohappyeyeballs==2.5.0
+    aiohappyeyeballs==2.6.1
 
     aiohttp==3.11.13
 
@@ -133,7 +133,7 @@ image:
 
     async-timeout==5.0.1
 
-    attrs==25.1.0
+    attrs==25.2.0
 
     bentoml==1.4.3
 
@@ -173,7 +173,7 @@ image:
 
     httpx-ws==0.7.1
 
-    huggingface-hub==0.29.2
+    huggingface-hub==0.29.3
 
     idna==3.10
 
@@ -181,7 +181,7 @@ image:
 
     jinja2==3.1.6
 
-    kantoku==0.18.1
+    kantoku==0.18.3
 
     llama-cpp-python==0.3.1
 
@@ -243,7 +243,7 @@ image:
 
     pyyaml==6.0.2
 
-    pyzmq==26.2.1
+    pyzmq==26.3.0
 
     questionary==2.1.0
 
@@ -253,7 +253,7 @@ image:
 
     schema==0.7.7
 
-    setuptools==75.8.2
+    setuptools==76.0.0
 
     simple-di==0.1.5
 
