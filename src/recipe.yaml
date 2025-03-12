@@ -12,6 +12,8 @@
     max_model_len: 8192
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set offset = 1 %}\n{% else %}\n    {% set offset = 0 %}\n{% endif %}\n\n{% for message in messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == offset) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {{ '<|' + message['role'] + '|>\\n' + message['content'].strip() + '<|end|>' + '\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{ '<|assistant|>\\n' }}\n    {% endif %}\n{% endfor %}\n"
+  alias:
+    - 14b
 "pixtral:12b-2409":
   project: vllm-chat
   vision: true
@@ -34,6 +36,8 @@
     max_model_len: 32768
   requirements:
     - mistral_common[opencv]
+  alias:
+    - 12b-2409
 "pixtral:124b-2411":
   project: vllm-chat
   vision: true
@@ -58,6 +62,9 @@
     tensor_parallel_size: 4
   requirements:
     - mistral_common[opencv]
+  alias:
+    - 124b-2411
+    - 124b
 "mistral:8b-instruct":
   project: vllm-chat
   service_config:
@@ -75,6 +82,9 @@
   build:
     exclude:
       - "consolidated*"
+  alias:
+    - 8b-2410
+    - 8b
 "mistral:24b-small-instruct-2501":
   project: vllm-chat
   service_config:
@@ -91,6 +101,9 @@
   build:
     exclude:
       - "consolidated*"
+  alias:
+    - 24b-2501
+    - 24b
 "mistral-large:123b-instruct-2407":
   project: vllm-chat
   build:
@@ -110,6 +123,9 @@
     max_model_len: 2048
     dtype: half
     tensor_parallel_size: 4
+  alias:
+    - 123b-2407
+    - 123b
 "gemma2:2b-instruct":
   project: vllm-chat
   service_config:
@@ -128,6 +144,8 @@
     enable_prefix_caching: false
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if (message['role'] == 'assistant') %}\n        {% set role = 'model' %}\n    {% else %}\n        {% set role = message['role'] %}\n    {% endif %}\n\n    {{ '<start_of_turn>' + role + '\\n' + content.strip() + '<end_of_turn>\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{'<start_of_turn>model\\n'}}\n    {% endif %}\n{% endfor %}\n"
+  alias:
+    - 2b
 "gemma2:9b-instruct":
   project: vllm-chat
   service_config:
@@ -146,6 +164,8 @@
     enable_prefix_caching: false
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if (message['role'] == 'assistant') %}\n        {% set role = 'model' %}\n    {% else %}\n        {% set role = message['role'] %}\n    {% endif %}\n\n    {{ '<start_of_turn>' + role + '\\n' + content.strip() + '<end_of_turn>\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{'<start_of_turn>model\\n'}}\n    {% endif %}\n{% endfor %}\n"
+  alias:
+    - 9b
 "gemma2:27b-instruct":
   project: vllm-chat
   service_config:
@@ -164,6 +184,8 @@
     enable_prefix_caching: false
   server_config:
     chat_template: "{% if messages[0]['role'] == 'system' %}\n    {% set loop_messages = messages[1:] %}\n    {% set system_message = messages[0]['content'].strip() + '\\n\\n' %}\n{% else %}\n    {% set loop_messages = messages %}\n    {% set system_message = '' %}\n{% endif %}\n\n{% for message in loop_messages %}\n    {% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}\n        {{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}\n    {% endif %}\n\n    {% if loop.index0 == 0 %}\n        {% set content = system_message + message['content'] %}\n    {% else %}\n        {% set content = message['content'] %}\n    {% endif %}\n\n    {% if (message['role'] == 'assistant') %}\n        {% set role = 'model' %}\n    {% else %}\n        {% set role = message['role'] %}\n    {% endif %}\n\n    {{ '<start_of_turn>' + role + '\\n' + content.strip() + '<end_of_turn>\\n' }}\n\n    {% if loop.last and message['role'] == 'user' and add_generation_prompt %}\n        {{'<start_of_turn>model\\n'}}\n    {% endif %}\n{% endfor %}\n"
+  alias:
+    - 27b
 "qwen2.5:7b-instruct":
   project: vllm-chat
   service_config:
@@ -176,6 +198,8 @@
   engine_config:
     model: Qwen/Qwen2.5-7B-Instruct
     max_model_len: 2048
+  alias:
+    - 7b
 "qwen2.5:14b-instruct":
   project: vllm-chat
   service_config:
@@ -188,6 +212,8 @@
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct
     max_model_len: 2048
+  alias:
+    - 14b
 "qwen2.5:14b-instruct-awq":
   project: vllm-chat
   service_config:
@@ -200,6 +226,8 @@
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct-AWQ
     max_model_len: 4096
+  alias:
+    - 14b-awq
 "qwen2.5:14b-instruct-gptq-w4a16":
   project: vllm-chat
   service_config:
@@ -212,6 +240,8 @@
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4
     max_model_len: 4096
+  alias:
+    - 14b-w4a16
 "qwen2.5:14b-instruct-gptq-w8a8":
   project: vllm-chat
   service_config:
@@ -224,6 +254,8 @@
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4
     max_model_len: 4096
+  alias:
+    - 14b-w4a8
 "qwen2.5:32b-instruct":
   project: vllm-chat
   service_config:
@@ -236,6 +268,8 @@
   engine_config:
     model: Qwen/Qwen2.5-32B-Instruct
     max_model_len: 2048
+  alias:
+    - 32b
 "qwen2.5:32b-instruct-awq":
   project: vllm-chat
   engine_config:
@@ -250,6 +284,8 @@
       timeout: 300
   server_config:
     tool_call_parser: "llama3_json"
+  alias:
+    - 32b-awq
 "qwen2.5:32b-instruct-gptq-w4a16":
   project: vllm-chat
   engine_config:
@@ -264,6 +300,8 @@
       timeout: 300
   server_config:
     tool_call_parser: "llama3_json"
+  alias:
+    - 32b-w4a16
 "qwen2.5:32b-instruct-gptq-w8a8":
   project: vllm-chat
   engine_config:
@@ -278,6 +316,8 @@
       timeout: 300
   server_config:
     tool_call_parser: "llama3_json"
+  alias:
+    - 32b-w8a8
 "qwen2.5:72b-instruct":
   project: vllm-chat
   service_config:
@@ -303,6 +343,8 @@
   engine_config:
     model: Qwen/Qwen2.5-72B-Instruct-AWQ
     max_model_len: 8192
+  alias:
+    - 72b
 "qwen2.5:72b-instruct-gptq-w4a16":
   project: vllm-chat
   service_config:
@@ -313,8 +355,10 @@
       gpu: 1
       gpu_type: nvidia-a100-80gb
   engine_config:
-    model: Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8
+    model: Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4
     max_model_len: 4096
+  alias:
+    - 72b-w4a16
 "qwen2.5:72b-instruct-gptq-w8a8":
   project: vllm-chat
   service_config:
@@ -327,6 +371,8 @@
   engine_config:
     model: Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8
     max_model_len: 8192
+  alias:
+    - 72b-w8a8
 "qwen2.5-coder:3b-instruct":
   project: vllm-chat
   service_config:
@@ -343,6 +389,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 3b
 "qwen2.5-coder:7b-instruct":
   project: vllm-chat
   service_config:
@@ -359,6 +407,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 7b
 "qwen2.5-coder:7b-instruct-awq":
   project: vllm-chat
   service_config:
@@ -375,6 +425,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 7b-awq
 "qwen2.5-coder:7b-instruct-gptq-w4a16":
   project: vllm-chat
   service_config:
@@ -391,7 +443,9 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
-"qwen2.5-coder:7b-instruct-gptq-w8a16":
+  alias:
+    - 7b-w4a16
+"qwen2.5-coder:7b-instruct-gptq-w8a8":
   project: vllm-chat
   service_config:
     name: qwen2.5-coder
@@ -407,6 +461,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 7b-w8a8
 "qwen2.5-coder:14b-instruct":
   project: vllm-chat
   service_config:
@@ -423,6 +479,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 14b
 "qwen2.5-coder:14b-instruct-awq":
   project: vllm-chat
   service_config:
@@ -439,6 +497,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 14b-awq
 "qwen2.5-coder:14b-instruct-gptq-w4a16":
   project: vllm-chat
   service_config:
@@ -455,6 +515,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 14b-w4a16
 "qwen2.5-coder:14b-instruct-gptq-w8a8":
   project: vllm-chat
   service_config:
@@ -471,6 +533,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 14b-w8a8
 "qwen2.5-coder:32b-instruct":
   project: vllm-chat
   service_config:
@@ -487,6 +551,8 @@
     enable_auto_tool_choice: true
     enable_tool_call_parser: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 32b
 "qwen2.5:72b-instruct-ggml-q4-darwin":
   project: llamacpp-chat
   engine_config:
@@ -658,6 +724,8 @@
     reasoning_parser: "deepseek_r1"
     enable_auto_tool_choice: true
     tool_call_parser: "llama3_json"
+  alias:
+    - 32b
 "llama3.1:8b-instruct":
   embedding: true
   project: vllm-chat
@@ -675,6 +743,8 @@
     max_model_len: 2048
   server_config:
     tool_call_parser: "llama3_json"
+  alias:
+    - 8b
 "llama3.2:1b-instruct":
   project: vllm-chat
   service_config:
@@ -691,6 +761,8 @@
     max_model_len: 8192
   server_config:
     tool_call_parser: "pythonic"
+  alias:
+    - 1b
 "llama3.2:3b-instruct":
   embedding: true
   project: vllm-chat
@@ -708,6 +780,8 @@
     max_model_len: 8192
   server_config:
     tool_call_parser: "pythonic"
+  alias:
+    - 3b
 "llama3.2:11b-vision-instruct":
   project: vllm-chat
   service_config:
@@ -732,6 +806,8 @@
   vision: true
   server_config:
     tool_call_parser: "pythonic"
+  alias:
+    - 11b
 "llama3.2:90b-vision-instruct":
   project: vllm-chat
   vision: true
@@ -756,6 +832,8 @@
   build:
     exclude:
       - "original"
+  alias:
+    - 90b
 "llama3.3:70b-instruct":
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
@@ -777,6 +855,8 @@
       gpu_type: nvidia-a100-80gb
     envs:
       - name: HF_TOKEN
+  alias:
+    - 70b
 "hermes-3:llama3.1-405b-instruct":
   project: vllm-chat
   engine_config:
@@ -792,6 +872,8 @@
     resources:
       gpu: 6
       gpu_type: nvidia-a100-80gb
+  alias:
+    - 405b
 "hermes-3:deep-llama3-8b":
   project: vllm-chat
   reasoning: true
@@ -807,6 +889,8 @@
     max_model_len: 8192
   server_config:
     tool_call_parser: "pythonic"
+  alias:
+    - 8b
 "jamba1.5:mini":
   project: vllm-chat
   reasoning: true
@@ -838,6 +922,8 @@
       - uv pip install --compile-bytecode ./causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
       - curl -L -o ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
       - uv pip install --compile-bytecode ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+  alias:
+    - mini
 "jamba1.5:large":
   project: vllm-chat
   service_config:
@@ -869,6 +955,8 @@
       - uv pip install --compile-bytecode ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
   server_config:
     tool_call_parser: "jamba"
+  alias:
+    - large
 "deepseek:v3-671b":
   project: vllm-chat
   service_config:
@@ -884,6 +972,9 @@
     model: deepseek-ai/DeepSeek-V3
     max_model_len: 2048
     tensor_parallel_size: 16
+  alias:
+    - v3-671b
+    - v3
 "deepseek:r1-671b":
   project: vllm-chat
   service_config:
@@ -903,6 +994,9 @@
   server_config:
     enable_reasoning: true
     reasoning_parser: deepseek_r1
+  alias:
+    - r1-671b
+    - r1
 "deepseek:r1-distill-llama3.3-70b":
   project: vllm-chat
   service_config:
@@ -921,6 +1015,8 @@
   server_config:
     reasoning_parser: "deepseek_r1"
     tool_call_parser: "llama3_json"
+  alias:
+    - r1-llama3.3-70b
 "deepseek:r1-distill-llama3.3-70b-w8a8":
   project: vllm-chat
   service_config:
@@ -936,6 +1032,8 @@
   server_config:
     reasoning_parser: "deepseek_r1"
     tool_call_parser: "llama3_json"
+  alias:
+    - r1-llama3.3-70b-w8a8
 "deepseek:r1-distill-llama3.3-70b-w4a16":
   project: vllm-chat
   service_config:
@@ -951,6 +1049,8 @@
   server_config:
     reasoning_parser: "deepseek_r1"
     tool_call_parser: "llama3_json"
+  alias:
+    - r1-llama3.3-70b-w4a16
 "deepseek:r1-distill-qwen2.5-32b":
   project: vllm-chat
   service_config:
@@ -968,6 +1068,8 @@
   server_config:
     reasoning_parser: "deepseek_r1"
     tool_call_parser: "llama3_json"
+  alias:
+    - r1-qwen2.5-32b
 "deepseek:r1-distill-qwen2.5-32b-w8a8":
   project: vllm-chat
   service_config:
@@ -985,6 +1087,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-qwen2.5-32b-w8a8
 "deepseek:r1-distill-qwen2.5-32b-w4a16":
   project: vllm-chat
   service_config:
@@ -1000,6 +1104,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-qwen2.5-32b-w4a16
 "deepseek:r1-distill-qwen2.5-14b":
   project: vllm-chat
   service_config:
@@ -1017,6 +1123,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: deepseek_r1
+  alias:
+    - r1-qwen2.5-14b
 "deepseek:r1-distill-qwen2.5-14b-w8a8":
   project: vllm-chat
   service_config:
@@ -1032,6 +1140,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-qwen2.5-14b-w8a8
 "deepseek:r1-distill-qwen2.5-14b-w4a16":
   project: vllm-chat
   service_config:
@@ -1047,6 +1157,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-qwen2.5-14b-w4a16
 "deepseek:r1-distill-llama3.1-8b":
   project: vllm-chat
   service_config:
@@ -1064,6 +1176,8 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-llama3.1-8b
 "deepseek:r1-distill-qwen2.5-7b-math":
   project: vllm-chat
   service_config:
@@ -1081,3 +1195,5 @@
   server_config:
     tool_call_parser: "llama3_json"
     reasoning_parser: "deepseek_r1"
+  alias:
+    - r1-qwen2.5-math
