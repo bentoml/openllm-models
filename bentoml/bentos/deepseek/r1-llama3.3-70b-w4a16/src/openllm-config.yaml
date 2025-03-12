@@ -1,0 +1,16 @@
+alias:
+- r1-llama3.3-70b-w4a16
+engine_config:
+  max_model_len: 8192
+  model: neuralmagic/DeepSeek-R1-Distill-Llama-70B-quantized.w4a16
+project: vllm-chat
+server_config:
+  reasoning_parser: deepseek_r1
+  tool_call_parser: llama3_json
+service_config:
+  name: deepseek
+  resources:
+    gpu: 1
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300

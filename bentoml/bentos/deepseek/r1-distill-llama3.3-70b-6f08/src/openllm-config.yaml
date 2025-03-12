@@ -1,0 +1,19 @@
+alias:
+- r1-llama3.3-70b
+engine_config:
+  max_model_len: 4096
+  model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+  tensor_parallel_size: 2
+project: vllm-chat
+server_config:
+  reasoning_parser: deepseek_r1
+  tool_call_parser: llama3_json
+service_config:
+  envs:
+  - name: HF_TOKEN
+  name: deepseek
+  resources:
+    gpu: 2
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
