@@ -1,0 +1,96 @@
+service: service:VLLM
+name: hermes-3
+version: llama3.1-405b-instruct-889d
+bentoml_version: 1.4.5
+creation_time: '2025-03-17T10:27:40.496696+00:00'
+labels:
+  generator: openllm
+  owner: bentoml-team
+  aliases: 405b
+models: []
+entry_service: hermes3
+services:
+- name: hermes3
+  service: ''
+  models:
+  - tag: nousresearch--hermes-3-llama-3.1-405b-fp8:8fb9dfda0ca46d2ea2047f80cf73f37b
+    module: null
+    creation_time: '2025-03-17T10:27:40.483005+00:00'
+    registry: huggingface
+    metadata:
+      model_id: nousresearch/hermes-3-llama-3.1-405b-fp8
+      revision: 4e33d43ca36ae05e3c9601b545bb9a996fb318a9
+      endpoint: https://huggingface.co
+      include: null
+      exclude:
+      - '*.pth'
+      - '*.pt'
+  dependencies: []
+  config:
+    name: hermes3
+    resources:
+      gpu: 6
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs:
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_LOGGING_CONFIG_PATH
+  value: /tmp/tmpwxbvj9bz/logging-config.json
+schema:
+  name: hermes3
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 2
+image:
+  base_image: python:3.11-slim
+  python_version: '3.11'
+  commands:
+  - export UV_COMPILE_BYTECODE=1
+  - apt-get update && apt-get install -q -y --no-install-recommends --allow-remove-essential
+    ca-certificates gnupg2 bash build-essential git
+  python_requirements: 'bentoml>=1.4.3
+
+    vllm==0.7.3
+
+    kantoku>=0.18.1
+
+    fastapi
+
+    openai>=1.61.0
+
+    pyyaml
+
+    Pillow
+
+    bentoml==1.4.5
+
+    '
+  post_commands:
+  - uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.5
+  scripts: {}
