@@ -1,0 +1,127 @@
+service: service:VLLM
+name: llama3.2
+version: 11b-vision-instruct-358f
+bentoml_version: 1.4.5
+creation_time: '2025-03-17T10:27:35.038751+00:00'
+labels:
+  generator: openllm
+  owner: bentoml-team
+  aliases: 11b
+models: []
+entry_service: llama3.2
+services:
+- name: llama3.2
+  service: ''
+  models:
+  - tag: meta-llama--llama-3.2-11b-vision-instruct:8e00c0f0d18ff5e281ec985c59d40587
+    module: null
+    creation_time: '2025-03-17T10:27:35.023421+00:00'
+    registry: huggingface
+    metadata:
+      model_id: meta-llama/llama-3.2-11b-vision-instruct
+      revision: 9eb2daaa8597bf192a8b0e73f848f3a102794df5
+      endpoint: https://huggingface.co
+      include: null
+      exclude:
+      - original
+      - '*.pth'
+      - '*.pt'
+  dependencies: []
+  config:
+    name: llama3.2
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+    traffic:
+      timeout: 300
+envs:
+- name: HF_TOKEN
+  value: ''
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_LOGGING_CONFIG_PATH
+  value: /tmp/tmpfudtwxf4/logging-config.json
+schema:
+  name: llama3.2
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 4096
+          maximum: 4096
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+  - name: sights
+    route: /sights
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        image:
+          default: null
+          title: Image
+          format: image
+          pil: true
+          type: file
+        max_tokens:
+          default: 4096
+          maximum: 4096
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+spec: 2
+image:
+  base_image: python:3.11-slim
+  python_version: '3.11'
+  commands:
+  - export UV_COMPILE_BYTECODE=1
+  - apt-get update && apt-get install -q -y --no-install-recommends --allow-remove-essential
+    ca-certificates gnupg2 bash build-essential git
+  python_requirements: 'bentoml>=1.4.3
+
+    vllm==0.7.3
+
+    kantoku>=0.18.1
+
+    fastapi
+
+    openai>=1.61.0
+
+    pyyaml
+
+    Pillow
+
+    bentoml==1.4.5
+
+    '
+  post_commands:
+  - uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.5
+  scripts: {}
