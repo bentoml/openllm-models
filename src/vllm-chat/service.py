@@ -94,33 +94,64 @@ class VLLM:
 
     await vllm_api_server.init_app_state(self.engine, self.model_config, openai_api_app.state, args)
 
-    @bentoml.on_shutdown
-    async def teardown_engine(self):
-      await self.engine_context.__aexit__(GeneratorExit, None, None)
+  @bentoml.on_shutdown
+  async def teardown_engine(self):
+    await self.engine_context.__aexit__(GeneratorExit, None, None)
 
-    if SUPPORTS_EMBEDDINGS:
-      @bentoml.api
-      async def embedding(
-        self,
-        prompt: str = 'Life is a meaning and a construct of self.'
-      ):
-        try:
-          results = await self.client.embeddings.create(input=[prompt], model=self.model_id)
-          return results
-        except Exception:
-          logger.error(traceback.format_exc())
-          return 'Internal error found. Check server logs for more information'
-
+  if SUPPORTS_EMBEDDINGS:
     @bentoml.api
-    async def generate(
-        self,
-        prompt: str = 'Who are you? Please respond in pirate speak!',
-        max_tokens: typing.Annotated[int, annotated_types.Ge(128), annotated_types.Le(MAX_TOKENS)] = MAX_TOKENS,
+    async def embedding(
+      self,
+      prompt: str = 'Life is a meaning and a construct of self.'
+    ):
+      try:
+        results = await self.client.embeddings.create(input=[prompt], model=self.model_id)
+        return results
+      except Exception:
+        logger.error(traceback.format_exc())
+        return 'Internal error found. Check server logs for more information'
+
+  @bentoml.api
+  async def generate(
+      self,
+      prompt: str = 'Who are you? Please respond in pirate speak!',
+      max_tokens: typing.Annotated[int, annotated_types.Ge(128), annotated_types.Le(MAX_TOKENS)] = MAX_TOKENS,
+  ) -> typing.AsyncGenerator[str, None]:
+    try:
+      completion = await self.client.chat.completions.create(
+        model=self.model_id,
+        messages=[dict(role='user', content=[dict(type='text', text=prompt)])],
+        stream=True,
+        max_tokens=max_tokens,
+      )
+      async for chunk in completion: yield chunk.choices[0].delta.content or ''
+    except Exception:
+      logger.error(traceback.format_exc())
+      yield 'Internal error found. Check server logs for more information'
+      return
+
+  if SUPPORTS_VISION:
+    @bentoml.api
+    async def sights(
+      self,
+      prompt: str = 'Who are you? Please respond in pirate speak!',
+      image: typing.Optional[PIL.Image.Image] = None,
+      max_tokens: typing_extensions.Annotated[int, annotated_types.Ge(128), annotated_types.Le(MAX_TOKENS)] = MAX_TOKENS,
     ) -> typing.AsyncGenerator[str, None]:
+      if image:
+        buffered = io.BytesIO()
+        image.save(buffered, format='PNG')
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+        buffered.close()
+        image_url = f'data:image/png;base64,{img_str}'
+        content = [dict(type='image_url', image_url=dict(url=image_url)), dict(type='text', text=prompt)]
+      else:
+        content = [dict(type='text', text=prompt)]
+
       try:
         completion = await self.client.chat.completions.create(
           model=self.model_id,
-          messages=[dict(role='user', content=[dict(type='text', text=prompt)])],
+          messages=[dict(role='user', content=content)],
           stream=True,
           max_tokens=max_tokens,
         )
@@ -129,34 +160,3 @@ class VLLM:
         logger.error(traceback.format_exc())
         yield 'Internal error found. Check server logs for more information'
         return
-
-    if SUPPORTS_VISION:
-      @bentoml.api
-      async def sights(
-        self,
-        prompt: str = 'Who are you? Please respond in pirate speak!',
-        image: typing.Optional[PIL.Image.Image] = None,
-        max_tokens: typing_extensions.Annotated[int, annotated_types.Ge(128), annotated_types.Le(MAX_TOKENS)] = MAX_TOKENS,
-      ) -> typing.AsyncGenerator[str, None]:
-        if image:
-          buffered = io.BytesIO()
-          image.save(buffered, format='PNG')
-          img_str = base64.b64encode(buffered.getvalue()).decode()
-          buffered.close()
-          image_url = f'data:image/png;base64,{img_str}'
-          content = [dict(type='image_url', image_url=dict(url=image_url)), dict(type='text', text=prompt)]
-        else:
-          content = [dict(type='text', text=prompt)]
-
-        try:
-          completion = await self.client.chat.completions.create(
-            model=self.model_id,
-            messages=[dict(role='user', content=content)],
-            stream=True,
-            max_tokens=max_tokens,
-          )
-          async for chunk in completion: yield chunk.choices[0].delta.content or ''
-        except Exception:
-          logger.error(traceback.format_exc())
-          yield 'Internal error found. Check server logs for more information'
-          return
