@@ -13,7 +13,7 @@ docker:
     HF_HUB_DISABLE_PROGRESS_BARS: '1'
     HF_TOKEN: ''
     UV_NO_PROGRESS: '1'
-    VLLM_LOGGING_CONFIG_PATH: /tmp/tmppoj_wnkq/logging-config.json
+    VLLM_LOGGING_CONFIG_PATH: /tmp/tmp0t9imd3n/logging-config.json
   python_version: '3.9'
   setup_script: null
   system_packages: null
@@ -25,7 +25,7 @@ envs:
 - name: HF_HUB_DISABLE_PROGRESS_BARS
   value: '1'
 - name: VLLM_LOGGING_CONFIG_PATH
-  value: /tmp/tmppoj_wnkq/logging-config.json
+  value: /tmp/tmp0t9imd3n/logging-config.json
 exclude: []
 include:
 - LICENCE
