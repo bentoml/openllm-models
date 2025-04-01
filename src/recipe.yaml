@@ -735,7 +735,7 @@
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-a100
+      gpu_type: nvidia-l4
     envs:
       - name: HF_TOKEN
   engine_config:
