@@ -17,13 +17,14 @@ ALIASES = PARAMETERS.get("alias", [])
 
 SUPPORTS_VISION = PARAMETERS.get('vision', False)
 SUPPORTS_EMBEDDINGS = PARAMETERS.get('embeddings', False)
+USE_V1 = PARAMETERS.get("v1", False)
 MAX_TOKENS = 2048
 
 openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
 ui_app.mount('/static', staticfiles.StaticFiles(directory=STATIC_DIR), name='static')
 if "envs" not in SERVICE_CONFIG: SERVICE_CONFIG['envs'] = []
-SERVICE_CONFIG['envs'].extend([{"name": "VLLM_USE_V1", "value": 0}, {"name": "UV_NO_PROGRESS", "value": 1}, {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": 1}, {"name": "VLLM_LOGGING_CONFIG_PATH", "value": os.path.join(os.path.dirname(__file__), 'logging-config.json')}])
+SERVICE_CONFIG['envs'].extend([{"name": "VLLM_USE_V1", "value": '1' if USE_V1 else '0'}, {"name": "UV_NO_PROGRESS", "value": '1'}, {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": '1'}, {"name": "VLLM_LOGGING_CONFIG_PATH", "value": os.path.join(os.path.dirname(__file__), 'logging-config.json')}])
 SERVICE_CONFIG["envs"] = [{k: str(v) for k,v in i.items()} for i in SERVICE_CONFIG["envs"]]
 
 @ui_app.get('/')

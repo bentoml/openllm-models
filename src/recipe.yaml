@@ -747,6 +747,7 @@
     - 8b
 "llama3.2:1b-instruct":
   project: vllm-chat
+  v1: true
   service_config:
     name: llama3.2
     traffic:
@@ -765,6 +766,7 @@
     - 1b
 "llama3.2:3b-instruct":
   embedding: true
+  v1: true
   project: vllm-chat
   service_config:
     name: llama3.2
