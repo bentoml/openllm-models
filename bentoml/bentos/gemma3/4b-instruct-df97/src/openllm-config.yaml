@@ -1,0 +1,15 @@
+alias:
+- 4b
+engine_config:
+  max_model_len: 8192
+  model: google/gemma-3-4b-it
+project: vllm-chat
+service_config:
+  envs:
+  - name: HF_TOKEN
+  name: gemma3
+  resources:
+    gpu: 1
+    gpu_type: nvidia-l4
+  traffic:
+    timeout: 300

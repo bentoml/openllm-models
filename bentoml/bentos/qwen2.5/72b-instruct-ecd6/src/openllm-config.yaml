@@ -1,0 +1,12 @@
+engine_config:
+  max_model_len: 4096
+  model: Qwen/Qwen2.5-72B-Instruct
+  tensor_parallel_size: 2
+project: vllm-chat
+service_config:
+  name: qwen2.5
+  resources:
+    gpu: 2
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
