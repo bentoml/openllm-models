@@ -1,6 +1,7 @@
 project: vllm-chat
 vision: false
 embeddings: false
+v1: false
 build:
   exclude:
     - "consolidated*"
