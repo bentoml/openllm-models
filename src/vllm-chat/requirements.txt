@@ -1,5 +1,5 @@
-bentoml>=1.4.5
-vllm==0.8.0
+bentoml==1.4.7
+vllm==0.8.2
 kantoku>=0.18.1
 fastapi
 openai>=1.67.0
