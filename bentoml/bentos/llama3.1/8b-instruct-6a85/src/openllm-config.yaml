@@ -13,6 +13,6 @@ service_config:
   name: llama3.1
   resources:
     gpu: 1
-    gpu_type: nvidia-tesla-a100
+    gpu_type: nvidia-l4
   traffic:
     timeout: 300

@@ -51,7 +51,7 @@ hermes-3       hermes-3:deep-llama3-8b-0ca6                 default  80G        
                hermes-3:llama3.1-405b-instruct-6e74         default  80Gx6               linux
 jamba1.5       jamba1.5:mini-119f                           default  80Gx2               linux
                jamba1.5:large-183b                          default  80Gx8               linux
-llama3.1       llama3.1:8b-instruct-cfe4                    default  40G                 linux
+llama3.1       llama3.1:8b-instruct-6a85                    default  24G                 linux
 llama3.2       llama3.2:1b-instruct-e929                    default  24G                 linux
                llama3.2:3b-instruct-2d54                    default  24G                 linux
                llama3.2:11b-vision-instruct-e0d9            default  80G                 linux

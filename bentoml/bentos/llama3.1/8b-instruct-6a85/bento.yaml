@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3.1
-version: 8b-instruct-cfe4
+version: 8b-instruct-6a85
 bentoml_version: 1.4.7
-creation_time: '2025-04-01T20:03:38.910022+00:00'
+creation_time: '2025-04-01T20:11:53.057706+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: meta-llama--meta-llama-3.1-8b-instruct:a8dedc91aaf1595c36c7f0b0eb40c395
     module: null
-    creation_time: '2025-04-01T20:03:38.865583+00:00'
+    creation_time: '2025-04-01T20:11:52.976560+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/meta-llama-3.1-8b-instruct
@@ -30,7 +30,7 @@ services:
     name: llama3.1
     resources:
       gpu: 1
-      gpu_type: nvidia-tesla-a100
+      gpu_type: nvidia-l4
     traffic:
       timeout: 300
 envs:
@@ -43,7 +43,7 @@ envs:
 - name: HF_HUB_DISABLE_PROGRESS_BARS
   value: '1'
 - name: VLLM_LOGGING_CONFIG_PATH
-  value: /tmp/tmppxpjsoa5/logging-config.json
+  value: /tmp/tmpngb17h0d/logging-config.json
 schema:
   name: llama3.1
   type: service
