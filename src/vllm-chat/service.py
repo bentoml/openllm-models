@@ -17,7 +17,7 @@ ALIASES = PARAMETERS.get("alias", [])
 
 SUPPORTS_VISION = PARAMETERS.get('vision', False)
 SUPPORTS_EMBEDDINGS = PARAMETERS.get('embeddings', False)
-MAX_TOKENS = min(ENGINE_CONFIG.get('max_model_len', 2048), 4096)
+MAX_TOKENS = 2048
 
 openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
@@ -66,6 +66,7 @@ class VLLM:
     from vllm.entrypoints.openai.cli_args import make_arg_parser
 
     args = make_arg_parser(FlexibleArgumentParser()).parse_args([])
+    for key, value in ENGINE_CONFIG.items(): setattr(args, key, value)
     args.model = self.model
     args.disable_log_requests = True
     args.max_log_len = 1000
@@ -74,12 +75,12 @@ class VLLM:
     args.disable_log_stats = True
     args.use_tqdm_on_load = False
     args.task = os.environ.get("TASK", "generate")
-    for key, value in ENGINE_CONFIG.items(): setattr(args, key, value)
 
     router = fastapi.APIRouter(lifespan=vllm_api_server.lifespan)
     OPENAI_ENDPOINTS = [
       ['/models', vllm_api_server.show_available_models, ['GET']],
       ['/chat/completions', vllm_api_server.create_chat_completion, ['POST']],
+      ['/completions', vllm_api_server.create_completion, ['POST']],
     ]
     if SUPPORTS_EMBEDDINGS: OPENAI_ENDPOINTS.append(['/embeddings', vllm_api_server.create_embedding, ['POST']])
 
@@ -97,19 +98,6 @@ class VLLM:
   @bentoml.on_shutdown
   async def teardown_engine(self):
     await self.engine_context.__aexit__(GeneratorExit, None, None)
-
-  if SUPPORTS_EMBEDDINGS:
-    @bentoml.api
-    async def embedding(
-      self,
-      prompt: str = 'Life is a meaning and a construct of self.'
-    ):
-      try:
-        results = await self.client.embeddings.create(input=[prompt], model=self.model_id)
-        return results
-      except Exception:
-        logger.error(traceback.format_exc())
-        return 'Internal error found. Check server logs for more information'
 
   @bentoml.api
   async def generate(
@@ -129,6 +117,18 @@ class VLLM:
       logger.error(traceback.format_exc())
       yield 'Internal error found. Check server logs for more information'
       return
+
+  if SUPPORTS_EMBEDDINGS:
+    @bentoml.api
+    async def embedding(
+      self,
+      prompt: str = 'Life is a meaning and a construct of self.'
+    ):
+      try:
+        return await self.client.embeddings.create(input=[prompt], model=self.model_id)
+      except Exception:
+        logger.error(traceback.format_exc())
+        raise
 
   if SUPPORTS_VISION:
     @bentoml.api
