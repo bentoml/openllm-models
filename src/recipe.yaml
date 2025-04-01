@@ -120,7 +120,7 @@
       - name: HF_TOKEN
   engine_config:
     model: mistralai/Mistral-Large-Instruct-2407
-    max_model_len: 2048
+    max_model_len: 4096
     dtype: half
     tensor_parallel_size: 4
   alias:
@@ -139,7 +139,7 @@
       - name: HF_TOKEN
   engine_config:
     model: google/gemma-2-2b-it
-    max_model_len: 2048
+    max_model_len: 3192
     dtype: half
     enable_prefix_caching: false
   server_config:
@@ -159,7 +159,7 @@
       - name: HF_TOKEN
   engine_config:
     model: google/gemma-2-9b-it
-    max_model_len: 2048
+    max_model_len: 4096
     dtype: half
     enable_prefix_caching: false
   server_config:
@@ -179,7 +179,7 @@
       - name: HF_TOKEN
   engine_config:
     model: google/gemma-2-27b-it
-    max_model_len: 2048
+    max_model_len: 8192
     dtype: half
     enable_prefix_caching: false
   server_config:
@@ -197,7 +197,7 @@
       gpu_type: nvidia-l4
   engine_config:
     model: Qwen/Qwen2.5-7B-Instruct
-    max_model_len: 2048
+    max_model_len: 8192
   alias:
     - 7b
 "qwen2.5:14b-instruct":
@@ -211,7 +211,7 @@
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-14B-Instruct
-    max_model_len: 2048
+    max_model_len: 8192
   alias:
     - 14b
 "qwen2.5:14b-instruct-awq":
@@ -267,7 +267,7 @@
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-32B-Instruct
-    max_model_len: 2048
+    max_model_len: 8192
   alias:
     - 32b
 "qwen2.5:32b-instruct-awq":
@@ -330,7 +330,7 @@
   engine_config:
     model: Qwen/Qwen2.5-72B-Instruct
     tensor_parallel_size: 2
-    max_model_len: 2048
+    max_model_len: 4096
 "qwen2.5:72b-instruct-awq":
   project: vllm-chat
   service_config:
@@ -740,7 +740,7 @@
       - name: HF_TOKEN
   engine_config:
     model: meta-llama/Meta-Llama-3.1-8B-Instruct
-    max_model_len: 2048
+    max_model_len: 4096
   server_config:
     tool_call_parser: "llama3_json"
   alias:
@@ -837,7 +837,7 @@
 "llama3.3:70b-instruct":
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
-    max_model_len: 2048
+    max_model_len: 4096
     tensor_parallel_size: 2
   build:
     exclude:
@@ -861,7 +861,7 @@
   project: vllm-chat
   engine_config:
     model: NousResearch/Hermes-3-Llama-3.1-405B-FP8
-    max_model_len: 2048
+    max_model_len: 4096
     tensor_parallel_size: 6
   server_config:
     tool_call_parser: "pythonic"
@@ -1197,3 +1197,67 @@
     reasoning_parser: "deepseek_r1"
   alias:
     - r1-qwen2.5-math
+"gemma3:1b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-rtx-3060
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-1b-it
+    max_model_len: 4096
+  alias:
+    - 1b
+"gemma3:4b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-l4
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-4b-it
+    max_model_len: 8192
+  alias:
+    - 4b
+"gemma3:12b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-tesla-a100
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-12b-it
+    max_model_len: 16384
+  alias:
+    - 12b
+"gemma3:27b-instruct":
+  project: vllm-chat
+  service_config:
+    name: gemma3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: google/gemma-3-27b-it
+    max_model_len: 16384
+  alias:
+    - 27b

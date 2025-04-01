@@ -1,0 +1,8 @@
+bentoml==1.4.7
+vllm==0.8.2
+kantoku>=0.18.1
+fastapi
+openai>=1.67.0
+pyyaml
+Pillow
+mistral_common[opencv]
