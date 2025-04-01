@@ -1,8 +1,8 @@
 service: service:VLLM
 name: llama3.1
-version: 8b-instruct-ef87
+version: 8b-instruct-1791
 bentoml_version: 1.4.7
-creation_time: '2025-04-01T19:24:15.918757+00:00'
+creation_time: '2025-04-01T19:44:38.389819+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: meta-llama--meta-llama-3.1-8b-instruct:a8dedc91aaf1595c36c7f0b0eb40c395
     module: null
-    creation_time: '2025-04-01T19:24:15.873951+00:00'
+    creation_time: '2025-04-01T19:44:38.283202+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/meta-llama-3.1-8b-instruct
@@ -41,7 +41,7 @@ envs:
 - name: HF_HUB_DISABLE_PROGRESS_BARS
   value: '1'
 - name: VLLM_LOGGING_CONFIG_PATH
-  value: /tmp/tmppoj_wnkq/logging-config.json
+  value: /tmp/tmp0t9imd3n/logging-config.json
 schema:
   name: llama3.1
   type: service
