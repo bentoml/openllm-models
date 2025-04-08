@@ -1,25 +1,25 @@
 service: service:VLLM
 name: llama4
-version: 17b-16e-scout-instruct-b19e
+version: 17b-128e-maverick-instruct-dc4b
 bentoml_version: 1.4.7
-creation_time: '2025-04-08T02:03:52.803069+00:00'
+creation_time: '2025-04-08T02:59:04.998704+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
-  aliases: 17b16e,scout
+  aliases: 17b128e,maverick
 models: []
 entry_service: llama4
 services:
 - name: llama4
   service: ''
   models:
-  - tag: meta-llama--llama-4-scout-17b-16e-instruct:49504d9970af3723f6feecdb7ab1edda
+  - tag: meta-llama--llama-4-maverick-17b-128e-instruct:f3abde803697f5d649453ee9a8f7d524
     module: null
-    creation_time: '2025-04-08T02:03:52.753878+00:00'
+    creation_time: '2025-04-08T02:59:04.953007+00:00'
     registry: huggingface
     metadata:
-      model_id: meta-llama/llama-4-scout-17b-16e-instruct
-      revision: 4bd10c4dc905b4000d76640d07a552344146faec
+      model_id: meta-llama/llama-4-maverick-17b-128e-instruct
+      revision: c33770d34695b047805ab5b952a20d4d76b5b3dc
       endpoint: https://huggingface.co
       include: null
       exclude:
@@ -31,13 +31,15 @@ services:
   config:
     name: llama4
     resources:
-      gpu: 2
+      gpu: 8
       gpu_type: nvidia-a100-80gb
     traffic:
       timeout: 300
 envs:
 - name: HF_TOKEN
   value: ''
+- name: VLLM_DISABLE_COMPILE_CACHE
+  value: '1'
 - name: VLLM_USE_V1
   value: '0'
 - name: UV_NO_PROGRESS
@@ -45,7 +47,7 @@ envs:
 - name: HF_HUB_DISABLE_PROGRESS_BARS
   value: '1'
 - name: VLLM_LOGGING_CONFIG_PATH
-  value: /tmp/tmpuryvub0m/logging-config.json
+  value: /tmp/tmpoc6wvq4q/logging-config.json
 schema:
   name: llama4
   type: service
