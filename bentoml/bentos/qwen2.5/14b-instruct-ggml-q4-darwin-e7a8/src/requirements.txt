@@ -1,5 +1,0 @@
-bentoml>=1.4.3
-kantoku>=0.18.1
-huggingface-hub
-llama_cpp_python==0.3.1
-fastapi
