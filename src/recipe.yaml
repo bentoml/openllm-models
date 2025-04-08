@@ -711,6 +711,7 @@
       - name: HF_TOKEN
   alias:
     - 17b16e
+    - scout
 "llama4:17b-128e-maverick-instruct":
   vision: true
   engine_config:
@@ -736,6 +737,7 @@
       - name: HF_TOKEN
   alias:
     - 17b128e
+    - maverick
 "llama3.3:70b-instruct":
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
