@@ -1,13 +1,14 @@
 alias:
-- 17b128e
+- 17b16e
+- scout
 build:
   exclude:
   - original
   - consolidated*
 engine_config:
   max_model_len: 4096
-  model: meta-llama/Llama-4-Maverick-17B-128E-Instruct
-  tensor_parallel_size: 8
+  model: meta-llama/Llama-4-Scout-17B-16E-Instruct
+  tensor_parallel_size: 2
 project: vllm-chat
 server_config:
   max_num_seqs: 16
@@ -17,7 +18,7 @@ service_config:
   - name: HF_TOKEN
   name: llama4
   resources:
-    gpu: 8
+    gpu: 2
     gpu_type: nvidia-a100-80gb
   traffic:
     timeout: 300
