@@ -57,8 +57,8 @@ llama3.2       llama3.2:1b-instruct-1852                    default  24G        
                llama3.2:11b-vision-instruct-9ecf            default  80G                 linux
                llama3.2:90b-vision-instruct-6fb7            default  80Gx2               linux
 llama3.3       llama3.3:70b-instruct-218b                   default  80Gx2               linux
-llama4         llama4:17b-16e-scout-instruct-b19e           default  80Gx2               linux
-               llama4:17b-128e-maverick-instruct-daf5       default  80Gx8               linux
+llama4         llama4:17b-16e-scout-instruct-b6e9           default  80Gx2               linux
+               llama4:17b-128e-maverick-instruct-dc4b       default  80Gx8               linux
 mistral        mistral:8b-instruct-511e                     default  24G                 linux
                mistral:24b-small-instruct-2501-f76f         default  80G                 linux
 mistral-large  mistral-large:123b-instruct-2407-b02e        default  80Gx4               linux
