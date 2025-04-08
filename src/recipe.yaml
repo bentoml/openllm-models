@@ -836,6 +836,56 @@
       - "original"
   alias:
     - 90b
+"llama4:17b-16e-scout-instruct":
+  vision: true
+  engine_config:
+    model: meta-llama/Llama-4-Scout-17B-16E-Instruct
+    max_model_len: 4096
+    tensor_parallel_size: 2
+  build:
+    exclude:
+      - "original"
+      - "consolidated*"
+  server_config:
+    tool_call_parser: "pythonic"
+    max_num_seqs: 16
+  project: vllm-chat
+  service_config:
+    name: llama4
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 2
+      gpu_type: nvidia-a100-80gb
+    envs:
+      - name: HF_TOKEN
+  alias:
+    - 17b16e
+"llama4:17b-128e-maverick-instruct":
+  vision: true
+  engine_config:
+    model: meta-llama/Llama-4-Maverick-17B-128E-Instruct
+    max_model_len: 4096
+    tensor_parallel_size: 8
+  build:
+    exclude:
+      - "original"
+      - "consolidated*"
+  server_config:
+    tool_call_parser: "pythonic"
+    max_num_seqs: 16
+  project: vllm-chat
+  service_config:
+    name: llama4
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 8
+      gpu_type: nvidia-a100-80gb
+    envs:
+      - name: HF_TOKEN
+  alias:
+    - 17b128e
 "llama3.3:70b-instruct":
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
