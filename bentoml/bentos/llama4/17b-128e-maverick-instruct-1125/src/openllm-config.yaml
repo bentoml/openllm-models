@@ -1,0 +1,24 @@
+alias:
+- 17b128e
+build:
+  exclude:
+  - original
+  - consolidated*
+engine_config:
+  max_model_len: 4096
+  model: meta-llama/Llama-4-Maverick-17B-128E-Instruct
+  tensor_parallel_size: 8
+project: vllm-chat
+server_config:
+  max_num_seqs: 16
+  tool_call_parser: pythonic
+service_config:
+  envs:
+  - name: HF_TOKEN
+  name: llama4
+  resources:
+    gpu: 8
+    gpu_type: nvidia-a100-80gb
+  traffic:
+    timeout: 300
+vision: true
