@@ -70,25 +70,19 @@ qwen2.5        qwen2.5:7b-instruct-dd4f                     default  24G        
                qwen2.5:14b-instruct-awq-2328                default  24G                 linux
                qwen2.5:14b-instruct-gptq-w8a8-b779          default  24G                 linux
                qwen2.5:14b-instruct-gptq-w4a16-daed         default  24G                 linux
-               qwen2.5:14b-instruct-ggml-q4-darwin-e7a8     default                      darwin
-               qwen2.5:14b-instruct-ggml-q8-darwin-4db7     default                      darwin
                qwen2.5:32b-instruct-cd3f                    default  80G                 linux
                qwen2.5:32b-instruct-awq-94c3                default  40G                 linux
                qwen2.5:32b-instruct-gptq-w8a8-e644          default  40G                 linux
                qwen2.5:32b-instruct-gptq-w4a16-e14a         default  40G                 linux
-               qwen2.5:32b-instruct-ggml-darwin-3a9b        default                      darwin
                qwen2.5:72b-instruct-84cf                    default  80Gx2               linux
                qwen2.5:72b-instruct-awq-2360                default  80G                 linux
                qwen2.5:72b-instruct-gptq-w8a8-3b21          default  80G                 linux
                qwen2.5:72b-instruct-gptq-w4a16-c162         default  80G                 linux
-               qwen2.5:72b-instruct-ggml-q4-darwin-416f     default                      darwin
 qwen2.5-coder  qwen2.5-coder:3b-instruct-8a1a               default  24G                 linux
                qwen2.5-coder:7b-instruct-bdee               default  24G                 linux
                qwen2.5-coder:7b-instruct-awq-5fc5           default  24G                 linux
                qwen2.5-coder:7b-instruct-gptq-w8a8-81fc     default  24G                 linux
-               qwen2.5-coder:7b-instruct-ggml-linux-39f3    default                      linux
                qwen2.5-coder:7b-instruct-gptq-w4a16-c38d    default  24G                 linux
-               qwen2.5-coder:7b-instruct-ggml-darwin-fb11   default                      darwin
                qwen2.5-coder:14b-instruct-5aea              default  40G                 linux
                qwen2.5-coder:14b-instruct-awq-cf8a          default  40G                 linux
                qwen2.5-coder:14b-instruct-gptq-w8a8-036b    default  40G                 linux
