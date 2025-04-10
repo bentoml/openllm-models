@@ -689,6 +689,7 @@
     - 90b
 "llama4:17b-16e-scout-instruct":
   vision: true
+  v1: true
   engine_config:
     model: meta-llama/Llama-4-Scout-17B-16E-Instruct
     max_model_len: 1000000
@@ -717,8 +718,9 @@
   alias:
     - 17b16e
     - scout
-"llama4:17b-128e-maverick-instruct":
+"llama4:17b-128e-maverick-instruct-fp8":
   vision: true
+  v1: true
   engine_config:
     model: meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
     max_model_len: 430000

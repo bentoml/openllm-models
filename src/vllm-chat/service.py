@@ -24,7 +24,7 @@ openai_api_app = fastapi.FastAPI()
 ui_app = fastapi.FastAPI()
 ui_app.mount('/static', staticfiles.StaticFiles(directory=STATIC_DIR), name='static')
 if "envs" not in SERVICE_CONFIG: SERVICE_CONFIG['envs'] = []
-SERVICE_CONFIG['envs'].extend([{"name": "VLLM_USE_V1", "value": '1' if USE_V1 else '0'}, {"name": "UV_NO_PROGRESS", "value": '1'}, {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": '1'}, {"name": "VLLM_LOGGING_CONFIG_PATH", "value": os.path.join(os.path.dirname(__file__), 'logging-config.json')}])
+SERVICE_CONFIG['envs'].extend([{"name": "VLLM_USE_V1", "value": '1' if USE_V1 else '0'}, {"name": "UV_NO_PROGRESS", "value": '1'}, {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": '1'}])
 SERVICE_CONFIG["envs"] = [{k: str(v) for k,v in i.items()} for i in SERVICE_CONFIG["envs"]]
 
 @ui_app.get('/')
@@ -46,7 +46,7 @@ if len((REQUIREMENTS_TXT := PARAMETERS.get('requirements', []))) > 0:
   IMAGE = IMAGE.python_packages(*REQUIREMENTS_TXT)
 if len((POST_COMMANDS := IMAGE_CONFIG.get('post', []))) > 0:
   for cmd in POST_COMMANDS: IMAGE = IMAGE.run(cmd)
-IMAGE = IMAGE.run('uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.5')
+IMAGE = IMAGE.run('uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6')
 
 @bentoml.asgi_app(openai_api_app, path='/v1')
 @bentoml.asgi_app(ui_app, path='/chat')
