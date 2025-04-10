@@ -748,6 +748,7 @@
       - name: VLLM_DISABLE_COMPILE_CACHE
         value: "1"
   alias:
+    - 17b128e
     - maverick
 "llama3.3:70b-instruct":
   engine_config:
