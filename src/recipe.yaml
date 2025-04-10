@@ -679,6 +679,7 @@
       image: 1
     max_model_len: 16384
     max_num_seqs: 16
+    tensor_parallel_size: 2
   server_config:
     tool_call_parser: "pythonic"
   build:
@@ -691,7 +692,7 @@
   engine_config:
     model: meta-llama/Llama-4-Scout-17B-16E-Instruct
     max_model_len: 1000000
-    tensor_parallel_size: 2
+    tensor_parallel_size: 8
     override_generation_config:
       attn_temperature_tuning: true
   build:
@@ -707,8 +708,8 @@
     traffic:
       timeout: 300
     resources:
-      gpu: 2
-      gpu_type: nvidia-a100-80gb
+      gpu: 8
+      gpu_type: nvidia-tesla-h100
     envs:
       - name: HF_TOKEN
       - name: VLLM_DISABLE_COMPILE_CACHE
@@ -719,8 +720,8 @@
 "llama4:17b-128e-maverick-instruct":
   vision: true
   engine_config:
-    model: meta-llama/Llama-4-Maverick-17B-128E-Instruct
-    max_model_len: 4096
+    model: meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
+    max_model_len: 430000
     tensor_parallel_size: 8
   build:
     exclude:
@@ -739,13 +740,12 @@
       timeout: 300
     resources:
       gpu: 8
-      gpu_type: nvidia-a100-80gb
+      gpu_type: nvidia-tesla-h100
     envs:
       - name: HF_TOKEN
       - name: VLLM_DISABLE_COMPILE_CACHE
-        value: 1
+        value: "1"
   alias:
-    - 17b128e
     - maverick
 "llama3.3:70b-instruct":
   engine_config:
@@ -775,7 +775,7 @@
   engine_config:
     model: NousResearch/Hermes-3-Llama-3.1-405B-FP8
     max_model_len: 4096
-    tensor_parallel_size: 6
+    tensor_parallel_size: 8
   server_config:
     tool_call_parser: "pythonic"
   service_config:
@@ -783,7 +783,7 @@
     traffic:
       timeout: 300
     resources:
-      gpu: 6
+      gpu: 8
       gpu_type: nvidia-a100-80gb
   alias:
     - 405b
