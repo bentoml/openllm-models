@@ -46,7 +46,7 @@ async def catch_all(full_path: str):
     resources={"gpu": 2, "gpu_type": "nvidia-a100-80gb"},
     envs=[
         {"name": "HF_TOKEN"},
-        {"name": "UV_NO_BUILD_ISOLATION", "value": 1},
+        {"name": "UV_NO_BUILD_ISOLATION", "value": "1"},
         {"name": "UV_NO_PROGRESS", "value": "1"},
         {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": "1"},
         {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASH_ATTN"},

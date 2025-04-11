@@ -4,7 +4,7 @@ import os, bentoml, typing, pydantic, fastapi, fastapi.staticfiles as staticfile
 
 
 class BentoArgs(pydantic.BaseModel):
-    openllm_model_id: str = "ai21labs/AI21-Jamba-1.5-Large"
+    openllm_model_id: str = "Qwen/QwQ-32B"
 
     disable_log_requests: bool = True
     max_log_len: int = 1000
@@ -12,11 +12,11 @@ class BentoArgs(pydantic.BaseModel):
     disable_log_stats: bool = True
     use_tqdm_on_load: bool = False
     task: str = pydantic.Field(default_factory=lambda: os.environ.get("TASK", "generate"))
-    max_model_len: int = 225280
-    tensor_parallel_size: int = 8
-    quantization: str = "experts_int8"
-    enable_prefix_caching: bool = False
-    tool_call_parser: str = "jamba"
+    max_model_len: int = 8192
+    enable_reasoning: bool = True
+    reasoning_parser: str = "deepseek_r1"
+    enable_auto_tool_choice: bool = True
+    tool_call_parser: str = "hermes"
 
 
 bento_args = bentoml.use_arguments(BentoArgs)
@@ -42,33 +42,20 @@ async def catch_all(full_path: str):
 @bentoml.asgi_app(openai_api_app, path="/v1")
 @bentoml.asgi_app(ui_app, path="/chat")
 @bentoml.service(
-    name="jamba1.5",
+    name="qwq",
     traffic={"timeout": 300},
-    resources={"gpu": 8, "gpu_type": "nvidia-a100-80gb"},
+    resources={"gpu": 1, "gpu_type": "nvidia-a100-80gb"},
     envs=[
         {"name": "HF_TOKEN"},
-        {"name": "UV_NO_BUILD_ISOLATION", "value": 1},
+        {"name": "UV_NO_BUILD_ISOLATION", "value": "1"},
         {"name": "UV_NO_PROGRESS", "value": "1"},
         {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": "1"},
         {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASH_ATTN"},
         {"name": "VLLM_USE_V1", "value": "1"},
     ],
-    labels=dict(generator="openllm", owner="bentoml-team", aliases="large"),
+    labels=dict(generator="openllm", owner="bentoml-team", aliases="32b"),
     image=bentoml.images.Image(python_version="3.11", lock_python_packages=False)
-    .system_packages("curl")
-    .system_packages("git")
     .requirements_file("requirements.txt")
-    .run("uv pip install --compile-bytecode torch")
-    .run(
-        "curl -L -o ./causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.5.0.post8/causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl"
-    )
-    .run(
-        "uv pip install --compile-bytecode ./causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl"
-    )
-    .run(
-        "curl -L -o ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl"
-    )
-    .run("uv pip install --compile-bytecode ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl")
     .run("uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"),
 )
 class LLM:

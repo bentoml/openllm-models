@@ -49,8 +49,8 @@ gemma3         gemma3:1b-instruct-46dd                      default  12G        
                gemma3:27b-instruct-b20a                     default  80G                 linux
 hermes-3       hermes-3:deep-llama3-8b-c6d7                 default  80G                 linux
                hermes-3:llama3.1-405b-instruct-b4d8         default  80Gx8               linux
-jamba1.5       jamba1.5:mini-f039                           default  80Gx2               linux
-               jamba1.5:large-87ff                          default  80Gx8               linux
+jamba1.5       jamba1.5:mini-5aa5                           default  80Gx2               linux
+               jamba1.5:large-dc41                          default  80Gx8               linux
 llama3.1       llama3.1:8b-instruct-ef2e                    default  24G                 linux
 llama3.2       llama3.2:1b-instruct-076d                    default  24G                 linux
                llama3.2:3b-instruct-5db6                    default  24G                 linux
@@ -88,7 +88,7 @@ qwen2.5-coder  qwen2.5-coder:3b-instruct-82c0               default  24G        
                qwen2.5-coder:14b-instruct-gptq-w8a8-a62c    default  40G                 linux
                qwen2.5-coder:14b-instruct-gptq-w4a16-4804   default  40G                 linux
                qwen2.5-coder:32b-instruct-ce0a              default  80G                 linux
-qwq            qwq:32b-a9e7                                 default  80G                 linux
+qwq            qwq:32b-c255                                 default  80G                 linux
 
 ```
 

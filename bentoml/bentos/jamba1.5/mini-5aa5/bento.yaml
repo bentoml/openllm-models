@@ -1,8 +1,8 @@
 service: service:LLM
 name: jamba1.5
-version: mini-f039
+version: mini-5aa5
 bentoml_version: 1.4.8
-creation_time: '2025-04-11T06:02:34.681303+00:00'
+creation_time: '2025-04-11T06:14:50.457075+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: ai21labs--ai21-jamba-1.5-mini:2cb0bc670af6377a052ba17e52d585c2
     module: null
-    creation_time: '2025-04-11T06:02:34.640907+00:00'
+    creation_time: '2025-04-11T06:14:50.416071+00:00'
     registry: huggingface
     metadata:
       model_id: ai21labs/ai21-jamba-1.5-mini
@@ -38,7 +38,7 @@ envs:
 - name: HF_TOKEN
   value: ''
 - name: UV_NO_BUILD_ISOLATION
-  value: 1
+  value: '1'
 - name: UV_NO_PROGRESS
   value: '1'
 - name: HF_HUB_DISABLE_PROGRESS_BARS
