@@ -45,7 +45,7 @@ def hash_directory(directory_path):
   return hasher.hexdigest()
 
 
-def prepare_template_context(config):
+def prepare_template_context(config, model_repo, alias):
   """Prepare a context dictionary for template rendering."""
   engine_config_struct = config.get("engine_config", {"model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"})
   model = engine_config_struct.pop("model")
@@ -83,6 +83,7 @@ def prepare_template_context(config):
     'vision': config.get('vision', False),
     'embeddings': config.get('embeddings', False),
     'reasoning': config.get('reasoning', False),
+    'tag': f'{model_repo}:{alias}'
   }
 
   requirements = config.get("requirements", [])
@@ -92,10 +93,10 @@ def prepare_template_context(config):
   return context
 
 
-def generate_files_from_templates(config, target_dir):
+def generate_files_from_templates(config, target_dir, model_repo, alias):
   env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES_DIR))
 
-  context = prepare_template_context(config)
+  context = prepare_template_context(config, model_repo, alias)
 
   for template_path in TEMPLATES_DIR.glob('*.j2'):
     template_name = template_path.stem
@@ -134,8 +135,10 @@ if __name__ == '__main__':
       # Copy project base files
       shutil.copytree(project, tempdir, dirs_exist_ok=True)
 
+      aliases = config.get('alias', [])
+
       # Generate templated files
-      generate_files_from_templates(config, tempdir)
+      generate_files_from_templates(config, tempdir, model_repo, aliases[0])
 
       labels = config.get('labels', {})
 
@@ -195,7 +198,7 @@ if __name__ == '__main__':
       (BENTOML_HOME / 'bentos' / model_repo / 'latest').unlink(missing_ok=True)
 
       # link alias
-      for alias in config.get('alias', []):
+      for alias in aliases:
         if alias == 'latest':
           ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias
           if ALIAS_PATH.exists():
