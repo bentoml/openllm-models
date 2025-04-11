@@ -27,7 +27,7 @@ $ openllm repo update
 $ openllm model list
 model          version                                      repo     required GPU RAM    platforms
 -------------  -------------------------------------------  -------  ------------------  -----------
-deepseek       deepseek:r1-671b-71f7                        default  80Gx16              linux
+deepseek       deepseek:r1-671b-034e                        default  80Gx16              linux
                deepseek:r1-distill-llama3.1-8b-918e         default  24G                 linux
                deepseek:r1-distill-qwen2.5-14b-4cb9         default  80G                 linux
                deepseek:r1-distill-qwen2.5-32b-91c8         default  80G                 linux
@@ -39,7 +39,7 @@ deepseek       deepseek:r1-671b-71f7                        default  80Gx16     
                deepseek:r1-distill-qwen2.5-14b-w4a16-0597   default  24G                 linux
                deepseek:r1-distill-qwen2.5-32b-w4a16-c6a1   default  80G                 linux
                deepseek:r1-distill-llama3.3-70b-w4a16-cbca  default  80G                 linux
-               deepseek:v3-671b-8d46                        default  80Gx16              linux
+               deepseek:v3-671b-74c6                        default  80Gx16              linux
 gemma2         gemma2:2b-instruct-d06a                      default  12G                 linux
                gemma2:9b-instruct-ac58                      default  24G                 linux
                gemma2:27b-instruct-51f9                     default  80G                 linux
@@ -59,12 +59,12 @@ llama3.2       llama3.2:1b-instruct-076d                    default  24G        
 llama3.3       llama3.3:70b-instruct-433b                   default  80Gx2               linux
 llama4         llama4:17b-16e-scout-instruct-84c3           default  80Gx8               linux
                llama4:17b-128e-maverick-instruct-fp8-cf64   default  80Gx8               linux
-mistral        mistral:8b-instruct-5649                     default  24G                 linux
-               mistral:24b-small-instruct-2501-ac7a         default  80G                 linux
-mistral-large  mistral-large:123b-instruct-2407-fca2        default  80Gx4               linux
+mistral        mistral:8b-instruct-87ff                     default  24G                 linux
+               mistral:24b-small-instruct-2501-d6e3         default  80G                 linux
+mistral-large  mistral-large:123b-instruct-2407-809a        default  80Gx4               linux
 phi4           phi4:14b-1b68                                default  80G                 linux
 pixtral        pixtral:12b-2409-05e3                        default  80G                 linux
-               pixtral:124b-2411-1f20                       default  80Gx4               linux
+               pixtral:124b-2411-a0db                       default  80Gx4               linux
 qwen2.5        qwen2.5:7b-instruct-6344                     default  24G                 linux
                qwen2.5:14b-instruct-9033                    default  80G                 linux
                qwen2.5:14b-instruct-awq-a2af                default  24G                 linux
@@ -74,8 +74,8 @@ qwen2.5        qwen2.5:7b-instruct-6344                     default  24G        
                qwen2.5:32b-instruct-awq-15e0                default  40G                 linux
                qwen2.5:32b-instruct-gptq-w8a8-0273          default  40G                 linux
                qwen2.5:32b-instruct-gptq-w4a16-db96         default  40G                 linux
-               qwen2.5:72b-instruct-1f2b                    default  80Gx2               linux
-               qwen2.5:72b-instruct-awq-5169                default  80G                 linux
+               qwen2.5:72b-instruct-86a3                    default  80Gx2               linux
+               qwen2.5:72b-instruct-awq-215d                default  80G                 linux
                qwen2.5:72b-instruct-gptq-w8a8-baa4          default  80G                 linux
                qwen2.5:72b-instruct-gptq-w4a16-783a         default  80G                 linux
 qwen2.5-coder  qwen2.5-coder:3b-instruct-82c0               default  24G                 linux

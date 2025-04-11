@@ -1,0 +1,60 @@
+args: {}
+conda:
+  channels: null
+  dependencies: null
+  environment_yml: null
+  pip: null
+description: null
+docker:
+  base_image: null
+  cuda_version: null
+  distro: debian
+  dockerfile_template: null
+  env:
+    HF_HUB_DISABLE_PROGRESS_BARS: '1'
+    HF_TOKEN: ''
+    UV_NO_PROGRESS: '1'
+    VLLM_ATTENTION_BACKEND: FLASH_ATTN
+    VLLM_USE_V1: '1'
+  python_version: '3.9'
+  setup_script: null
+  system_packages: null
+envs:
+- name: HF_TOKEN
+  value: ''
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_ATTENTION_BACKEND
+  value: FLASH_ATTN
+- name: VLLM_USE_V1
+  value: '1'
+exclude: []
+include:
+- LICENCE
+- '*.py'
+- '*.yaml'
+- '*.txt'
+- '*.md'
+- ui/*
+- '*.json'
+labels:
+  aliases: 124b-2411
+  generator: openllm
+  owner: bentoml-team
+models: []
+name: pixtral
+python:
+  extra_index_url: null
+  find_links: null
+  index_url: null
+  lock_packages: true
+  no_index: null
+  pack_git_packages: true
+  packages: []
+  pip_args: null
+  requirements_txt: null
+  trusted_host: null
+  wheels: null
+service: service.py:LLM
