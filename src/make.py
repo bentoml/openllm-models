@@ -52,7 +52,6 @@ def prepare_template_context(config):
   use_mla = engine_config_struct.get("use_mla", False)
   service_config = config.get('service_config', {})
 
-  requires_hf_tokens = "envs" in service_config and any(it["name"] == "HF_TOKEN" for it in service_config["envs"])
   if "envs" not in service_config:
     service_config["envs"] = []
 
@@ -62,7 +61,7 @@ def prepare_template_context(config):
     {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASHMLA" if use_mla else "FLASH_ATTN"},
     {"name": "VLLM_USE_V1", "value": "1"},
   ])
-  
+
   build_config = config.get('build', {})
   if 'exclude' not in build_config:
     build_config['exclude'] = []
@@ -73,7 +72,7 @@ def prepare_template_context(config):
   build_config["post"].append(
     "uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"
   )
-    
+
   context = {
     'model_id': model,
     'engine_config': engine_config_struct,
@@ -89,23 +88,23 @@ def prepare_template_context(config):
   requirements = config.get("requirements", [])
   if len(requirements) > 0:
     context["requirements"] = requirements
-  
+
   return context
 
 
 def generate_files_from_templates(config, target_dir):
   env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES_DIR))
-  
+
   context = prepare_template_context(config)
-  
+
   for template_path in TEMPLATES_DIR.glob('*.j2'):
     template_name = template_path.stem
     output_filename = template_name
-      
+
     # Render template
     template = env.get_template(template_path.name)
     rendered = template.render(**context)
-    
+
     # Write rendered content
     output_path = target_dir / output_filename
     with open(output_path, 'w') as f:
@@ -131,10 +130,10 @@ if __name__ == '__main__':
 
     with tempfile.TemporaryDirectory() as tempdir:
       tempdir = pathlib.Path(tempdir)
-      
+
       # Copy project base files
       shutil.copytree(project, tempdir, dirs_exist_ok=True)
-      
+
       # Generate templated files
       generate_files_from_templates(config, tempdir)
 

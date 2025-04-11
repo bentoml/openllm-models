@@ -63,7 +63,6 @@
     - mistral_common[opencv]
   alias:
     - 124b-2411
-    - 124b
 "mistral:8b-instruct":
   project: vllm-chat
   service_config:
@@ -83,7 +82,6 @@
       - "consolidated*"
   alias:
     - 8b-2410
-    - 8b
 "mistral:24b-small-instruct-2501":
   project: vllm-chat
   service_config:
@@ -102,7 +100,6 @@
       - "consolidated*"
   alias:
     - 24b-2501
-    - 24b
 "mistral-large:123b-instruct-2407":
   project: vllm-chat
   build:
@@ -124,7 +121,6 @@
     tensor_parallel_size: 4
   alias:
     - 123b-2407
-    - 123b
 "gemma2:2b-instruct":
   project: vllm-chat
   service_config:
@@ -341,6 +337,8 @@
     max_model_len: 4096
     tool_call_parser: "hermes"
     enable_auto_tool_choice: true
+  alias:
+    - 72b
 "qwen2.5:72b-instruct-awq":
   project: vllm-chat
   service_config:
@@ -356,7 +354,7 @@
     tool_call_parser: "hermes"
     enable_auto_tool_choice: true
   alias:
-    - 72b
+    - 72b-awq
 "qwen2.5:72b-instruct-gptq-w4a16":
   project: vllm-chat
   service_config:
@@ -888,7 +886,6 @@
     tensor_parallel_size: 16
   alias:
     - v3-671b
-    - v3
 "deepseek:r1-671b":
   project: vllm-chat
   service_config:
@@ -909,7 +906,6 @@
     reasoning_parser: deepseek_r1
   alias:
     - r1-671b
-    - r1
 "deepseek:r1-distill-llama3.3-70b":
   project: vllm-chat
   service_config:
