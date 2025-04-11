@@ -568,8 +568,6 @@
       gpu_type: nvidia-a100-80gb
     envs:
       - name: HF_TOKEN
-      - name: UV_NO_BUILD_ISOLATION
-        value: "1"
   engine_config:
     model: Qwen/QwQ-32B
     max_model_len: 8192
