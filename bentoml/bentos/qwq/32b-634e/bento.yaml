@@ -1,8 +1,8 @@
 service: service:LLM
 name: qwq
-version: 32b-c255
+version: 32b-634e
 bentoml_version: 1.4.8
-creation_time: '2025-04-11T06:14:48.416817+00:00'
+creation_time: '2025-04-11T06:18:53.620724+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
@@ -15,7 +15,7 @@ services:
   models:
   - tag: qwen--qwq-32b:2cbcb8c9dac4b724ea495480079a16c1
     module: null
-    creation_time: '2025-04-11T06:14:48.359246+00:00'
+    creation_time: '2025-04-11T06:18:53.563076+00:00'
     registry: huggingface
     metadata:
       model_id: qwen/qwq-32b
@@ -37,8 +37,6 @@ services:
 envs:
 - name: HF_TOKEN
   value: ''
-- name: UV_NO_BUILD_ISOLATION
-  value: '1'
 - name: UV_NO_PROGRESS
   value: '1'
 - name: HF_HUB_DISABLE_PROGRESS_BARS

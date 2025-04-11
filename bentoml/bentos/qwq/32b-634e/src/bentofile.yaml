@@ -13,7 +13,6 @@ docker:
   env:
     HF_HUB_DISABLE_PROGRESS_BARS: '1'
     HF_TOKEN: ''
-    UV_NO_BUILD_ISOLATION: '1'
     UV_NO_PROGRESS: '1'
     VLLM_ATTENTION_BACKEND: FLASH_ATTN
     VLLM_USE_V1: '1'
@@ -23,8 +22,6 @@ docker:
 envs:
 - name: HF_TOKEN
   value: ''
-- name: UV_NO_BUILD_ISOLATION
-  value: '1'
 - name: UV_NO_PROGRESS
   value: '1'
 - name: HF_HUB_DISABLE_PROGRESS_BARS
