@@ -14,5 +14,5 @@ GitHub = "https://github.com/bentoml/OpenLLM"
 Twitter = "https://twitter.com/bentomlai"
 Tracker = "https://github.com/bentoml/OpenLLM/issues"
 [tool.bentoml.build]
-service = "service.py:VLLM"
+service = "service.py:LLM"
 include = ["LICENCE", "*.py", "*.yaml", "*.txt", "*.md", "ui/*", "*.json"]

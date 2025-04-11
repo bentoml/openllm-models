@@ -1,0 +1,5 @@
+{
+  "name": "bentovllm-r1-qwen2.5-14b-w4a16-service",
+  "type": "service",
+  "routes": []
+}

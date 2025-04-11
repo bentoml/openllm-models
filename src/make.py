@@ -6,9 +6,10 @@
 #     "ruff",
 #     "tomli",
 #     "tomli-w",
+#     "jinja2",
 # ]
 # ///
-import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata, yaml, tomli_w
+import hashlib, os, pathlib, shutil, subprocess, sys, tempfile, importlib.metadata, yaml, tomli_w, jinja2
 
 if sys.version_info >= (3, 11):
   import tomllib
@@ -20,6 +21,8 @@ with open('recipe.yaml') as f:
 
 
 BENTOML_HOME = pathlib.Path(os.environ['BENTOML_HOME'])
+SCRIPT_DIR = pathlib.Path(__file__).parent
+TEMPLATES_DIR = SCRIPT_DIR / 'templates'
 
 
 def hash_file(file_path):
@@ -42,6 +45,73 @@ def hash_directory(directory_path):
   return hasher.hexdigest()
 
 
+def prepare_template_context(config, model_repo, alias):
+  """Prepare a context dictionary for template rendering."""
+  engine_config_struct = config.get("engine_config", {"model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"})
+  model = engine_config_struct.pop("model")
+  use_mla = engine_config_struct.get("use_mla", False)
+  service_config = config.get('service_config', {})
+
+  if "envs" not in service_config:
+    service_config["envs"] = []
+
+  service_config["envs"].extend([
+    {"name": "UV_NO_PROGRESS", "value": "1"},
+    {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": "1"},
+    {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASHMLA" if use_mla else "FLASH_ATTN"},
+    {"name": "VLLM_USE_V1", "value": "1"},
+  ])
+
+  build_config = config.get('build', {})
+  if 'exclude' not in build_config:
+    build_config['exclude'] = []
+  build_config["exclude"] = [*build_config["exclude"], "*.pth", "*.pt", "original/**/*"]
+
+  if "post" not in build_config:
+    build_config["post"] = []
+  build_config["post"].append(
+    "uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"
+  )
+
+  context = {
+    'model_id': model,
+    'engine_config': engine_config_struct,
+    'service_config': service_config,
+    'build': build_config,
+    'alias': config.get('alias', []),
+    'exclude': build_config['exclude'],
+    'vision': config.get('vision', False),
+    'embeddings': config.get('embeddings', False),
+    'reasoning': config.get('reasoning', False),
+    'tag': f'{model_repo}:{alias}'
+  }
+
+  requirements = config.get("requirements", [])
+  if len(requirements) > 0:
+    context["requirements"] = requirements
+
+  return context
+
+
+def generate_files_from_templates(config, target_dir, model_repo, alias):
+  env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES_DIR))
+
+  context = prepare_template_context(config, model_repo, alias)
+
+  for template_path in TEMPLATES_DIR.glob('*.j2'):
+    template_name = template_path.stem
+    output_filename = template_name
+
+    # Render template
+    template = env.get_template(template_path.name)
+    rendered = template.render(**context)
+
+    # Write rendered content
+    output_path = target_dir / output_filename
+    with open(output_path, 'w') as f:
+      f.write(rendered)
+
+
 if __name__ == '__main__':
   if len(sys.argv) == 2:
     specified_model = sys.argv[1]
@@ -61,18 +131,16 @@ if __name__ == '__main__':
 
     with tempfile.TemporaryDirectory() as tempdir:
       tempdir = pathlib.Path(tempdir)
+
+      # Copy project base files
       shutil.copytree(project, tempdir, dirs_exist_ok=True)
 
-      with open(tempdir / 'openllm-config.yaml', 'w') as f:
-        f.write(yaml.dump(config))
+      aliases = config.get('alias', [])
+
+      # Generate templated files
+      generate_files_from_templates(config, tempdir, model_repo, aliases[0])
 
       labels = config.get('labels', {})
-      req_txt_file = tempdir / 'requirements.txt'
-      requirements = config.get('requirements', [])
-      if requirements:
-        with req_txt_file.open('a+') as f:
-          for r in requirements:
-            f.write(f'{r}\n')
 
       with (tempdir / 'pyproject.toml').open('rb') as s:
         data = tomllib.load(s)
@@ -97,7 +165,7 @@ if __name__ == '__main__':
 
       try:
         result = subprocess.run(
-          ['uv', 'pip', 'install', '-r', req_txt_file], check=True, capture_output=True, text=True
+          ['uv', 'pip', 'install', '-r', tempdir / 'requirements.txt'], check=True, capture_output=True, text=True
         )
         print(f'Successfully installed requirements for {model_name}')
       except subprocess.CalledProcessError as e:
@@ -130,7 +198,7 @@ if __name__ == '__main__':
       (BENTOML_HOME / 'bentos' / model_repo / 'latest').unlink(missing_ok=True)
 
       # link alias
-      for alias in config.get('alias', []):
+      for alias in aliases:
         if alias == 'latest':
           ALIAS_PATH = BENTOML_HOME / 'bentos' / model_repo / alias
           if ALIAS_PATH.exists():
