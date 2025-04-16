@@ -714,7 +714,7 @@
     envs:
       - name: HF_TOKEN
       - name: VLLM_DISABLE_COMPILE_CACHE
-        value: 1
+        value: "1"
   alias:
     - 17b16e
     - scout
