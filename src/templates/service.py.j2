@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import os, bentoml, typing, logging, pydantic, fastapi, typing_extensions, annotated_types, fastapi.staticfiles as staticfiles, fastapi.responses as responses
+import os, bentoml, typing, contextlib, logging, pydantic, fastapi, typing_extensions, annotated_types, fastapi.staticfiles as staticfiles, fastapi.responses as responses
 
 {%- set ignore_patterns = exclude | map('tojson') | join(", ") %}
 
