@@ -1,12 +1,12 @@
 service: service:LLM
 name: llama4
-version: 17b-16e-scout-instruct-49fa
+version: 17b-16e-scout-instruct-22b6
 bentoml_version: 1.4.8
-creation_time: '2025-04-16T01:06:34.148911+00:00'
+creation_time: '2025-04-16T01:20:08.421512+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
-  aliases: 17b16e, scout
+  aliases: 17b16e,scout
 models: []
 entry_service: llama4
 services:
@@ -15,7 +15,7 @@ services:
   models:
   - tag: meta-llama--llama-4-scout-17b-16e-instruct:79cbc08724ada4f780b23e4252e7df1e
     module: null
-    creation_time: '2025-04-16T01:06:34.107452+00:00'
+    creation_time: '2025-04-16T01:20:08.361354+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/llama-4-scout-17b-16e-instruct
@@ -40,7 +40,7 @@ envs:
 - name: HF_TOKEN
   value: ''
 - name: VLLM_DISABLE_COMPILE_CACHE
-  value: 1
+  value: '1'
 - name: UV_NO_PROGRESS
   value: '1'
 - name: HF_HUB_DISABLE_PROGRESS_BARS

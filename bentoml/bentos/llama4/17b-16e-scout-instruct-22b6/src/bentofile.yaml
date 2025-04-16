@@ -43,7 +43,7 @@ include:
 - ui/*
 - '*.json'
 labels:
-  aliases: 17b128e, maverick
+  aliases: 17b16e,scout
   generator: openllm
   owner: bentoml-team
 models: []

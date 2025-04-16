@@ -1,12 +1,12 @@
 service: service:LLM
 name: llama4
-version: 17b-128e-maverick-instruct-fp8-cc0a
+version: 17b-128e-maverick-instruct-fp8-a39d
 bentoml_version: 1.4.8
-creation_time: '2025-04-16T01:06:35.642943+00:00'
+creation_time: '2025-04-16T01:20:10.172017+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
-  aliases: 17b128e, maverick
+  aliases: 17b128e,maverick
 models: []
 entry_service: llama4
 services:
@@ -15,7 +15,7 @@ services:
   models:
   - tag: meta-llama--llama-4-maverick-17b-128e-instruct-fp8:f1603b0023dbddced29f8fd616ea50c6
     module: null
-    creation_time: '2025-04-16T01:06:35.601596+00:00'
+    creation_time: '2025-04-16T01:20:10.129645+00:00'
     registry: huggingface
     metadata:
       model_id: meta-llama/llama-4-maverick-17b-128e-instruct-fp8
