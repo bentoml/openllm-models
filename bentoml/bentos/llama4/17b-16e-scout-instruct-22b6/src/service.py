@@ -55,13 +55,13 @@ async def catch_all(full_path: str):
     resources={"gpu": 8, "gpu_type": "nvidia-tesla-h100"},
     envs=[
         {"name": "HF_TOKEN"},
-        {"name": "VLLM_DISABLE_COMPILE_CACHE", "value": 1},
+        {"name": "VLLM_DISABLE_COMPILE_CACHE", "value": "1"},
         {"name": "UV_NO_PROGRESS", "value": "1"},
         {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": "1"},
         {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASH_ATTN"},
         {"name": "VLLM_USE_V1", "value": "1"},
     ],
-    labels=dict(generator="openllm", owner="bentoml-team", aliases="17b16e, scout"),
+    labels=dict(generator="openllm", owner="bentoml-team", aliases="17b16e,scout"),
     image=bentoml.images.Image(python_version="3.11", lock_python_packages=False)
     .requirements_file("requirements.txt")
     .run("uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"),

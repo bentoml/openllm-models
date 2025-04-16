@@ -24,7 +24,7 @@ envs:
 - name: HF_TOKEN
   value: ''
 - name: VLLM_DISABLE_COMPILE_CACHE
-  value: 1
+  value: '1'
 - name: UV_NO_PROGRESS
   value: '1'
 - name: HF_HUB_DISABLE_PROGRESS_BARS
@@ -43,7 +43,7 @@ include:
 - ui/*
 - '*.json'
 labels:
-  aliases: 17b16e, scout
+  aliases: 17b128e,maverick
   generator: openllm
   owner: bentoml-team
 models: []
