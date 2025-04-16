@@ -1,0 +1,96 @@
+service: service:LLM
+name: gemma2
+version: 27b-instruct-0df1
+bentoml_version: 1.4.8
+creation_time: '2025-04-16T01:05:48.347733+00:00'
+labels:
+  generator: openllm
+  owner: bentoml-team
+  aliases: 27b
+models: []
+entry_service: gemma2
+services:
+- name: gemma2
+  service: ''
+  models:
+  - tag: google--gemma-2-27b-it:fcfb33c0d3f28225d312cc5685f116d8
+    module: null
+    creation_time: '2025-04-16T01:05:48.306226+00:00'
+    registry: huggingface
+    metadata:
+      model_id: google/gemma-2-27b-it
+      revision: aaf20e6b9f4c0fcf043f6fb2a2068419086d77b0
+      endpoint: https://huggingface.co
+      include: null
+      exclude:
+      - '*.pth'
+      - '*.pt'
+      - original/**/*
+  dependencies: []
+  config:
+    name: gemma2
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+envs:
+- name: HF_TOKEN
+  value: ''
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_ATTENTION_BACKEND
+  value: FLASH_ATTN
+- name: VLLM_USE_V1
+  value: '1'
+schema:
+  name: gemma2
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+args: {}
+spec: 2
+image:
+  base_image: python:3.11-slim
+  python_version: '3.11'
+  commands:
+  - apt-get update && apt-get install -q -y --no-install-recommends --allow-remove-essential
+    ca-certificates gnupg2 bash build-essential git
+  python_requirements: 'bentoml==1.4.8
+
+    vllm==0.8.4
+
+    fastapi==0.115.4
+
+    pydantic==2.11.1
+
+    openai==1.69.0
+
+    bentoml==1.4.8
+
+    '
+  post_commands:
+  - uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6

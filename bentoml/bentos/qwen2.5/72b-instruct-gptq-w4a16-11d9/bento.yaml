@@ -1,0 +1,94 @@
+service: service:LLM
+name: qwen2.5
+version: 72b-instruct-gptq-w4a16-11d9
+bentoml_version: 1.4.8
+creation_time: '2025-04-16T01:06:07.118231+00:00'
+labels:
+  generator: openllm
+  owner: bentoml-team
+  aliases: 72b-w4a16
+models: []
+entry_service: qwen2.5
+services:
+- name: qwen2.5
+  service: ''
+  models:
+  - tag: qwen--qwen2.5-72b-instruct-gptq-int4:30618000b06a8afd62bb0cb62d6b49ec
+    module: null
+    creation_time: '2025-04-16T01:06:07.077050+00:00'
+    registry: huggingface
+    metadata:
+      model_id: qwen/qwen2.5-72b-instruct-gptq-int4
+      revision: da6e9d45661b91e02782f4ae2c6bb39c4a5b4821
+      endpoint: https://huggingface.co
+      include: null
+      exclude:
+      - '*.pth'
+      - '*.pt'
+      - original/**/*
+  dependencies: []
+  config:
+    name: qwen2.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 1
+      gpu_type: nvidia-a100-80gb
+envs:
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_ATTENTION_BACKEND
+  value: FLASH_ATTN
+- name: VLLM_USE_V1
+  value: '1'
+schema:
+  name: qwen2.5
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+args: {}
+spec: 2
+image:
+  base_image: python:3.11-slim
+  python_version: '3.11'
+  commands:
+  - apt-get update && apt-get install -q -y --no-install-recommends --allow-remove-essential
+    ca-certificates gnupg2 bash build-essential git
+  python_requirements: 'bentoml==1.4.8
+
+    vllm==0.8.4
+
+    fastapi==0.115.4
+
+    pydantic==2.11.1
+
+    openai==1.69.0
+
+    bentoml==1.4.8
+
+    '
+  post_commands:
+  - uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6
