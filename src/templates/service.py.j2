@@ -70,7 +70,7 @@ async def catch_all(full_path: str):
   {{key}}={{value}},
   {%- endif -%}
   {%- endfor %}
-  labels=dict(generator='openllm', owner='bentoml-team', aliases='{{ alias | join(", ") }}'),
+  labels=dict(generator='openllm', owner='bentoml-team', aliases='{{ alias | join(",") }}'),
   image = bentoml.images.Image(python_version='3.11', lock_python_packages=False)
           {%- if build['system_packages'] is defined %}
           {%- for item in build['system_packages'] -%}
