@@ -1,0 +1,107 @@
+service: service:LLM
+name: jamba1.5
+version: large-f40c
+bentoml_version: 1.4.8
+creation_time: '2025-04-16T01:06:43.528613+00:00'
+labels:
+  generator: openllm
+  owner: bentoml-team
+  aliases: large
+models: []
+entry_service: jamba1.5
+services:
+- name: jamba1.5
+  service: ''
+  models:
+  - tag: ai21labs--ai21-jamba-1.5-large:9cf9bc8377a92a078c14a482d6da7bd2
+    module: null
+    creation_time: '2025-04-16T01:06:43.487358+00:00'
+    registry: huggingface
+    metadata:
+      model_id: ai21labs/ai21-jamba-1.5-large
+      revision: a5337175f992dc3cf89bb969aa33ec683efbfccc
+      endpoint: https://huggingface.co
+      include: null
+      exclude:
+      - '*.pth'
+      - '*.pt'
+      - original/**/*
+  dependencies: []
+  config:
+    name: jamba1.5
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 8
+      gpu_type: nvidia-a100-80gb
+envs:
+- name: HF_TOKEN
+  value: ''
+- name: UV_NO_BUILD_ISOLATION
+  value: '1'
+- name: UV_NO_PROGRESS
+  value: '1'
+- name: HF_HUB_DISABLE_PROGRESS_BARS
+  value: '1'
+- name: VLLM_ATTENTION_BACKEND
+  value: FLASH_ATTN
+- name: VLLM_USE_V1
+  value: '1'
+schema:
+  name: jamba1.5
+  type: service
+  routes:
+  - name: generate
+    route: /generate
+    batchable: false
+    input:
+      properties:
+        prompt:
+          default: Who are you? Please respond in pirate speak!
+          title: Prompt
+          type: string
+        max_tokens:
+          default: 2048
+          maximum: 2048
+          minimum: 128
+          title: Max Tokens
+          type: integer
+      title: Input
+      type: object
+    output:
+      type: string
+      is_stream: true
+      media_type: text/event-stream
+    is_task: false
+args: {}
+spec: 2
+image:
+  base_image: python:3.11-slim
+  python_version: '3.11'
+  commands:
+  - apt-get update && apt-get install -q -y --no-install-recommends --allow-remove-essential
+    ca-certificates gnupg2 bash build-essential git
+  - apt-get install -q -y curl
+  - apt-get install -q -y git
+  python_requirements: 'bentoml==1.4.8
+
+    vllm==0.8.4
+
+    fastapi==0.115.4
+
+    pydantic==2.11.1
+
+    openai==1.69.0
+
+    bentoml==1.4.8
+
+    '
+  post_commands:
+  - uv pip install --compile-bytecode torch
+  - curl -L -o ./causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+    https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.5.0.post8/causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+  - uv pip install --compile-bytecode ./causal_conv1d-1.5.0.post8+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+  - curl -L -o ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+    https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+  - uv pip install --compile-bytecode ./mamba_ssm-2.2.4+cu12torch2.5cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
+  - uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6
