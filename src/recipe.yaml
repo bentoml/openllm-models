@@ -1176,7 +1176,7 @@
     reasoning_parser: deepseek_r1
   alias:
     - 8b
-"qwen3:235b-A22b-fp8":
+"qwen3:235b-a22b-fp8":
   project: vllm-chat
   service_config:
     name: qwen3
