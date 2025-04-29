@@ -1157,7 +1157,7 @@
     max_model_len: 16384
   alias:
     - 27b
-"qwen3:8b-instruct":
+"qwen3:8b":
   project: vllm-chat
   service_config:
     name: qwen3
@@ -1176,6 +1176,25 @@
     reasoning_parser: deepseek_r1
   alias:
     - 8b
+"qwen3:30b-a3b":
+  project: vllm-chat
+  service_config:
+    name: qwen3
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 2
+      gpu_type: nvidia-tesla-h100
+  engine_config:
+    model: Qwen/Qwen3-30B-A3B
+    max_model_len: 8192
+    tool_call_parser: "hermes"
+    enable_auto_tool_choice: true
+    max_num_seqs: 256
+    enable_reasoning: true
+    reasoning_parser: deepseek_r1
+  alias:
+    - 30b-moe
 "qwen3:235b-a22b-fp8":
   project: vllm-chat
   service_config:
