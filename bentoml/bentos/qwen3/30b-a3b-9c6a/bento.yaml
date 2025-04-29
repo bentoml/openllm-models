@@ -1,25 +1,25 @@
 service: service:LLM
 name: qwen3
-version: 8b-instruct-4a9b
+version: 30b-a3b-9c6a
 bentoml_version: 1.4.11
-creation_time: '2025-04-29T01:37:14.188072+00:00'
+creation_time: '2025-04-29T01:46:48.128166+00:00'
 labels:
   generator: openllm
   owner: bentoml-team
-  aliases: 8b
+  aliases: 30b-moe
 models: []
 entry_service: qwen3
 services:
 - name: qwen3
   service: ''
   models:
-  - tag: qwen--qwen3-8b:d1c948f9425e484c0d927c1514780221
+  - tag: qwen--qwen3-30b-a3b:78ff2bb264031ae348359736aa953c51
     module: null
-    creation_time: '2025-04-29T01:37:14.144780+00:00'
+    creation_time: '2025-04-29T01:46:48.085863+00:00'
     registry: huggingface
     metadata:
-      model_id: qwen/qwen3-8b
-      revision: a80f5e57cce20e57b65145f4213844dec1a80834
+      model_id: qwen/qwen3-30b-a3b
+      revision: 67b0e0ca24de1b8cedea4c97f1925df66d72bee1
       endpoint: https://huggingface.co
       include: null
       exclude:
@@ -32,8 +32,8 @@ services:
     traffic:
       timeout: 300
     resources:
-      gpu: 1
-      gpu_type: nvidia-l4
+      gpu: 2
+      gpu_type: nvidia-tesla-h100
 envs:
 - name: UV_NO_PROGRESS
   value: '1'

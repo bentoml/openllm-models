@@ -88,7 +88,8 @@ qwen2.5-coder  qwen2.5-coder:3b-instruct-9135               default  24G        
                qwen2.5-coder:14b-instruct-gptq-w8a8-1502    default  40G                 linux
                qwen2.5-coder:14b-instruct-gptq-w4a16-ef10   default  40G                 linux
                qwen2.5-coder:32b-instruct-57b7              default  80G                 linux
-qwen3          qwen3:8b-instruct-4a9b                       default  24G                 linux
+qwen3          qwen3:8b-4a9b                                default  24G                 linux
+               qwen3:30b-a3b-9c6a                           default  80Gx2               linux
                qwen3:235b-a22b-fp8-81d3                     default  80Gx4               linux
 qwq            qwq:32b-5488                                 default  80G                 linux
 
