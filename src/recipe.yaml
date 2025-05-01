@@ -911,7 +911,7 @@
     enable_reasoning: true
     reasoning_parser: deepseek_r1
   alias:
-    - r1-671b
+    - prover-v2-671b
 "deepseek:r1-distill-llama3.3-70b":
   project: vllm-chat
   service_config:
