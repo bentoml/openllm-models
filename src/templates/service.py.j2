@@ -122,9 +122,9 @@ class LLM:
     openai_api_app.include_router(router)
 
     engine = await self.exit_stack.enter_async_context(vllm_api_server.build_async_engine_client(args))
-    model_config = await engine.get_model_config()
+    vllm_config = await engine.get_vllm_config()
 
-    await vllm_api_server.init_app_state(engine, model_config, openai_api_app.state, args)
+    await vllm_api_server.init_app_state(engine, vllm_config, openai_api_app.state, args)
 
   @bentoml.on_shutdown
   async def teardown_engine(self): await self.exit_stack.aclose()
