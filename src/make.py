@@ -49,14 +49,17 @@ def prepare_template_context(config, model_repo, alias):
   """Prepare a context dictionary for template rendering."""
   engine_config_struct = config.get("engine_config", {"model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"})
   model = engine_config_struct.pop("model")
-  use_mla = engine_config_struct.get("use_mla", False)
+  use_mla = config.get("use_mla", False)
+  use_nightly = config.get("use_nightly", False)
   service_config = config.get('service_config', {})
 
   if "envs" not in service_config:
     service_config["envs"] = []
 
+  if "tensor_parallel_size" not in engine_config_struct:
+    engine_config_struct["tensor_parallel_size"] = service_config.get("resources", {}).get("gpu", 1)
+
   service_config["envs"].extend([
-    {"name": "UV_NO_PROGRESS", "value": "1"},
     {"name": "HF_HUB_DISABLE_PROGRESS_BARS", "value": "1"},
     {"name": "VLLM_ATTENTION_BACKEND", "value": "FLASHMLA" if use_mla else "FLASH_ATTN"},
     {"name": "VLLM_USE_V1", "value": "1"},
@@ -69,6 +72,10 @@ def prepare_template_context(config, model_repo, alias):
 
   if "post" not in build_config:
     build_config["post"] = []
+  if use_nightly:
+    build_config["post"].append(
+      "uv pip install --compile-bytecode vllm --pre --extra-index-url https://wheels.vllm.ai/nightly"
+    )
   build_config["post"].append(
     "uv pip install --compile-bytecode flashinfer-python --find-links https://flashinfer.ai/whl/cu124/torch2.6"
   )
@@ -237,7 +244,7 @@ if __name__ == '__main__':
     )
     print(f'Successfully formatted Python files in {BENTOML_HOME / "bentos"} with ruff')
   except subprocess.CalledProcessError as e:
-    print(f'Error formatting Python files with ruff:')
+    print('Error formatting Python files with ruff:')
     print(f'Command: {e.cmd}')
     print(f'Return code: {e.returncode}')
     print(f'Output: {e.stdout}')

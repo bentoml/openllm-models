@@ -58,7 +58,6 @@
       image: 5
     max_model_len: 16384
     dtype: half
-    tensor_parallel_size: 4
   requirements:
     - mistral_common[opencv]
   alias:
@@ -118,7 +117,6 @@
     model: mistralai/Mistral-Large-Instruct-2407
     max_model_len: 4096
     dtype: half
-    tensor_parallel_size: 4
   alias:
     - 123b-2407
 "gemma2:2b-instruct":
@@ -333,7 +331,6 @@
       gpu_type: nvidia-a100-80gb
   engine_config:
     model: Qwen/Qwen2.5-72B-Instruct
-    tensor_parallel_size: 2
     max_model_len: 4096
     tool_call_parser: "hermes"
     enable_auto_tool_choice: true
@@ -566,8 +563,6 @@
     resources:
       gpu: 1
       gpu_type: nvidia-a100-80gb
-    envs:
-      - name: HF_TOKEN
   engine_config:
     model: Qwen/QwQ-32B
     max_model_len: 8192
@@ -679,7 +674,6 @@
       image: 1
     max_model_len: 16384
     max_num_seqs: 16
-    tensor_parallel_size: 2
     enable_auto_tool_choice: true
     tool_call_parser: "pythonic"
   build:
@@ -693,7 +687,6 @@
   engine_config:
     model: meta-llama/Llama-4-Scout-17B-16E-Instruct
     max_model_len: 1000000
-    tensor_parallel_size: 8
     override_generation_config:
       attn_temperature_tuning: true
     enable_auto_tool_choice: true
@@ -723,7 +716,6 @@
   v1: true
   engine_config:
     model: meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
-    tensor_parallel_size: 8
     tool_call_parser: "pythonic"
     max_model_len: 430000
     override_generation_config:
@@ -751,7 +743,6 @@
   engine_config:
     model: meta-llama/Llama-3.3-70B-Instruct
     max_model_len: 4096
-    tensor_parallel_size: 2
     tool_call_parser: "pythonic"
     enable_auto_tool_choice: true
   build:
@@ -775,7 +766,6 @@
   engine_config:
     model: NousResearch/Hermes-3-Llama-3.1-405B-FP8
     max_model_len: 4096
-    tensor_parallel_size: 8
     tool_call_parser: "pythonic"
   service_config:
     name: hermes3
@@ -820,7 +810,6 @@
   engine_config:
     model: ai21labs/AI21-Jamba-1.5-Mini
     max_model_len: 204800
-    tensor_parallel_size: 2
     enable_prefix_caching: false
     tool_call_parser: "jamba"
   build:
@@ -851,7 +840,6 @@
   engine_config:
     model: ai21labs/AI21-Jamba-1.5-Large
     max_model_len: 225280
-    tensor_parallel_size: 8
     quantization: "experts_int8"
     enable_prefix_caching: false
     tool_call_parser: "jamba"
@@ -868,36 +856,56 @@
   alias:
     - large
 "deepseek:v3-671b":
+  use_mla: true
   project: vllm-chat
   service_config:
     name: deepseek
     traffic:
       timeout: 300
     resources:
-      gpu: 16
-      gpu_type: nvidia-a100-80gb
+      gpu: 8
+      gpu_type: nvidia-h200-141gb
     envs:
       - name: HF_TOKEN
   engine_config:
-    model: deepseek-ai/DeepSeek-V3
+    model: deepseek-ai/DeepSeek-V3-0324
     max_model_len: 2048
-    tensor_parallel_size: 16
   alias:
     - v3-671b
 "deepseek:r1-671b":
+  use_mla: true
   project: vllm-chat
   service_config:
     name: deepseek
     traffic:
       timeout: 300
     resources:
-      gpu: 16
-      gpu_type: nvidia-a100-80gb
+      gpu: 8
+      gpu_type: nvidia-h200-141gb
     envs:
       - name: HF_TOKEN
   engine_config:
     model: deepseek-ai/DeepSeek-R1
-    tensor_parallel_size: 16
+    trust_remote_code: True
+    max_model_len: 4096
+    enable_reasoning: true
+    reasoning_parser: deepseek_r1
+  alias:
+    - r1-671b
+"deepseek:prover-v2-671b":
+  use_mla: true
+  project: vllm-chat
+  service_config:
+    name: deepseek
+    traffic:
+      timeout: 300
+    resources:
+      gpu: 8
+      gpu_type: nvidia-h200-141gb
+    envs:
+      - name: HF_TOKEN
+  engine_config:
+    model: deepseek-ai/DeepSeek-Prover-V2-671B
     trust_remote_code: True
     max_model_len: 4096
     enable_reasoning: true
@@ -917,7 +925,6 @@
       - name: HF_TOKEN
   engine_config:
     model: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
-    tensor_parallel_size: 2
     max_model_len: 4096
     reasoning_parser: "deepseek_r1"
     tool_call_parser: "llama3_json"
