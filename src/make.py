@@ -45,8 +45,10 @@ def hash_directory(directory_path):
   return hasher.hexdigest()
 
 
-def prepare_template_context(config, model_repo, alias):
-  """Prepare a context dictionary for template rendering."""
+def generate_files_from_templates(config, target_dir, model_repo, alias):
+  env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES_DIR))
+
+  # Prepare a context dictionary for template rendering.
   engine_config_struct = config.get("engine_config", {"model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"})
   model = engine_config_struct.pop("model")
   use_mla = config.get("use_mla", False)
@@ -88,6 +90,7 @@ def prepare_template_context(config, model_repo, alias):
     'alias': config.get('alias', []),
     'exclude': build_config['exclude'],
     'vision': config.get('vision', False),
+    'task': config.get('task', 'generate'),
     'embeddings': config.get('embeddings', False),
     'reasoning': config.get('reasoning', False),
     'tag': f'{model_repo}:{alias}'
@@ -96,14 +99,6 @@ def prepare_template_context(config, model_repo, alias):
   requirements = config.get("requirements", [])
   if len(requirements) > 0:
     context["requirements"] = requirements
-
-  return context
-
-
-def generate_files_from_templates(config, target_dir, model_repo, alias):
-  env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES_DIR))
-
-  context = prepare_template_context(config, model_repo, alias)
 
   for template_path in TEMPLATES_DIR.glob('*.j2'):
     template_name = template_path.stem
@@ -148,6 +143,7 @@ if __name__ == '__main__':
       generate_files_from_templates(config, tempdir, model_repo, aliases[0])
 
       labels = config.get('labels', {})
+      labels.extend(dict(owner="bentoml-team", type="prebuilt", project='openllm-models'))
 
       with (tempdir / 'pyproject.toml').open('rb') as s:
         data = tomllib.load(s)
