@@ -24,6 +24,12 @@ This model was configured with the following settings:
 {{ engine_config | tojson(indent=2) }}
 ```
 
+## Environment variables
+
+The following environment variables are also available to be configured for deployment:
+
+- `TASK`: determine how the model perform generations. See vLLM documentation for more information
+
 ## Usage
 
 To use this model, you can interact with it using the OpenAI API format. Here's a sample:
