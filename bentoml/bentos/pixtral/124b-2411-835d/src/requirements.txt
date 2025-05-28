@@ -1,0 +1,7 @@
+bentoml==1.4.15
+vllm==0.9.0
+fastapi
+pydantic
+openai
+
+mistral_common[opencv]

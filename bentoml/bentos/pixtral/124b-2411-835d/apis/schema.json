@@ -1,0 +1,73 @@
+{
+  "name": "pixtral",
+  "type": "service",
+  "routes": [
+    {
+      "name": "generate",
+      "route": "/generate",
+      "batchable": false,
+      "input": {
+        "properties": {
+          "prompt": {
+            "default": "Who are you? Please respond in pirate speak!",
+            "title": "Prompt",
+            "type": "string"
+          },
+          "max_tokens": {
+            "default": 2048,
+            "maximum": 2048,
+            "minimum": 128,
+            "title": "Max Tokens",
+            "type": "integer"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "output": {
+        "type": "string",
+        "is_stream": true,
+        "media_type": "text/event-stream"
+      },
+      "is_task": false
+    }
+  ],
+  "paths": {
+    "/generate": {
+      "mounted": false
+    },
+    "/chat/openapi.json": {
+      "mounted": true
+    },
+    "/chat/docs": {
+      "mounted": true
+    },
+    "/chat/docs/oauth2-redirect": {
+      "mounted": true
+    },
+    "/chat/redoc": {
+      "mounted": true
+    },
+    "/chat/static": {
+      "mounted": true
+    },
+    "/chat": {
+      "mounted": true
+    },
+    "/chat/{full_path:path}": {
+      "mounted": true
+    },
+    "/v1/openapi.json": {
+      "mounted": true
+    },
+    "/v1/docs": {
+      "mounted": true
+    },
+    "/v1/docs/oauth2-redirect": {
+      "mounted": true
+    },
+    "/v1/redoc": {
+      "mounted": true
+    }
+  }
+}
